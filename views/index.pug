@@ -1,0 +1,77 @@
+extends layout
+
+block content
+  section.hero
+    div.container
+      h1 Small-batch gin, wild New Zealand soul.
+      p.lead Crafted in micro batches on the Kāpiti Coast using botanicals foraged from native bush and coastal gardens.
+      a.button.button-primary(href="#contact") Book a tasting
+      a.button.button-secondary(href="#range") Explore the range
+  section.section#story
+    div.container
+      h2 Our story
+      p
+        | Aotearoa Botanicals began as a kitchen-bench experiment between friends chasing the perfect evening tipple. What
+        | started with recycled jars and an old copper still has grown into a community of home distillers, foragers, and
+        | flavour seekers. Every bottle captures the terroir of its season, balancing bright coastal citrus with wild herbs
+        | and the spice of native ngahere.
+      p
+        | We partner with local growers, harvest respectfully, and distil slowly to preserve the stories of each botanical.
+  section.section#range
+    div.container
+      h2 Signature range
+      p Discover our current line-up of homebrew favourites available for refill by appointment.
+      div.card-grid
+        each gin in ginRanges
+          article.card
+            h3= gin.name
+            p= gin.description
+            h4 Botanicals
+            ul
+              each botanical in gin.botanicals
+                li= botanical
+  section.section.highlight
+    div.container
+      h2 How we craft
+      div.process-grid
+        article
+          h3 Harvest
+          p We handpick botanicals at first light to capture maximum aroma, working closely with iwi guardians and growers.
+        article
+          h3 Infuse
+          p Neutral spirit rests on botanicals for up to 48 hours before slow distillation in our customised pot still.
+        article
+          h3 Rest
+          p Each batch is rested with mānuka honey and mountain water for a silky texture and bright, lingering finish.
+  section.section#experiences
+    div.container
+      h2 Experiences & workshops
+      p Join us for immersive sessions that celebrate experimentation and the joy of sharing a good drink.
+      div.card-grid
+        each experience in experiences
+          article.card
+            h3= experience.title
+            p= experience.description
+  section.section
+    div.container
+      h2 Recognition
+      ul.awards-list
+        each award in awards
+          li
+            span.year= award.year
+            span.name= award.name
+  section.section.cta#contact
+    div.container
+      h2 Visit the distillery
+      p Arrange a refill, private event, or collaborative experiment. We love welcoming fellow makers.
+      div.contact-card
+        p
+          strong Cellar door:
+          |  14 Nikau Grove, Paraparaumu
+        p
+          strong Email:
+          a(href="mailto:hello@aotearoabotanicals.nz") hello@aotearoabotanicals.nz
+        p
+          strong Instagram:
+          a(href="https://instagram.com/aotearoa.botanicals", target="_blank", rel="noopener") @aotearoa.botanicals
+      a.button.button-primary(href="mailto:hello@aotearoabotanicals.nz") Start a conversation

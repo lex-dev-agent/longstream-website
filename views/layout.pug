@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Aotearoa Botanicals | Homegrown New Zealand Gin
+    link(rel="stylesheet", href="/styles/main.css")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&family=Manrope:wght@400;600;700&display=swap", rel="stylesheet")
+  body
+    header.site-header
+      div.container
+        a.brand(href="/") Aotearoa Botanicals
+        nav.site-nav
+          a(href="#story") Our Story
+          a(href="#range") Range
+          a(href="#experiences") Experiences
+          a(href="#contact") Contact
+    main(role="main")
+      block content
+    footer.site-footer
+      div.container
+        p Crafted on the Kapiti Coast with pride. 
+        p \u00A9 #{new Date().getFullYear()} Aotearoa Botanicals. All rights reserved.

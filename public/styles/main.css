@@ -1,0 +1,244 @@
+:root {
+  --color-background: #f4f2ed;
+  --color-ink: #1d1c1a;
+  --color-muted: #5f5c57;
+  --color-accent: #1a7260;
+  --color-accent-dark: #14574a;
+  --color-highlight: #f2e6c8;
+  --font-heading: 'EB Garamond', serif;
+  --font-body: 'Manrope', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-background);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-accent);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  background: rgba(244, 242, 237, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(30, 28, 26, 0.08);
+  z-index: 10;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.site-nav a {
+  margin-left: 1.25rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+main {
+  display: block;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(20, 87, 74, 0.85), rgba(26, 114, 96, 0.7)),
+    url('https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?auto=format&fit=crop&w=1600&q=80') center/cover;
+  color: #fff;
+  padding: 8rem 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  margin-bottom: 1rem;
+}
+
+.hero .lead {
+  font-size: 1.1rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+}
+
+.section {
+  padding: 4.5rem 0;
+}
+
+.section.highlight {
+  background: var(--color-highlight);
+}
+
+.section h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 1rem;
+}
+
+.section p {
+  max-width: 760px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: #fff;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  box-shadow: 0 18px 35px rgba(20, 87, 74, 0.08);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+}
+
+.card ul {
+  padding-left: 1.2rem;
+  margin-bottom: 0;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.process-grid article {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(20, 87, 74, 0.2);
+}
+
+.awards-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0 0;
+}
+
+.awards-list li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(30, 28, 26, 0.1);
+}
+
+.awards-list .year {
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  min-width: 4rem;
+}
+
+.awards-list .name {
+  flex: 1;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.button-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(20, 87, 74, 0.3);
+}
+
+.button-secondary {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.button-secondary:hover,
+.button-secondary:focus {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.contact-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(20, 87, 74, 0.12);
+  margin: 2rem 0;
+}
+
+.site-footer {
+  background: #111;
+  color: #e6e4dd;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .site-nav a {
+    margin: 0 0.5rem;
+  }
+
+  .hero {
+    padding: 6rem 0;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+}

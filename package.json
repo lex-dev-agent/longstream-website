@@ -1,0 +1,22 @@
+{
+  "name": "ginz",
+  "version": "1.0.0",
+  "description": "Marketing site for a New Zealand homebrew gin company built with Express and Pug.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "express",
+    "pug",
+    "gin",
+    "new zealand"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "pug": "^3.0.3"
+  }
+}
