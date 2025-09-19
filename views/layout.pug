@@ -16,10 +16,11 @@ html(lang="en")
           img.logo(src="/images/logo.png", alt="Longstream Botanicals", width="40", height="40")
           .brand-text Longstream Botanicals
         nav.site-nav
-          a.site-nav-link(href="/#story") Our Story
-          a.site-nav-link(href="/#range") Range
-          a.site-nav-link(href="/#contact") Contact
-          a.button.button-primary(href="/order") Order Online
+          block nav
+            a.site-nav-link(href="/#story") Our Story
+            a.site-nav-link(href="/#range") Range
+            a.site-nav-link(href="/#contact") Contact
+            a.button.button-primary(href="/order") Order Online
     main(role="main")
       block content
     a.fab-order.button.button-primary(href="/order" aria-label="Order here")
