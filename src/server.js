@@ -76,7 +76,7 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Longstream Gin site running on http://localhost:${PORT}`);
+  console.log(`Longstream Botanicals site running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
