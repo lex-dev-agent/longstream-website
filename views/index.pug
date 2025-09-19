@@ -14,7 +14,9 @@ block content
         | Recycled bottles and a small still were used to make the first few bottles though it quickly grew from a hobby to an addiction taking over our family garage.
         | Friends, family and neighbours were the initial guinea pigs for the first few batches and it quickly became a regular request for more bottles as interest grew for the new experimental flavours.
       p
-        | Of the many batches made, the Blondie Dry Gin, Louie Limoncello and Seeking Vodka have been perfected and are now available for purchase.
+        | Of the many batches made, the Blondie Dry Gin and Louie Limoncello have been perfected and are now available for purchase.
+        | Seeking Vodka sells out faster than we can bottle it — the next run is resting now but will be back soon.
+      p
         | Our other experimental batches are still in process of being perfected and will be available when they are ready.
       p
         | Every bottle is still made with absolute care and attention to detail. Each step is taken to ensure the best possible taste and experience.
@@ -23,18 +25,17 @@ block content
       h2 Signature range
       p.subtitle Discover our current line-up of homebrew favourites now available for online orders.
       div.card-grid
-        article.card
-          img.bottle-image(src="/images/bottle.png", alt="Blondie Dry Gin bottle", width="120", height="200")
-          h3 Blondie Dry Gin
-          p A classic dry gin with a juniper base and our secret blend of local botanicals.
-        article.card
-          img.bottle-image(src="/images/bottle.png", alt="Louie Limoncello bottle", width="120", height="200")
-          h3 Louie Limoncello
-          p A simple limoncello made with fresh lemons and a touch of sugar for a refreshing summer drink.
-        article.card
-          img.bottle-image(src="/images/bottle.png", alt="Seeking Vodka bottle", width="120", height="200")
-          h3 Seeking Vodka
-          p A smooth vodka distilled with our signature process for a clean, neutral base.
+        each bottle in bottles
+          article.card(class={"card--sold-out": !bottle.available})
+            if !bottle.available
+              span.badge.badge-sold-out Sold out
+            img.bottle-image(src="/images/bottle.png", alt=`${bottle.name} bottle`, width="120", height="200")
+            h3= bottle.name
+            p= bottle.description
+            if bottle.available
+              p.card-meta #{bottle.volume} • #{bottle.abv} ABV • NZ$#{bottle.price}
+            else if bottle.soldOutMessage
+              p.card-meta= bottle.soldOutMessage
   section.section.cta#contact
     div.container
       h2 Get in touch
