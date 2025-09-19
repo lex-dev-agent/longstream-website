@@ -113,6 +113,7 @@ main {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 3.75rem);
   margin-bottom: 1rem;
+  line-height: 1.4;
 }
 
 .hero .lead {
@@ -281,7 +282,7 @@ main {
 .newsletter-signup h3 {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  margin-bottom: 0rem;
+  margin: 0rem;
   color: #fff;
 }
 
@@ -350,6 +351,7 @@ main {
   .site-header .container {
     flex-direction: column;
     gap: 0.5rem;
+    margin-bottom: -10px;
   }
 
   .site-nav a {
@@ -360,6 +362,10 @@ main {
     margin-left: 0.75rem;
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
+  }
+
+  .site-nav-link, .site-nav a.button-primary {
+    display: none;
   }
 
   .hero {
@@ -395,4 +401,28 @@ main {
     width: 100%;
   }
   
+}
+
+/* Floating ORDER ONLINE button - mobile only */
+@media (max-width: 768px) {
+  .fab-order {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: 999px;
+    /* box-shadow: 0 12px 22px rgba(20, 87, 74, 0.28); */
+    text-decoration: none;
+  }
+
+  /* Hide the header Order button on mobile; we already hide via .site-nav a.button-primary */
+  .fab-order .fab-label {
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+  }
 }
