@@ -11,9 +11,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const ginRanges = [
   {
-    name: 'Kauri Coast Dry',
+    name: 'Blondie Dry Gin',
     description:
-      'A classic dry gin with a New Zealand twist – balancing citrus, kawakawa leaves, and hand cracked juniper.',
+      'A classic dry gin with a juniper base and our secret blend of local botanicals.',
     botanicals: ['Juniper', 'Kawakawa', 'Mānuka Honey', 'Lemon Peel']
   },
   {
@@ -30,42 +30,8 @@ const ginRanges = [
   }
 ];
 
-const experiences = [
-  {
-    title: 'Monthly Distilling Workshops',
-    description:
-      'Learn to balance botanicals with our head distiller and craft a personalised 200ml bottle to take home.'
-  },
-  {
-    title: 'Botanical Foraging Walks',
-    description:
-      'Join a guided trek through native bush to discover the wild ingredients that inspire each release.'
-  },
-  {
-    title: 'Private Tasting Evenings',
-    description:
-      'Host an intimate gin tasting for friends or colleagues featuring bespoke cocktails and food pairings.'
-  }
-];
-
-const awards = [
-  {
-    year: 2022,
-    name: 'NZ Artisan Spirits Awards – Gold for Kauri Coast Dry'
-  },
-  {
-    year: 2023,
-    name: 'Australasian Craft Distillers Showcase – People\'s Choice'
-  },
-  {
-    year: 2024,
-    name: 'International Garden Gins – Best Use of Native Botanicals'
-  }
-];
-
 app.get('/', (req, res) => {
   res.render('index', {
-    ginRanges,
     experiences,
     awards
   });

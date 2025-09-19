@@ -12,15 +12,25 @@ html(lang="en")
   body
     header.site-header
       div.container
-        a.brand(href="/") Longstream Botanicals
+        .brand
+          img.logo(src="/images/logo.png", alt="Longstream Botanicals", width="40", height="40")
+          .brand-text Longstream Botanicals
         nav.site-nav
-          a(href="#story") Our Story
-          a(href="#range") Range
-          a(href="#experiences") Experiences
-          a(href="#contact") Contact
+          a.site-nav-link(href="#story") Our Story
+          a.site-nav-link(href="#range") Range
+          a.site-nav-link(href="#contact") Contact
+          a.button.button-primary Order Online
     main(role="main")
       block content
     footer.site-footer
       div.container
-        p Crafted in Mangaroa, Upper Hutt with pride.
-        p \u00A9 #{new Date().getFullYear()} Longstream Botanicals. All rights reserved.
+        .newsletter-signup
+          h3 Stay updated on new batches
+          p Be the first to know when we release limited edition gin batches.
+          form.newsletter-form(action="#" method="post")
+            .form-group
+              input(type="email" name="email" placeholder="Enter your email address" required)
+            button.button.button-primary(type="submit") Subscribe
+        .footer-info
+          p Crafted in Mangaroa, Upper Hutt with pride.
+          p © #{new Date().getFullYear()} Longstream Botanicals. All rights reserved.

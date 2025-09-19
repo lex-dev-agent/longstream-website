@@ -3,75 +3,46 @@ extends layout
 block content
   section.hero
     div.container
-      h1 Small-batch gin, wild New Zealand soul.
-      p.lead Crafted in micro batches in Mangaroa, Upper Hutt using botanicals foraged from native bush and coastal gardens.
+      h1 Small-batch gin with Aotearoa spirit
+      p.lead Crafted in Mangaroa, Upper Hutt using local botanicals.
       a.button.button-primary(href="#contact") Book a tasting
-      a.button.button-secondary(href="#range") Explore the range
   section.section#story
     div.container
       h2 Our story
       p
-        | Longstream Botanicals began as a kitchen-bench experiment between friends chasing the perfect evening tipple. What
-        | started with recycled jars and an old copper still has grown into a community of home distillers, foragers, and
-        | flavour seekers. Every bottle captures the terroir of its season, balancing bright coastal citrus with wild herbs
-        | and the spice of native ngahere.
+        | Longstream Botanicals began as a kitchen-bench experiment chasing the perfect evening tipple.
+        | Recycled bottles and a small still were used to make the first few bottles though it quickly grew from a hobby to an addiction taking over our family garage.
+        | Friends, family and neighbours were the initial guinea pigs for the first few batches and it quickly became a regular request for more bottles as interest grew for the new experimental flavours.
       p
-        | We partner with local growers, harvest respectfully, and distil slowly to preserve the stories of each botanical.
-  section.section#range
+        | Of the many batches made, the Blondie Dry Gin, Louie Limoncello and Seeking Vodka have been perfected and are now available for purchase.
+        | Our other experimental batches are still in process of being perfected and will be available when they are ready.
+      p
+        | Every bottle is still made with absolute care and attention to detail. Each step is taken to ensure the best possible taste and experience.
+  section.section.section.highlight#range
     div.container
       h2 Signature range
-      p Discover our current line-up of homebrew favourites available for refill by appointment.
+      p.subtitle Discover our current line-up of homebrew favourites now available for online orders.
       div.card-grid
-        each gin in ginRanges
-          article.card
-            h3= gin.name
-            p= gin.description
-            h4 Botanicals
-            ul
-              each botanical in gin.botanicals
-                li= botanical
-  section.section.highlight
-    div.container
-      h2 How we craft
-      div.process-grid
-        article
-          h3 Harvest
-          p We handpick botanicals at first light to capture maximum aroma, working closely with iwi guardians and growers.
-        article
-          h3 Infuse
-          p Neutral spirit rests on botanicals for up to 48 hours before slow distillation in our customised pot still.
-        article
-          h3 Rest
-          p Each batch is rested with mānuka honey and mountain water for a silky texture and bright, lingering finish.
-  section.section#experiences
-    div.container
-      h2 Experiences & workshops
-      p Join us for immersive sessions that celebrate experimentation and the joy of sharing a good drink.
-      div.card-grid
-        each experience in experiences
-          article.card
-            h3= experience.title
-            p= experience.description
-  section.section
-    div.container
-      h2 Recognition
-      ul.awards-list
-        each award in awards
-          li
-            span.year= award.year
-            span.name= award.name
+        article.card
+          img.bottle-image(src="/images/bottle.png", alt="Blondie Dry Gin bottle", width="120", height="200")
+          h3 Blondie Dry Gin
+          p A classic dry gin with a juniper base and our secret blend of local botanicals.
+        article.card
+          img.bottle-image(src="/images/bottle.png", alt="Louie Limoncello bottle", width="120", height="200")
+          h3 Louie Limoncello
+          p A simple limoncello made with fresh lemons and a touch of sugar for a refreshing summer drink.
+        article.card
+          img.bottle-image(src="/images/bottle.png", alt="Seeking Vodka bottle", width="120", height="200")
+          h3 Seeking Vodka
+          p A smooth vodka distilled with our signature process for a clean, neutral base.
   section.section.cta#contact
     div.container
-      h2 Visit the distillery
-      p Arrange a refill, private event, or collaborative experiment. We love welcoming fellow makers.
+      h2 Get in touch
+      p.subtitle Visit the distillery, supply a large event, or a book a private tasting.
       div.contact-card
         p
+          strong Email: 
+          a(href="mailto:ross@longstream.nz") enquires@longstream.nz
+        p
           strong Cellar door:
-          |  Mangaroa, Upper Hutt, New Zealand
-        p
-          strong Email:
-          a(href="mailto:hello@aotearoabotanicals.nz") hello@aotearoabotanicals.nz
-        p
-          strong Instagram:
-          a(href="https://instagram.com/aotearoa.botanicals", target="_blank", rel="noopener") @aotearoa.botanicals
-      a.button.button-primary(href="mailto:hello@aotearoabotanicals.nz") Start a conversation
+          |  Mangaroa, Upper Hutt, Wellington Region, New Zealand
