@@ -426,6 +426,13 @@ main {
     border-radius: 999px;
     /* box-shadow: 0 12px 22px rgba(20, 87, 74, 0.28); */
     text-decoration: none;
+    /*remove blue flash on mobile*/
+    -webkit-tap-highlight-color: transparent; 
+  }
+
+  .fab-order:hover {
+    transform: translateY(0px);
+    box-shadow: none;
   }
 
   /* Hide the header Order button on mobile; we already hide via .site-nav a.button-primary */
