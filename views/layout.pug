@@ -22,7 +22,7 @@ html(lang="en")
           a.button.button-primary Order Online
     main(role="main")
       block content
-    a.fab-order.button.button-primary(href="#range" aria-label="Order online")
+    a.fab-order.button.button-primary(aria-label="Order here")
       span.fab-label ORDER HERE
     footer.site-footer
       div.container
@@ -36,3 +36,47 @@ html(lang="en")
         .footer-info
           p Crafted in Mangaroa, Upper Hutt with pride.
           p © #{new Date().getFullYear()} Longstream Botanicals. All rights reserved.
+    script.
+      (function() {
+        function getHeaderOffset() {
+          var header = document.querySelector('.site-header');
+          return header ? header.offsetHeight : 0;
+        }
+
+        function scrollToTarget(target) {
+          if (!target) return;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+
+        function cleanUrlHash() {
+          if ('replaceState' in history) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+        }
+
+        document.addEventListener('click', function(event) {
+          var link = event.target.closest('a[href^="#"]');
+          if (!link) return;
+          var href = link.getAttribute('href');
+          if (!href || href === '#') return;
+          var id = href.slice(1);
+          var target = document.getElementById(id);
+          if (!target) return;
+          event.preventDefault();
+          scrollToTarget(target);
+          cleanUrlHash();
+        }, { passive: false });
+
+        if (window.location.hash) {
+          var initialId = window.location.hash.substring(1);
+          var initialTarget = document.getElementById(initialId);
+          if (initialTarget) {
+            // Clean the hash first to avoid jump, then smooth scroll
+            cleanUrlHash();
+            window.requestAnimationFrame(function() {
+              scrollToTarget(initialTarget);
+            });
+          }
+        }
+      })();
