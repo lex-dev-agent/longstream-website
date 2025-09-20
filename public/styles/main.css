@@ -173,7 +173,8 @@ main {
 }
 
 .card-meta {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
+  margin-bottom: 0rem !important;
   font-size: 0.95rem;
   color: var(--color-muted);
 }
@@ -310,7 +311,7 @@ main {
 
 .order-hero {
   background: linear-gradient(135deg, rgba(20, 87, 74, 0.9), rgba(26, 114, 96, 0.7)),
-    url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1600&q=80') center/cover;
+    url('../images/destill.jpg') center/cover;
   color: #fff;
   padding: 6rem 0 4.5rem;
   text-align: left;

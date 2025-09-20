@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3322;
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '..', 'views'));
@@ -25,7 +25,7 @@ const bottleCatalogue = [
     id: 'louie-limoncello',
     name: 'Louie Limoncello',
     description:
-      'Sun-soaked lemons, a hint of vanilla and just enough sweetness for long summer evenings.',
+      'A simple limoncello made with fresh lemons and a touch of sugar for a refreshing summer drink.',
     volume: '500ml',
     abv: '30%',
     price: 45,

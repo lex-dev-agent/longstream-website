@@ -12,7 +12,7 @@ html(lang="en")
   body
     header.site-header
       div.container
-        .brand
+        a.brand(href="/")
           img.logo(src="/images/logo.png", alt="Longstream Botanicals", width="40", height="40")
           .brand-text Longstream Botanicals
         nav.site-nav
@@ -23,8 +23,9 @@ html(lang="en")
             a.button.button-primary(href="/order") Order Online
     main(role="main")
       block content
-    a.fab-order.button.button-primary(href="/order" aria-label="Order here")
-      span.fab-label ORDER HERE
+    block fab
+      a.fab-order.button.button-primary(href="/order" aria-label="Order here")
+        span.fab-label ORDER HERE
     footer.site-footer
       div.container
         .newsletter-signup

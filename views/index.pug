@@ -32,10 +32,7 @@ block content
             img.bottle-image(src="/images/bottle.png", alt=`${bottle.name} bottle`, width="120", height="200")
             h3= bottle.name
             p= bottle.description
-            if bottle.available
-              p.card-meta #{bottle.volume} • #{bottle.abv} ABV • NZ$#{bottle.price}
-            else if bottle.soldOutMessage
-              p.card-meta= bottle.soldOutMessage
+            p.card-meta #{bottle.volume} • #{bottle.abv} ABV • NZ$#{bottle.price}
   section.section.cta#contact
     div.container
       h2 Get in touch
