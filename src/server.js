@@ -79,6 +79,10 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/businesscard', (req, res) => {
+  res.render('businesscard');
+});
+
 app.get('/order', (req, res) => {
   res.render('order', {
     bottles: bottleCatalogue,

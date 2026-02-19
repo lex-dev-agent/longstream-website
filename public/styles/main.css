@@ -2,7 +2,7 @@
   --color-background: #f4f2ed;
   --color-ink: #1d1c1a;
   --color-muted: #5f5c57;
-  --color-accent: #1a7260;
+  --color-accent: hsl(168, 63%, 27%);
   --color-accent-dark: #14574a;
   --color-highlight: #f2e6c8;
   --font-heading: 'EB Garamond', serif;
@@ -813,6 +813,304 @@ main {
     align-items: flex-start;
   }
 
+}
+
+/* ─── Business Card Page ─── */
+
+.bc-page {
+  padding: 5rem 0 6rem;
+}
+
+.bc-page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 0 0 0.5rem;
+}
+
+.bc-page-subtitle {
+  color: var(--color-muted);
+  margin: 0 0 3rem;
+}
+
+.bc-showcase {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.bc-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bc-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.bc-card {
+  width: 380px;
+  height: 218px;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  position: relative;
+}
+
+.bc-card--print {
+  --bc-bleed: 14px;
+  width: calc(380px + var(--bc-bleed) * 2);
+  height: calc(218px + var(--bc-bleed) * 2);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.bc-print-offscreen {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+/* ── Front ── */
+
+.bc-front {
+  background: linear-gradient(145deg, #14574a 0%, #1a7260 50%, #1e8a73 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.bc-card--print.bc-front {
+  padding: var(--bc-bleed);
+}
+
+.bc-front-accent {
+  height: 5px;
+  background: linear-gradient(90deg, var(--color-highlight), rgba(242, 230, 200, 0.3));
+  flex-shrink: 0;
+}
+
+.bc-front-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+  gap: 0.1rem;
+}
+
+.bc-front .bc-logo {
+  margin-bottom: 0.5rem;
+  opacity: 0.95;
+}
+
+.bc-front-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.bc-company {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 0 0 0.15rem;
+}
+
+.bc-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.bc-title {
+  font-size: 0.85rem;
+  font-weight: 400;
+  opacity: 0.8;
+  margin: 0.1rem 0 0;
+}
+
+.bc-front-tagline {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 2rem;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-style: italic;
+  opacity: 0.5;
+  letter-spacing: 0.02em;
+}
+
+.bc-card--print .bc-front-tagline {
+  bottom: calc(1.25rem + var(--bc-bleed));
+  right: calc(2rem + var(--bc-bleed));
+}
+
+/* ── Back ── */
+
+.bc-back {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+}
+
+.bc-card--print.bc-back {
+  padding: calc(1.5rem + var(--bc-bleed)) calc(2rem + var(--bc-bleed));
+}
+
+.bc-back-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(26, 114, 96, 0.15);
+}
+
+.bc-back-header .bc-logo {
+  width: 26px;
+  height: 26px;
+}
+
+.bc-back-brand {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  margin-left: 0.3rem;
+  color: var(--color-ink);
+}
+
+.bc-back-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.bc-detail-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.bc-detail-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  min-width: 64px;
+}
+
+.bc-detail-value {
+  font-size: 0.85rem;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+a.bc-detail-value:hover {
+  color: var(--color-accent);
+}
+
+.bc-back-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-style: italic;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  text-align: right;
+}
+
+.bc-download {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.bc-download-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.bc-download .button {
+  font-family: var(--font-body);
+}
+
+.bc-btn-png {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.bc-btn-png:hover,
+.bc-btn-png:focus {
+  background: rgba(26, 114, 96, 0.08);
+  transform: translateY(-2px);
+}
+
+.bc-download .button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
+
+.bc-download-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .bc-page {
+    padding: 3rem 0 4rem;
+  }
+
+  .bc-showcase {
+    gap: 2rem;
+  }
+
+  .bc-card:not(.bc-card--print) {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    aspect-ratio: 380 / 218;
+  }
+}
+
+@media (max-width: 420px) {
+  .bc-front-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .bc-name {
+    font-size: 1.25rem;
+  }
+
+  .bc-back {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .bc-front-tagline {
+    right: 1.5rem;
+    bottom: 1rem;
+  }
 }
 
 /* Floating ORDER button: hidden by default (desktop) */
