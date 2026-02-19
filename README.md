@@ -1,4 +1,4 @@
-# Longstream Botanicals
+# Longstream Distillery
 
 A simple marketing website for an imagined New Zealand homebrew gin company, built with [Express](https://expressjs.com/) and [Pug](https://pugjs.org/).
 
