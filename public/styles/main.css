@@ -179,6 +179,12 @@ main {
   color: var(--color-muted);
 }
 
+.card-design-link {
+  margin-top: 1.25rem;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
 .card--sold-out {
   position: relative;
   background: rgba(255, 255, 255, 0.8);
@@ -815,6 +821,38 @@ main {
 
 }
 
+/* ─── Design Page Hero ─── */
+
+.design-hero {
+  background: linear-gradient(135deg, rgba(20, 87, 74, 0.88), rgba(26, 114, 96, 0.72)),
+    url('../images/destill.jpg') center/cover;
+  color: #fff;
+  padding: 6rem 0 5rem;
+  text-align: center;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.25);
+}
+
+.design-hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  margin: 0 0 1rem;
+  line-height: 1.3;
+}
+
+.design-hero .lead {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .design-hero {
+    padding: 4.5rem 0 3.5rem;
+  }
+}
+
 /* ─── Business Card Page ─── */
 
 .bc-page {
@@ -1092,6 +1130,383 @@ a.bc-detail-value:hover {
     height: auto;
     aspect-ratio: 380 / 218;
   }
+}
+
+/* ── Gin Label Page ── */
+
+.label-page {
+  padding: 5rem 0 6rem;
+  background: var(--color-highlight);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.1), inset 0 0 160px rgba(0, 0, 0, 0.05);
+}
+
+.label-page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 0 0 0.5rem;
+}
+
+.label-page-subtitle {
+  color: var(--color-muted);
+  margin: 0 0 3rem;
+}
+
+.label-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.label-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.label-section-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.gin-label {
+  width: 290px;
+  height: 406px;
+  background: #f8f4e3;
+  border: 3px solid #14574a;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.gin-label::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(20, 87, 74, 0.45);
+  pointer-events: none;
+}
+
+.gin-label--print {
+  --label-bleed: 10px;
+  width: calc(290px + var(--label-bleed) * 2);
+  height: calc(406px + var(--label-bleed) * 2);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.gin-label--print::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--label-bleed) - 3px);
+  border: 3px solid #14574a;
+  pointer-events: none;
+}
+
+.gin-label--print::after {
+  inset: calc(var(--label-bleed) + 7px);
+}
+
+.gin-label--print .gin-label-inner {
+  inset: calc(16px + var(--label-bleed));
+}
+
+.gin-label-inner {
+  position: absolute;
+  inset: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 1.5rem 1.25rem;
+}
+
+.label-logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.label-distillery {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.label-gold-rule {
+  width: 75%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c 20%, #c9a84c 80%, transparent);
+  flex-shrink: 0;
+}
+
+.label-name-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.label-brand {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 600;
+  color: #14574a;
+  margin: 0;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.label-type {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #1d1c1a;
+  margin: 0;
+  padding-left: 0.4em;
+}
+
+.label-botanical-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 72%;
+}
+
+.label-botanical-divider::before,
+.label-botanical-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #c9a84c;
+}
+
+.label-botanical-icon {
+  color: #c9a84c;
+  font-size: 0.5rem;
+  line-height: 1;
+}
+
+.label-origin {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.label-tasting {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #3d3a35;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.label-footer-specs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #14574a;
+}
+
+.label-dot {
+  color: #c9a84c;
+  font-size: 0.9rem;
+}
+
+/* ── Gin Back Label ── */
+
+.gin-label-back {
+  background: #f8f4e3;
+}
+
+.gin-label-back-inner {
+  position: absolute;
+  inset: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem 1.1rem;
+  gap: 0;
+}
+
+.gin-label--print .gin-label-back-inner {
+  inset: calc(16px + var(--label-bleed));
+}
+
+.label-back-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.label-back-header .label-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.label-back-distillery {
+  font-family: var(--font-body);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.label-back-description {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: #3d3a35;
+  margin: 0.6rem 0;
+  text-align: center;
+}
+
+.label-back-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+.label-back-detail-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.label-back-detail-value {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  color: var(--color-ink);
+  text-align: center;
+}
+
+.label-back-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.label-back-warning {
+  font-family: var(--font-body);
+  font-size: 0.44rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.label-back-barcode {
+  width: 96px;
+  height: 56px;
+  border: 1px dashed var(--color-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.label-barcode-lines {
+  width: 80px;
+  height: 30px;
+  background: repeating-linear-gradient(
+    90deg,
+    #1d1c1a 0px,
+    #1d1c1a 1.5px,
+    transparent 1.5px,
+    transparent 3px
+  );
+  background-size: 3px 100%;
+  border-left: 2px solid #1d1c1a;
+  border-right: 2px solid #1d1c1a;
+}
+
+.label-barcode-number {
+  font-family: var(--font-body);
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.label-download {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.label-download-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.label-download .button {
+  font-family: var(--font-body);
+}
+
+.label-btn-png {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.label-btn-png:hover,
+.label-btn-png:focus {
+  background: rgba(26, 114, 96, 0.08);
+  transform: translateY(-2px);
+}
+
+.label-download .button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
+
+.label-download-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.label-print-offscreen {
+  position: absolute;
+  left: -9999px;
+  top: 0;
 }
 
 @media (max-width: 420px) {

@@ -79,8 +79,8 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/businesscard', (req, res) => {
-  res.render('businesscard');
+app.get('/design', (req, res) => {
+  res.render('design');
 });
 
 app.get('/order', (req, res) => {

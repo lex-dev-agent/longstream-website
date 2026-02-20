@@ -1,0 +1,373 @@
+extends layout
+
+block nav
+  a.site-nav-link(href="/") Home
+  a.site-nav-link(href="/#range") Range
+  a.site-nav-link(href="/#contact") Contact
+  a.button.button-primary(href="/order") Order Online
+
+block fab
+
+mixin cardFrontContent
+  .bc-front-accent
+  .bc-front-body
+    img.bc-logo(src="/images/logo-white.png" alt="Longstream Distillery" width="48" height="48")
+    .bc-front-text
+      p.bc-company Longstream Distillery
+      h4.bc-name Ross Remnant
+      p.bc-title Founder &amp; Distiller
+    .bc-front-tagline Small-batch gin with Aotearoa spirit
+
+mixin cardBackContent
+  .bc-back-header
+    img.bc-logo(src="/images/logo.png" alt="Longstream Distillery" width="36" height="36")
+    span.bc-back-brand Longstream Distillery
+  .bc-back-details
+    .bc-detail-row
+      span.bc-detail-label Phone
+      span.bc-detail-value 021 123 4567
+    .bc-detail-row
+      span.bc-detail-label Web
+      span.bc-detail-value longstream.nz
+    .bc-detail-row
+      span.bc-detail-label Email
+      a.bc-detail-value(href="mailto:enquiries@longstream.nz") enquiries@longstream.nz
+  .bc-back-footer Crafted in the Wellington Region with pride
+
+mixin ginLabelContent
+  .gin-label-inner
+    img.label-logo(src="/images/logo.png" alt="Longstream Distillery" width="48" height="48")
+    p.label-distillery LONGSTREAM DISTILLERY
+    .label-gold-rule
+    .label-name-block
+      h2.label-brand BLONDE
+      p.label-type LONDON DRY GIN
+    .label-botanical-divider
+      span.label-botanical-icon ◆
+    p.label-origin Mangaroa · Upper Hutt<br>New Zealand
+    p.label-tasting Crisp Pine · Warm Spice · Citris Finish
+    .label-gold-rule
+    .label-footer-specs
+      span 700 ml
+      span.label-dot ·
+      span 38% ABV
+
+mixin ginBackLabelContent
+  .gin-label-back-inner
+    .label-back-header
+      img.label-logo(src="/images/logo.png" alt="Longstream Distillery" width="32" height="32")
+      p.label-back-distillery LONGSTREAM DISTILLERY
+    .label-gold-rule
+    p.label-back-description
+      | Small-batch dry gin from the Mangaroa Valley.
+      | Initially crisp and piney, quickly followed by warm eucalyptus, finished with a refreshing citrus note.
+      | Copper distilled using pure Te Awa Kairangi aquifer water. 
+      | Best served with a simple tonic.
+    .label-gold-rule
+    .label-back-details
+      .label-back-detail-row
+        span.label-back-detail-value Longstream Distillery Ltd
+      .label-back-detail-row
+        span.label-back-detail-value Mangaroa Valley, Upper Hutt 5018
+      .label-back-detail-row
+        span.label-back-detail-value longstream.nz
+    .label-back-footer
+      p.label-back-warning Please drink responsibly.<br>Not for sale to persons under 18.
+      .label-back-barcode
+
+block content
+  section.design-hero
+    .container
+      h1 Brand &amp; Print Design
+      p.lead Crafting the visual identity for Longstream Distillery — from business cards to bottle labels, every detail distilled with care.
+
+  section.bc-page
+    div.container
+      h2.bc-page-title Business Card
+      p.bc-page-subtitle Proposed card for Ross Remnant — Longstream Distillery.
+
+      .bc-showcase
+        .bc-card-wrapper
+          h3.bc-label Front
+          .bc-card.bc-front#bc-preview-front
+            +cardFrontContent
+        .bc-card-wrapper
+          h3.bc-label Back
+          .bc-card.bc-back#bc-preview-back
+            +cardBackContent
+
+      .bc-download
+        .bc-download-actions
+          button.button.button-primary#bc-download-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.bc-btn-png#bc-download-png(type="button") Download PNG
+        p.bc-download-note
+          | PDF includes ⅛″ bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the card as shown above.
+
+    //- Hidden print-ready cards with bleed + sharp edges for PDF capture
+    .bc-print-offscreen(aria-hidden="true")
+      .bc-card.bc-card--print.bc-front#bc-print-front
+        +cardFrontContent
+      .bc-card.bc-card--print.bc-back#bc-print-back
+        +cardBackContent
+
+  script(src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js")
+  script(src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js")
+  script.
+    (function () {
+      var TRIM_W = 3.5;
+      var TRIM_H = 2;
+      var BLEED  = 0.125;
+      var PAGE_W = TRIM_W + BLEED * 2;
+      var PAGE_H = TRIM_H + BLEED * 2;
+      var DPI    = 300;
+
+      var MARK_LEN = 0.08;
+      var MARK_GAP = 0.02;
+
+      var pdfBtn = document.getElementById('bc-download-pdf');
+      var pngBtn = document.getElementById('bc-download-png');
+
+      function capture(el, targetPxW, targetPxH) {
+        var rect = el.getBoundingClientRect();
+        var scale = Math.max(targetPxW / rect.width, targetPxH / rect.height);
+        return html2canvas(el, {
+          scale: scale,
+          useCORS: true,
+          backgroundColor: null,
+          width: rect.width,
+          height: rect.height,
+          windowWidth: document.documentElement.scrollWidth
+        });
+      }
+
+      function drawCropMarks(pdf) {
+        pdf.setDrawColor(0);
+        pdf.setLineWidth(0.003);
+        var left   = BLEED;
+        var top    = BLEED;
+        var right  = BLEED + TRIM_W;
+        var bottom = BLEED + TRIM_H;
+        var corners = [
+          { x: left,  y: top,    dx: -1, dy: -1 },
+          { x: right, y: top,    dx:  1, dy: -1 },
+          { x: left,  y: bottom, dx: -1, dy:  1 },
+          { x: right, y: bottom, dx:  1, dy:  1 }
+        ];
+        corners.forEach(function (c) {
+          pdf.line(c.x + c.dx * MARK_GAP, c.y, c.x + c.dx * (MARK_GAP + MARK_LEN), c.y);
+          pdf.line(c.x, c.y + c.dy * MARK_GAP, c.x, c.y + c.dy * (MARK_GAP + MARK_LEN));
+        });
+      }
+
+      function setLoading(btn, loading) {
+        if (loading) {
+          btn.dataset.originalText = btn.textContent;
+          btn.textContent = 'Generating…';
+          btn.disabled = true;
+        } else {
+          btn.textContent = btn.dataset.originalText;
+          btn.disabled = false;
+        }
+      }
+
+      function downloadDataUrl(dataUrl, filename) {
+        var a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      pdfBtn.addEventListener('click', function () {
+        setLoading(pdfBtn, true);
+        var pxW = PAGE_W * DPI;
+        var pxH = PAGE_H * DPI;
+        var front = document.getElementById('bc-print-front');
+        var back  = document.getElementById('bc-print-back');
+
+        Promise.all([capture(front, pxW, pxH), capture(back, pxW, pxH)])
+          .then(function (canvases) {
+            var jsPDF = window.jspdf.jsPDF;
+            var pdf = new jsPDF({ orientation: 'landscape', unit: 'in', format: [PAGE_W, PAGE_H] });
+            canvases.forEach(function (canvas, i) {
+              if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'landscape');
+              pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
+              drawCropMarks(pdf);
+            });
+            pdf.save('ross-remnant-business-card.pdf');
+          })
+          .catch(function (err) {
+            console.error('PDF generation failed:', err);
+            alert('Something went wrong generating the PDF. Please try again.');
+          })
+          .finally(function () { setLoading(pdfBtn, false); });
+      });
+
+      pngBtn.addEventListener('click', function () {
+        setLoading(pngBtn, true);
+        var pxW = TRIM_W * DPI;
+        var pxH = TRIM_H * DPI;
+        var front = document.getElementById('bc-preview-front');
+        var back  = document.getElementById('bc-preview-back');
+
+        Promise.all([capture(front, pxW, pxH), capture(back, pxW, pxH)])
+          .then(function (canvases) {
+            downloadDataUrl(canvases[0].toDataURL('image/png'), 'ross-remnant-card-front.png');
+            setTimeout(function () {
+              downloadDataUrl(canvases[1].toDataURL('image/png'), 'ross-remnant-card-back.png');
+            }, 300);
+          })
+          .catch(function (err) {
+            console.error('PNG generation failed:', err);
+            alert('Something went wrong generating the PNG. Please try again.');
+          })
+          .finally(function () { setLoading(pngBtn, false); });
+      });
+    })();
+
+  section.label-page
+    div.container
+      h2.label-page-title Blondie Dry Gin — Label Design
+      p.label-page-subtitle Proposed front and back labels for the 700 ml bottle.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label#label-preview
+            +ginLabelContent
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back#label-back-preview
+            +ginBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary#label-download-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png#label-download-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.gin-label--print#label-print
+      +ginLabelContent
+    .gin-label.gin-label-back.gin-label--print#label-back-print
+      +ginBackLabelContent
+
+  script.
+    (function () {
+      var TRIM_W = 3.5;
+      var TRIM_H = 4.875;
+      var BLEED  = 0.125;
+      var PAGE_W = TRIM_W + BLEED * 2;
+      var PAGE_H = TRIM_H + BLEED * 2;
+      var DPI    = 300;
+
+      var MARK_LEN = 0.08;
+      var MARK_GAP = 0.02;
+
+      var pdfBtn = document.getElementById('label-download-pdf');
+      var pngBtn = document.getElementById('label-download-png');
+
+      function captureEl(el, targetPxW, targetPxH) {
+        var rect = el.getBoundingClientRect();
+        var scale = Math.max(targetPxW / rect.width, targetPxH / rect.height);
+        return html2canvas(el, {
+          scale: scale,
+          useCORS: true,
+          backgroundColor: null,
+          width: rect.width,
+          height: rect.height,
+          windowWidth: document.documentElement.scrollWidth
+        });
+      }
+
+      function drawLabelCropMarks(pdf) {
+        pdf.setDrawColor(0);
+        pdf.setLineWidth(0.003);
+        var left   = BLEED;
+        var top    = BLEED;
+        var right  = BLEED + TRIM_W;
+        var bottom = BLEED + TRIM_H;
+        var corners = [
+          { x: left,  y: top,    dx: -1, dy: -1 },
+          { x: right, y: top,    dx:  1, dy: -1 },
+          { x: left,  y: bottom, dx: -1, dy:  1 },
+          { x: right, y: bottom, dx:  1, dy:  1 }
+        ];
+        corners.forEach(function (c) {
+          pdf.line(c.x + c.dx * MARK_GAP, c.y, c.x + c.dx * (MARK_GAP + MARK_LEN), c.y);
+          pdf.line(c.x, c.y + c.dy * MARK_GAP, c.x, c.y + c.dy * (MARK_GAP + MARK_LEN));
+        });
+      }
+
+      function setLabelLoading(btn, loading) {
+        if (loading) {
+          btn.dataset.originalText = btn.textContent;
+          btn.textContent = 'Generating…';
+          btn.disabled = true;
+        } else {
+          btn.textContent = btn.dataset.originalText;
+          btn.disabled = false;
+        }
+      }
+
+      function downloadUrl(dataUrl, filename) {
+        var a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      pdfBtn.addEventListener('click', function () {
+        setLabelLoading(pdfBtn, true);
+        var front = document.getElementById('label-print');
+        var back  = document.getElementById('label-back-print');
+        var pxW = PAGE_W * DPI;
+        var pxH = PAGE_H * DPI;
+
+        Promise.all([captureEl(front, pxW, pxH), captureEl(back, pxW, pxH)])
+          .then(function (canvases) {
+            var jsPDF = window.jspdf.jsPDF;
+            var pdf = new jsPDF({ orientation: 'portrait', unit: 'in', format: [PAGE_W, PAGE_H] });
+            canvases.forEach(function (canvas, i) {
+              if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
+              pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
+              drawLabelCropMarks(pdf);
+            });
+            pdf.save('blondie-dry-gin-label.pdf');
+          })
+          .catch(function (err) {
+            console.error('Label PDF generation failed:', err);
+            alert('Something went wrong generating the PDF. Please try again.');
+          })
+          .finally(function () { setLabelLoading(pdfBtn, false); });
+      });
+
+      pngBtn.addEventListener('click', function () {
+        setLabelLoading(pngBtn, true);
+        var front = document.getElementById('label-preview');
+        var back  = document.getElementById('label-back-preview');
+        var pxW = TRIM_W * DPI;
+        var pxH = TRIM_H * DPI;
+
+        Promise.all([captureEl(front, pxW, pxH), captureEl(back, pxW, pxH)])
+          .then(function (canvases) {
+            downloadUrl(canvases[0].toDataURL('image/png'), 'blondie-dry-gin-label-front.png');
+            setTimeout(function () {
+              downloadUrl(canvases[1].toDataURL('image/png'), 'blondie-dry-gin-label-back.png');
+            }, 300);
+          })
+          .catch(function (err) {
+            console.error('Label PNG generation failed:', err);
+            alert('Something went wrong generating the PNG. Please try again.');
+          })
+          .finally(function () { setLabelLoading(pngBtn, false); });
+      });
+    })();
