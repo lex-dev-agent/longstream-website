@@ -61,8 +61,50 @@ mixin ginBackLabelContent
     p.label-back-description
       | Small-batch dry gin from the Mangaroa Valley.
       | Initially crisp and piney, quickly followed by warm eucalyptus, finished with a refreshing citrus note.
-      | Copper distilled using pure Te Awa Kairangi aquifer water. 
+      | Copper distilled using pure Te Awa Kairangi water. 
       | Best served with a simple tonic.
+    .label-gold-rule
+    .label-back-details
+      .label-back-detail-row
+        span.label-back-detail-value Longstream Distillery Ltd
+      .label-back-detail-row
+        span.label-back-detail-value Mangaroa Valley, Upper Hutt 5018
+      .label-back-detail-row
+        span.label-back-detail-value longstream.nz
+    .label-back-footer
+      p.label-back-warning Please drink responsibly.<br>Not for sale to persons under 18.
+      .label-back-barcode
+
+mixin limoncelloLabelContent
+  .gin-label-inner
+    img.label-logo(src="/images/logo.png" alt="Longstream Distillery" width="48" height="48")
+    p.label-distillery LONGSTREAM DISTILLERY
+    .label-gold-rule
+    .label-name-block
+      h2.label-brand LOUIE
+      p.label-type LIMONCELLO
+    .label-botanical-divider
+      span.label-botanical-icon ✦
+    p.label-origin Mangaroa · Upper Hutt<br>New Zealand
+    p.label-tasting Lemon Zest · Gently Sweet · Velvet Finish
+    .label-gold-rule
+    .label-footer-specs
+      span 500 ml
+      span.label-dot ·
+      span 30% ABV
+
+mixin limoncelloBackLabelContent
+  .gin-label-back-inner
+    .label-back-header
+      img.label-logo(src="/images/logo.png" alt="Longstream Distillery" width="32" height="32")
+      p.label-back-distillery LONGSTREAM DISTILLERY
+    .label-gold-rule
+    p.label-back-description
+      | A simple limoncello crafted from hand-peeled lemon
+      | zest steeped in our own grain spirit, then blended
+      | with pure cane syrup. Light, refreshing, and
+      | unmistakably summery. Best served ice-cold straight
+      | from the freezer.
     .label-gold-rule
     .label-back-details
       .label-back-detail-row
@@ -230,7 +272,7 @@ block content
 
   section.label-page
     div.container
-      h2.label-page-title Blondie Dry Gin — Label Design
+      h2.label-page-title Blonde Dry Gin — Label Design
       p.label-page-subtitle Proposed front and back labels for the 700 ml bottle.
 
       .label-showcase
@@ -341,7 +383,7 @@ block content
               pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
               drawLabelCropMarks(pdf);
             });
-            pdf.save('blondie-dry-gin-label.pdf');
+            pdf.save('blonde-dry-gin-label.pdf');
           })
           .catch(function (err) {
             console.error('Label PDF generation failed:', err);
@@ -359,9 +401,9 @@ block content
 
         Promise.all([captureEl(front, pxW, pxH), captureEl(back, pxW, pxH)])
           .then(function (canvases) {
-            downloadUrl(canvases[0].toDataURL('image/png'), 'blondie-dry-gin-label-front.png');
+            downloadUrl(canvases[0].toDataURL('image/png'), 'blonde-dry-gin-label-front.png');
             setTimeout(function () {
-              downloadUrl(canvases[1].toDataURL('image/png'), 'blondie-dry-gin-label-back.png');
+              downloadUrl(canvases[1].toDataURL('image/png'), 'blonde-dry-gin-label-back.png');
             }, 300);
           })
           .catch(function (err) {
@@ -369,5 +411,149 @@ block content
             alert('Something went wrong generating the PNG. Please try again.');
           })
           .finally(function () { setLabelLoading(pngBtn, false); });
+      });
+    })();
+
+  section.label-page.limoncello-page
+    div.container
+      h2.label-page-title Louie Limoncello — Label Design
+      p.label-page-subtitle Proposed front and back labels for the 500 ml bottle.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.limoncello#lc-label-preview
+            +limoncelloLabelContent
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back.limoncello#lc-label-back-preview
+            +limoncelloBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary.lc-btn-primary#lc-label-download-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png.lc-btn-png#lc-label-download-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.limoncello.gin-label--print#lc-label-print
+      +limoncelloLabelContent
+    .gin-label.gin-label-back.limoncello.gin-label--print#lc-label-back-print
+      +limoncelloBackLabelContent
+
+  script.
+    (function () {
+      var TRIM_W = 3.5;
+      var TRIM_H = 4.875;
+      var BLEED  = 0.125;
+      var PAGE_W = TRIM_W + BLEED * 2;
+      var PAGE_H = TRIM_H + BLEED * 2;
+      var DPI    = 300;
+
+      var MARK_LEN = 0.08;
+      var MARK_GAP = 0.02;
+
+      var pdfBtn = document.getElementById('lc-label-download-pdf');
+      var pngBtn = document.getElementById('lc-label-download-png');
+
+      function captureLc(el, targetPxW, targetPxH) {
+        var rect = el.getBoundingClientRect();
+        var scale = Math.max(targetPxW / rect.width, targetPxH / rect.height);
+        return html2canvas(el, {
+          scale: scale,
+          useCORS: true,
+          backgroundColor: null,
+          width: rect.width,
+          height: rect.height,
+          windowWidth: document.documentElement.scrollWidth
+        });
+      }
+
+      function drawLcCropMarks(pdf) {
+        pdf.setDrawColor(0);
+        pdf.setLineWidth(0.003);
+        var left   = BLEED;
+        var top    = BLEED;
+        var right  = BLEED + TRIM_W;
+        var bottom = BLEED + TRIM_H;
+        var corners = [
+          { x: left,  y: top,    dx: -1, dy: -1 },
+          { x: right, y: top,    dx:  1, dy: -1 },
+          { x: left,  y: bottom, dx: -1, dy:  1 },
+          { x: right, y: bottom, dx:  1, dy:  1 }
+        ];
+        corners.forEach(function (c) {
+          pdf.line(c.x + c.dx * MARK_GAP, c.y, c.x + c.dx * (MARK_GAP + MARK_LEN), c.y);
+          pdf.line(c.x, c.y + c.dy * MARK_GAP, c.x, c.y + c.dy * (MARK_GAP + MARK_LEN));
+        });
+      }
+
+      function setLcLoading(btn, loading) {
+        if (loading) {
+          btn.dataset.originalText = btn.textContent;
+          btn.textContent = 'Generating…';
+          btn.disabled = true;
+        } else {
+          btn.textContent = btn.dataset.originalText;
+          btn.disabled = false;
+        }
+      }
+
+      function downloadLcUrl(dataUrl, filename) {
+        var a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      pdfBtn.addEventListener('click', function () {
+        setLcLoading(pdfBtn, true);
+        var front = document.getElementById('lc-label-print');
+        var back  = document.getElementById('lc-label-back-print');
+        var pxW = PAGE_W * DPI;
+        var pxH = PAGE_H * DPI;
+
+        Promise.all([captureLc(front, pxW, pxH), captureLc(back, pxW, pxH)])
+          .then(function (canvases) {
+            var jsPDF = window.jspdf.jsPDF;
+            var pdf = new jsPDF({ orientation: 'portrait', unit: 'in', format: [PAGE_W, PAGE_H] });
+            canvases.forEach(function (canvas, i) {
+              if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
+              pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
+              drawLcCropMarks(pdf);
+            });
+            pdf.save('louie-limoncello-label.pdf');
+          })
+          .catch(function (err) {
+            console.error('Limoncello label PDF generation failed:', err);
+            alert('Something went wrong generating the PDF. Please try again.');
+          })
+          .finally(function () { setLcLoading(pdfBtn, false); });
+      });
+
+      pngBtn.addEventListener('click', function () {
+        setLcLoading(pngBtn, true);
+        var front = document.getElementById('lc-label-preview');
+        var back  = document.getElementById('lc-label-back-preview');
+        var pxW = TRIM_W * DPI;
+        var pxH = TRIM_H * DPI;
+
+        Promise.all([captureLc(front, pxW, pxH), captureLc(back, pxW, pxH)])
+          .then(function (canvases) {
+            downloadLcUrl(canvases[0].toDataURL('image/png'), 'louie-limoncello-label-front.png');
+            setTimeout(function () {
+              downloadLcUrl(canvases[1].toDataURL('image/png'), 'louie-limoncello-label-back.png');
+            }, 300);
+          })
+          .catch(function (err) {
+            console.error('Limoncello label PNG generation failed:', err);
+            alert('Something went wrong generating the PNG. Please try again.');
+          })
+          .finally(function () { setLcLoading(pngBtn, false); });
       });
     })();

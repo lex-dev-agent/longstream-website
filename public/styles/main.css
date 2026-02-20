@@ -1509,6 +1509,90 @@ a.bc-detail-value:hover {
   top: 0;
 }
 
+/* ── Louie Limoncello Label ── */
+
+.limoncello-page {
+  background: var(--color-background);
+  box-shadow: none;
+}
+
+.gin-label.limoncello {
+  background: #fdf6e3;
+  border-color: #b8860b;
+}
+
+.gin-label.limoncello::after {
+  border-color: rgba(184, 134, 11, 0.35);
+}
+
+.gin-label.limoncello .label-distillery {
+  color: #5c4a1e;
+}
+
+.gin-label.limoncello .label-brand {
+  color: #8b6914;
+}
+
+.gin-label.limoncello .label-type {
+  color: #5c4a1e;
+}
+
+.gin-label.limoncello .label-gold-rule {
+  background: linear-gradient(90deg, transparent, #d4a017 20%, #d4a017 80%, transparent);
+}
+
+.gin-label.limoncello .label-botanical-divider::before,
+.gin-label.limoncello .label-botanical-divider::after {
+  background: #d4a017;
+}
+
+.gin-label.limoncello .label-botanical-icon {
+  color: #d4a017;
+}
+
+.gin-label.limoncello .label-footer-specs {
+  color: #8b6914;
+}
+
+.gin-label.limoncello .label-dot {
+  color: #d4a017;
+}
+
+.gin-label.limoncello .label-back-distillery {
+  color: #5c4a1e;
+}
+
+.gin-label.limoncello .label-back-description {
+  color: #4a3f2f;
+}
+
+.gin-label.limoncello.gin-label--print {
+  border-color: transparent;
+}
+
+.gin-label.limoncello.gin-label--print::before {
+  border-color: #b8860b;
+}
+
+.lc-btn-primary {
+  background: #9e7a16;
+}
+
+.lc-btn-primary:hover,
+.lc-btn-primary:focus {
+  box-shadow: 0 8px 8px rgba(158, 122, 22, 0.3);
+}
+
+.lc-btn-png {
+  border-color: #9e7a16;
+  color: #9e7a16;
+}
+
+.lc-btn-png:hover,
+.lc-btn-png:focus {
+  background: rgba(158, 122, 22, 0.08);
+}
+
 @media (max-width: 420px) {
   .bc-front-body {
     padding: 1.25rem 1.5rem;

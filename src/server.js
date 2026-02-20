@@ -11,8 +11,8 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 const bottleCatalogue = [
   {
-    id: 'blondie-dry-gin',
-    name: 'Blondie Dry Gin',
+    id: 'blonde-dry-gin',
+    name: 'Blonde Dry Gin',
     description:
       'A classic dry gin with a juniper base and our secret blend of local botanicals.',
     volume: '700ml',
