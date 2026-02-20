@@ -117,6 +117,48 @@ mixin limoncelloBackLabelContent
       p.label-back-warning Please drink responsibly.<br>Not for sale to persons under 18.
       .label-back-barcode
 
+mixin vodkaLabelContent
+  .gin-label-inner
+    img.label-logo(src="/images/logo.png" alt="Longstream Distillery" width="48" height="48")
+    p.label-distillery LONGSTREAM DISTILLERY
+    .label-gold-rule
+    .label-name-block
+      h2.label-brand SEEKING
+      p.label-type VODKA
+    .label-botanical-divider
+      span.label-botanical-icon ○
+    p.label-origin Mangaroa · Upper Hutt<br>New Zealand
+    p.label-tasting Clean Grain · Silky Texture · Pure Finish
+    .label-gold-rule
+    .label-footer-specs
+      span 700 ml
+      span.label-dot ·
+      span 40% ABV
+
+mixin vodkaBackLabelContent
+  .gin-label-back-inner
+    .label-back-header
+      img.label-logo(src="/images/logo.png" alt="Longstream Distillery" width="32" height="32")
+      p.label-back-distillery LONGSTREAM DISTILLERY
+    .label-gold-rule
+    p.label-back-description
+      | A smooth vodka distilled with our signature process.
+      | Pure Te Awa Kairangi water meets premium grain
+      | for a clean, neutral base. Unadorned and unhurried.
+      | Best enjoyed chilled, neat or as a pristine
+      | cocktail foundation.
+    .label-gold-rule
+    .label-back-details
+      .label-back-detail-row
+        span.label-back-detail-value Longstream Distillery Ltd
+      .label-back-detail-row
+        span.label-back-detail-value Mangaroa Valley, Upper Hutt 5018
+      .label-back-detail-row
+        span.label-back-detail-value longstream.nz
+    .label-back-footer
+      p.label-back-warning Please drink responsibly.<br>Not for sale to persons under 18.
+      .label-back-barcode
+
 block content
   section.design-hero
     .container
@@ -555,5 +597,149 @@ block content
             alert('Something went wrong generating the PNG. Please try again.');
           })
           .finally(function () { setLcLoading(pngBtn, false); });
+      });
+    })();
+
+  section.label-page.vodka-page
+    div.container
+      h2.label-page-title Seeking Vodka — Label Design
+      p.label-page-subtitle Proposed front and back labels for the 700 ml bottle.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.vodka#vk-label-preview
+            +vodkaLabelContent
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back.vodka#vk-label-back-preview
+            +vodkaBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary.vk-btn-primary#vk-label-download-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png.vk-btn-png#vk-label-download-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.vodka.gin-label--print#vk-label-print
+      +vodkaLabelContent
+    .gin-label.gin-label-back.vodka.gin-label--print#vk-label-back-print
+      +vodkaBackLabelContent
+
+  script.
+    (function () {
+      var TRIM_W = 3.5;
+      var TRIM_H = 4.875;
+      var BLEED  = 0.125;
+      var PAGE_W = TRIM_W + BLEED * 2;
+      var PAGE_H = TRIM_H + BLEED * 2;
+      var DPI    = 300;
+
+      var MARK_LEN = 0.08;
+      var MARK_GAP = 0.02;
+
+      var pdfBtn = document.getElementById('vk-label-download-pdf');
+      var pngBtn = document.getElementById('vk-label-download-png');
+
+      function captureVk(el, targetPxW, targetPxH) {
+        var rect = el.getBoundingClientRect();
+        var scale = Math.max(targetPxW / rect.width, targetPxH / rect.height);
+        return html2canvas(el, {
+          scale: scale,
+          useCORS: true,
+          backgroundColor: null,
+          width: rect.width,
+          height: rect.height,
+          windowWidth: document.documentElement.scrollWidth
+        });
+      }
+
+      function drawVkCropMarks(pdf) {
+        pdf.setDrawColor(0);
+        pdf.setLineWidth(0.003);
+        var left   = BLEED;
+        var top    = BLEED;
+        var right  = BLEED + TRIM_W;
+        var bottom = BLEED + TRIM_H;
+        var corners = [
+          { x: left,  y: top,    dx: -1, dy: -1 },
+          { x: right, y: top,    dx:  1, dy: -1 },
+          { x: left,  y: bottom, dx: -1, dy:  1 },
+          { x: right, y: bottom, dx:  1, dy:  1 }
+        ];
+        corners.forEach(function (c) {
+          pdf.line(c.x + c.dx * MARK_GAP, c.y, c.x + c.dx * (MARK_GAP + MARK_LEN), c.y);
+          pdf.line(c.x, c.y + c.dy * MARK_GAP, c.x, c.y + c.dy * (MARK_GAP + MARK_LEN));
+        });
+      }
+
+      function setVkLoading(btn, loading) {
+        if (loading) {
+          btn.dataset.originalText = btn.textContent;
+          btn.textContent = 'Generating…';
+          btn.disabled = true;
+        } else {
+          btn.textContent = btn.dataset.originalText;
+          btn.disabled = false;
+        }
+      }
+
+      function downloadVkUrl(dataUrl, filename) {
+        var a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      pdfBtn.addEventListener('click', function () {
+        setVkLoading(pdfBtn, true);
+        var front = document.getElementById('vk-label-print');
+        var back  = document.getElementById('vk-label-back-print');
+        var pxW = PAGE_W * DPI;
+        var pxH = PAGE_H * DPI;
+
+        Promise.all([captureVk(front, pxW, pxH), captureVk(back, pxW, pxH)])
+          .then(function (canvases) {
+            var jsPDF = window.jspdf.jsPDF;
+            var pdf = new jsPDF({ orientation: 'portrait', unit: 'in', format: [PAGE_W, PAGE_H] });
+            canvases.forEach(function (canvas, i) {
+              if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
+              pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
+              drawVkCropMarks(pdf);
+            });
+            pdf.save('seeking-vodka-label.pdf');
+          })
+          .catch(function (err) {
+            console.error('Vodka label PDF generation failed:', err);
+            alert('Something went wrong generating the PDF. Please try again.');
+          })
+          .finally(function () { setVkLoading(pdfBtn, false); });
+      });
+
+      pngBtn.addEventListener('click', function () {
+        setVkLoading(pngBtn, true);
+        var front = document.getElementById('vk-label-preview');
+        var back  = document.getElementById('vk-label-back-preview');
+        var pxW = TRIM_W * DPI;
+        var pxH = TRIM_H * DPI;
+
+        Promise.all([captureVk(front, pxW, pxH), captureVk(back, pxW, pxH)])
+          .then(function (canvases) {
+            downloadVkUrl(canvases[0].toDataURL('image/png'), 'seeking-vodka-label-front.png');
+            setTimeout(function () {
+              downloadVkUrl(canvases[1].toDataURL('image/png'), 'seeking-vodka-label-back.png');
+            }, 300);
+          })
+          .catch(function (err) {
+            console.error('Vodka label PNG generation failed:', err);
+            alert('Something went wrong generating the PNG. Please try again.');
+          })
+          .finally(function () { setVkLoading(pngBtn, false); });
       });
     })();
