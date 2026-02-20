@@ -1350,6 +1350,7 @@ a.bc-detail-value:hover {
   align-items: center;
   text-align: center;
   padding: 1.25rem 1.1rem;
+  padding-bottom: 0.5rem;
   gap: 0;
 }
 
@@ -1416,8 +1417,21 @@ a.bc-detail-value:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 100%;
+}
+
+.label-back-footer-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.label-pregnancy-warning {
+  max-width: 100px;
+  height: auto;
+  display: block;
 }
 
 .label-back-warning {
@@ -1430,13 +1444,13 @@ a.bc-detail-value:hover {
 }
 
 .label-back-barcode {
-  width: 96px;
-  height: 56px;
-  border: 1px dashed var(--color-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
+  max-width: 90px;
+  height: auto;
+  display: block;
+  padding: 4px;
+  padding-bottom: 0px;
+  background: #fff;
+  border-radius: 2px;
 }
 
 .label-barcode-lines {
