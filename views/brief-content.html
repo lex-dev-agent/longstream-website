@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Longstream Distillery — Business Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1e1e1e;
+    --body: #3a3a3a;
+    --muted: #6e6e6e;
+    --bg: #fdfdfc;
+    --border: #e0ddd8;
+    --accent: #8b5e34;
+    --accent-bg: rgba(139, 94, 52, 0.07);
+    --code-bg: #f4f1ec;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--body);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 56px 28px 80px;
+  }
+
+  h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 44px;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 28px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 14px;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  strong { color: var(--ink); }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  ul {
+    margin: 8px 0 16px 24px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  blockquote {
+    background: var(--accent-bg);
+    border-left: 3px solid var(--accent);
+    padding: 12px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 15px;
+  }
+
+  th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 520px) {
+    .page { padding: 32px 16px 48px; }
+    h1 { font-size: 26px; }
+    table { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Longstream Distillery — Business Overview</h1>
+
+  <p>We're starting a craft spirit distilling business with a focus on gin. We've been making gin in our garage (30A breaker) and are now exploring bringing it to market. We've settled on the name <strong>Longstream Distillery</strong> and have a placeholder website up at <a href="https://longstream.nz">longstream.nz</a>. The placeholder website repo is at <code>~/.openclaw/workspace/repos/</code>.</p>
+
+
+  <h2>Current Yield per Run</h2>
+
+  <table>
+    <thead>
+      <tr><th>Stage</th><th>Output</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Wash</td><td>24L</td><td>Granular sugar + yeast, fermented in a bucket</td></tr>
+      <tr><td>Vodka distillation</td><td>~16L @ 80% ABV</td><td>Carbon filtered; heads/tails recycled into next run</td></tr>
+      <tr><td>Gin distillation</td><td>~8L @ 41% ABV</td><td>London Dry style, diluted with spring water</td></tr>
+      <tr><td>Bottled</td><td>~10 × 750ml</td><td>Currently using recycled bottles</td></tr>
+    </tbody>
+  </table>
+
+  <p>Additional reference numbers: a 90% stripping run yields roughly 3.5L; 1 wash at 8L 40% ABV through a 16kg wash in a 60L still produces around 30 bottles.</p>
+
+
+  <h2>Distilling Process</h2>
+
+  <h3>1. Fermentation — 7 days</h3>
+  <p>A 24L sugar wash is prepared using granular sugar and a pack of yeast, then left to ferment in a bucket.</p>
+
+  <h3>2. Vodka Run — ~4 hours</h3>
+  <p>The wash is distilled in our 30L still to produce pure vodka:</p>
+  <ul>
+    <li>Remove foreshots and a small amount of heads by estimated volume (manually watched).</li>
+    <li>Collect some heads into a small reservoir (manually watched).</li>
+    <li>Fill a larger reservoir with the remaining heads, all hearts, and some tails — this is our vodka.</li>
+    <li>Collect the final dregs of the tails into the same small reservoir as the heads (manually watched).</li>
+    <li>The small reservoir of heads and tails is recycled back into the still on the next vodka run.</li>
+    <li>Run the vodka through a long carbon filter to purify it.</li>
+  </ul>
+  <p>Output: ~16L at 80% ABV.</p>
+
+  <h3>3. Gin Run — ~4 hours</h3>
+  <p>The vodka is redistilled in our 30L still with a different head, passing through a basket of botanicals to produce a London Dry Gin.</p>
+
+  <h3>4. Dilution &amp; Bottling — ~1 hour</h3>
+  <p>The gin is diluted by hand with spring water, measured to 41% ABV using a handheld refractometer, then bottled into recycled bottles.</p>
+
+  <blockquote>
+    <strong>Total per batch:</strong> ~7 days fermentation + ~9 hours active work → ~10 bottles of gin.
+  </blockquote>
+
+
+  <h2>Products</h2>
+
+  <h3>Core Range</h3>
+  <ul>
+    <li><strong>London Dry Gin</strong> — Our flagship. Botanical-forward, distilled from our own base spirit and diluted with spring water.</li>
+    <li><strong>Pure Vodka</strong> — Carbon-filtered for exceptional purity. The vodka is very pure and stands on its own.</li>
+    <li><strong>Limoncello</strong> — Made from our high-purity vodka base. Already a hit with friends and family.</li>
+  </ul>
+
+  <h3>Small Batch Specials</h3>
+  <p>We like to experiment with limited runs of fun ideas like <strong>Manuka &amp; Chilli Gin</strong>. These small batches are great for keeping people interested and engaged.</p>
+
+
+  <h2>Scaling Up</h2>
+
+  <p>Currently the process is very manual (e.g. physically lifting a bucket to pour the wash into the still). We're automation engineers with plenty of experience in sensors, motors, pumps, PLCs, Arduinos, web dashboards, etc. Our target is <strong>100 bottles per week</strong>.</p>
+
+  <h3>Planned Upgrades</h3>
+  <ul>
+    <li><strong>Liquid sugar</strong> — Switch from granular to streamline wash preparation.</li>
+    <li><strong>2 × 60L stills</strong> — One dedicated to vodka, one to gin. The old 30L still moves to small-batch experiments.</li>
+    <li><strong>Bottle standardisation</strong> — Decide between 700ml and 750ml.</li>
+    <li><strong>Digital sensors</strong> — ABV sensors, temperature sensors, and depth sensors to replace manual monitoring.</li>
+    <li><strong>Automated flow control</strong> — Pumps and solenoid diverter valves for an automated cut system, controlled via PLC/Arduino with a web dashboard.</li>
+  </ul>
+
+</div>
+</body>
+</html>

@@ -9,6 +9,37 @@ app.set('views', path.join(__dirname, '..', 'views'));
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+
+const PRIVATE_PASSWORD = 'spaties23';
+
+function requirePassword(route) {
+  return (req, res, next) => {
+    if (req.cookies.design_auth === PRIVATE_PASSWORD) return next();
+    const error = req.query.error ? 'Incorrect password' : null;
+    res.send(`<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Password Required</title>
+<style>body{font-family:system-ui;background:#111;color:#eee;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+form{text-align:center}input{padding:10px 14px;border-radius:6px;border:1px solid #444;background:#222;color:#eee;font-size:16px;margin-bottom:10px;display:block;width:240px}
+button{padding:10px 24px;border-radius:6px;border:none;background:#5e6ad2;color:#fff;font-size:16px;cursor:pointer}
+.err{color:#e55;font-size:14px;margin-bottom:10px}</style></head>
+<body><form method="POST" action="${route}">${error ? '<p class="err">' + error + '</p>' : ''}
+<input type="password" name="password" placeholder="Password" autofocus>
+<button type="submit">Enter</button></form></body></html>`);
+  };
+}
+
+function handlePasswordPost(route) {
+  return (req, res) => {
+    if (req.body.password === PRIVATE_PASSWORD) {
+      res.cookie('design_auth', PRIVATE_PASSWORD, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+      return res.redirect(route);
+    }
+    res.redirect(route + '?error=1');
+  };
+}
+
 const bottleCatalogue = [
   {
     id: 'blonde-dry-gin',
@@ -79,9 +110,15 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/design', (req, res) => {
+app.get('/design', requirePassword('/design'), (req, res) => {
   res.render('design');
 });
+app.post('/design', handlePasswordPost('/design'));
+
+app.get('/brief', requirePassword('/brief'), (req, res) => {
+  res.sendFile('brief-content.html', { root: path.join(__dirname, '..', 'views') });
+});
+app.post('/brief', handlePasswordPost('/brief'));
 
 app.get('/order', (req, res) => {
   res.render('order', {

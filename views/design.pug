@@ -1,10 +1,4 @@
-extends layout
-
-block nav
-  a.site-nav-link(href="/") Home
-  a.site-nav-link(href="/#range") Range
-  a.site-nav-link(href="/#contact") Contact
-  a.button.button-primary(href="/order") Order Online
+extends layout-bare
 
 block fab
 
@@ -169,6 +163,10 @@ mixin vodkaBackLabelContent
         img.label-pregnancy-warning(src="/images/pregnancy-warning.png" alt="Pregnancy Warning: Alcohol can cause lifelong harm to your baby")
 
 block content
+  style.
+    .vodka .label-brand {
+      margin-left: 10px;
+    }
   section.design-hero
     .container
       h1 Brand &amp; Print Design
