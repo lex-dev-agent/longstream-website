@@ -25,7 +25,7 @@ html(lang="en")
       //- HERO (spotlit bottle)
       section.v3-hero
         .v3-hero-glow
-        img.v3-hero-bottle(src="/images/v3-bottle.png", onerror="this.src='/images/bottle.png'", alt="Longstream bottle")
+        img.v3-hero-bottle(src="/images/v3-bottle.webp", onerror="this.src='/images/bottle.webp'", alt="Longstream bottle")
         .wrap
           p.v3-hero-eyebrow Mangaroa Valley · Est. small batch
           h1 Spirits born of #[span.gold patience]
@@ -38,7 +38,7 @@ html(lang="en")
       section.v3-story#story
         .wrap
           .v3-story-figure
-            img(src="/images/v3-still.png", onerror="this.src='/images/destill.jpg'", alt="The copper still")
+            img(src="/images/v3-still.webp", onerror="this.src='/images/destill.webp'", alt="The copper still")
           div
             .v3-rule
             p.v3-kicker The Longstream story
@@ -60,7 +60,7 @@ html(lang="en")
               article.v3-card(class={"v3-card-out": !bottle.available})
                 if !bottle.available
                   span.v3-badge Resting
-                img(src=bottle.image || "/images/bottle.png", alt=`${bottle.name} bottle`)
+                img(src=bottle.image || "/images/bottle.webp", alt=`${bottle.name} bottle`)
                 h3= bottle.name
                 p= bottle.description
                 p.v3-card-meta #{bottle.volume} · #{bottle.abv}#{bottle.available ? ' · NZ$' + bottle.price : ' · Sold out'}

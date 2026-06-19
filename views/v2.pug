@@ -24,7 +24,7 @@ html(lang="en")
     main
       //- HERO (full-bleed photo)
       section.v2-hero
-        .v2-hero-bg(style="background-image:url('/images/v2-hero.png'), url('/images/destill.jpg')")
+        .v2-hero-bg(style="background-image:url('/images/v2-hero.webp'), url('/images/destill.webp')")
         .wrap
           p.v2-hero-eyebrow Distilled in the Mangaroa Valley
           h1 Quietly crafted, in tiny batches
@@ -43,7 +43,7 @@ html(lang="en")
       section.v2-story#story
         .wrap
           .v2-story-figure
-            img(src="/images/v2-story.png", onerror="this.src='/images/house.jpg'", alt="The distillery")
+            img(src="/images/v2-story.webp", onerror="this.src='/images/house.webp'", alt="The distillery")
           div
             p.v2-kicker The Longstream story
             h2 From a kitchen bench to the cellar door
@@ -74,7 +74,7 @@ html(lang="en")
                 .v2-card-top
                   if !bottle.available
                     span.v2-tag Resting
-                  img(src=bottle.image || "/images/bottle.png", alt=`${bottle.name} bottle`)
+                  img(src=bottle.image || "/images/bottle.webp", alt=`${bottle.name} bottle`)
                 .v2-card-body
                   h3= bottle.name
                   p= bottle.description

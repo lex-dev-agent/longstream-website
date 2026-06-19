@@ -317,7 +317,7 @@ main {
 
 .order-hero {
   background: linear-gradient(135deg, rgba(20, 87, 74, 0.9), rgba(26, 114, 96, 0.7)),
-    url('../images/destill.jpg') center/cover;
+    url('../images/destill.webp') center/cover;
   color: #fff;
   padding: 6rem 0 4.5rem;
   text-align: left;
@@ -825,7 +825,7 @@ main {
 
 .design-hero {
   background: linear-gradient(135deg, rgba(20, 87, 74, 0.88), rgba(26, 114, 96, 0.72)),
-    url('../images/destill.jpg') center/cover;
+    url('../images/destill.webp') center/cover;
   color: #fff;
   padding: 6rem 0 5rem;
   text-align: center;
@@ -1719,6 +1719,36 @@ a.bc-detail-value:hover {
     right: 1.5rem;
     bottom: 1rem;
   }
+}
+
+/* ── Compare switcher (preview pages only) ── */
+.vswitch {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  background: rgba(20, 20, 20, 0.9);
+  backdrop-filter: blur(6px);
+  padding: 0.4rem 0.5rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+.vswitch a {
+  text-decoration: none;
+  color: #ddd;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.vswitch a.active {
+  background: #fff;
+  color: #111;
 }
 
 /* Floating ORDER button: hidden by default (desktop) */

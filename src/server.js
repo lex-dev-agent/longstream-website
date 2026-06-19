@@ -53,7 +53,7 @@ const bottleCatalogue = [
     abv: '42%',
     price: 79,
     available: true,
-    image: '/images/bottle-gin.png',
+    image: '/images/bottle-gin.webp',
     tastingNotes: 'Bright citrus, kawakawa spice and a silky finish.'
   },
   {
@@ -65,7 +65,7 @@ const bottleCatalogue = [
     abv: '30%',
     price: 45,
     available: true,
-    image: '/images/bottle-limoncello.png',
+    image: '/images/bottle-limoncello.webp',
     tastingNotes: 'Fresh lemon zest and a gentle, velvety mouthfeel.'
   },
   {
@@ -77,7 +77,7 @@ const bottleCatalogue = [
     abv: '40%',
     price: 65,
     available: false,
-    image: '/images/bottle-vodka.png',
+    image: '/images/bottle-vodka.webp',
     soldOutMessage: 'The next Seeking Vodka run is resting now. Leave your email to hear when it returns.'
   }
 ];
@@ -123,6 +123,10 @@ app.post('/design', handlePasswordPost('/design'));
 
 // Homepage design variations (for review / "lock in the style")
 app.get('/variations', (req, res) => res.render('variations'));
+// V0 = the original/live homepage, shown with the compare switcher
+app.get('/v0', (req, res) => {
+  res.render('index', { bottles: bottleCatalogue, showSwitch: true, current: 'v0' });
+});
 ['v1', 'v2', 'v3'].forEach((variant) => {
   app.get('/' + variant, (req, res) => {
     res.render(variant, { bottles: bottleCatalogue, current: variant });

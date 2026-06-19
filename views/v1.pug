@@ -33,7 +33,7 @@ html(lang="en")
               a.v1-btn(href="#range") Explore the range
               a.v1-link-ghost(href="#story") Our story →
           figure.v1-hero-figure
-            img(src="/images/v1-hero.png", onerror="this.src='/images/house.jpg'", alt="Longstream distillery in the Mangaroa Valley")
+            img(src="/images/v1-hero.webp", onerror="this.src='/images/house.webp'", alt="Longstream distillery in the Mangaroa Valley")
             .v1-hero-stamp Est.#[br]Mangaroa#[br]Valley
 
       //- STORY
@@ -66,7 +66,7 @@ html(lang="en")
               article.v1-card(class={"v1-card--out": !bottle.available})
                 if !bottle.available
                   span.v1-badge Resting
-                img(src=bottle.image || "/images/bottle.png", alt=`${bottle.name} bottle`)
+                img(src=bottle.image || "/images/bottle.webp", alt=`${bottle.name} bottle`)
                 h3= bottle.name
                 p= bottle.description
                 p.v1-card-meta #{bottle.volume} · #{bottle.abv} ABV#{bottle.available ? ' · NZ$' + bottle.price : ''}
