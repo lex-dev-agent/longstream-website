@@ -71,6 +71,36 @@ html(lang="en")
                 p= bottle.description
                 p.v1-card-meta #{bottle.volume} · #{bottle.abv} ABV#{bottle.available ? ' · NZ$' + bottle.price : ''}
 
+      //- EXPERIMENTAL BATCHES
+      section.v1-experimental#experimental
+        .wrap
+          .v1-section-head
+            p.v1-kicker Strictly limited
+            h2 Experimental batches
+            p.v1-exp-intro One-off distillations from the back of the shed. When they're gone, they're gone — club members get first pour.
+          .v1-exp-grid
+            each batch in experimentalBatches
+              article.v1-exp-card
+                .v1-exp-top
+                  h3= batch.name
+                  span.v1-exp-pill #{batch.left}/#{batch.total} left
+                p.v1-exp-blurb= batch.blurb
+                .v1-exp-bar
+                  span(style=`width:${Math.round(batch.left / batch.total * 100)}%`)
+                p.v1-exp-meta #{batch.volume} · #{batch.abv} ABV · NZ$#{batch.price}
+
+      //- CLUB
+      section.v1-club#club
+        .wrap
+          .v1-club-card
+            div
+              p.v1-kicker Members only
+              h2 Join the Longstream Club
+              p Be first to taste experimental batches, unlock members-only releases and earn invitations to cellar-door tastings.
+            form.v1-club-form(action="#" method="post")
+              input(type="email" name="email" placeholder="you@example.com" required aria-label="Email address")
+              button.v1-btn(type="submit") Join the club
+
       //- CONTACT
       section.v1-contact#contact
         .wrap

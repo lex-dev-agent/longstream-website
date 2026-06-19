@@ -82,6 +82,39 @@ const bottleCatalogue = [
   }
 ];
 
+const experimentalBatches = [
+  {
+    id: 'manuka-smoked-gin',
+    name: 'Mānuka Smoked Gin',
+    blurb: 'Juniper kissed with mānuka smoke and a whisper of sea salt. Dark, savoury, unforgettable.',
+    volume: '500ml',
+    abv: '45%',
+    price: 95,
+    total: 100,
+    left: 56
+  },
+  {
+    id: 'feijoa-spring',
+    name: 'Feijoa Spring Gin',
+    blurb: 'A fleeting tribute to the autumn feijoa glut — bright, tropical and grassy green.',
+    volume: '500ml',
+    abv: '41%',
+    price: 89,
+    total: 80,
+    left: 23
+  },
+  {
+    id: 'barrel-aged-reserve',
+    name: 'Barrel-Aged Reserve',
+    blurb: 'Our Blonde Dry rested in charred oak for nine months. Spiced, golden, sippable neat.',
+    volume: '500ml',
+    abv: '48%',
+    price: 120,
+    total: 40,
+    left: 9
+  }
+];
+
 const shippingOptions = [
   {
     id: 'standard',
@@ -129,7 +162,11 @@ app.get('/v0', (req, res) => {
 });
 ['v1', 'v2', 'v3'].forEach((variant) => {
   app.get('/' + variant, (req, res) => {
-    res.render(variant, { bottles: bottleCatalogue, current: variant });
+    res.render(variant, {
+      bottles: bottleCatalogue,
+      experimentalBatches,
+      current: variant
+    });
   });
 });
 

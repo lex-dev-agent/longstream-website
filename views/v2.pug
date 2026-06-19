@@ -85,6 +85,38 @@ html(lang="en")
                     else
                       span Sold out
 
+      //- EXPERIMENTAL BATCHES
+      section.v2-experimental#experimental
+        .wrap
+          .v2-range-head
+            div
+              p.v2-kicker Strictly limited
+              h2 Experimental batches
+            p.lead One-off distillations from the back of the shed. When they're gone, they're gone.
+          .v2-exp-grid
+            each batch in experimentalBatches
+              article.v2-exp-card
+                .v2-exp-head
+                  h3= batch.name
+                  span.v2-exp-pill #{batch.left}/#{batch.total} left
+                p.v2-exp-blurb= batch.blurb
+                .v2-exp-bar
+                  span(style=`width:${Math.round(batch.left / batch.total * 100)}%`)
+                .v2-exp-meta
+                  span #{batch.volume} · #{batch.abv}
+                  span.v2-price NZ$#{batch.price}
+
+      //- CLUB
+      section.v2-club#club
+        .wrap
+          div
+            p.v2-kicker Members only
+            h2 Join the Longstream Club
+            p Be first to taste experimental batches, unlock members-only releases and get invitations to cellar-door tastings.
+          form.v2-club-form(action="#" method="post")
+            input(type="email" name="email" placeholder="you@example.com" required aria-label="Email address")
+            button(type="submit") Join the club
+
       //- CONTACT
       section.v2-contact#contact
         .wrap
