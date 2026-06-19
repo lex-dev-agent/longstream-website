@@ -263,9 +263,13 @@ a { color: inherit; }
 
 @media (max-width: 600px) {
   .v2-strip {
-    gap: 0.5rem 1.1rem;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    justify-content: center;
+    gap: 1.1rem;
     font-size: 0.66rem;
     letter-spacing: 0.12em;
     padding: 0.85rem 1rem;
   }
+  .v2-strip span { flex: 0 0 auto; }
 }

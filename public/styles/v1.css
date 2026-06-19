@@ -429,6 +429,7 @@ a { color: inherit; }
   .v1-story-grid,
   .v1-contact-grid,
   .v1-club-card { grid-template-columns: 1fr; }
+  .v1-hero { padding-top: 3rem; }
   .v1-hero-figure { order: -1; max-width: 420px; margin: 0 auto; }
   .v1-club-card { padding: 2.25rem; }
   .v1-nav a:not(.v1-btn) { display: none; }

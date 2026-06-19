@@ -145,4 +145,35 @@ html(lang="en")
             button(type="submit") Join
         .v2-foot-copy © #{new Date().getFullYear()} Longstream Distillery. All rights reserved.
 
+    script.
+      (function () {
+        var strip = document.querySelector('.v2-strip');
+        if (!strip) return;
+        var items = Array.prototype.slice.call(strip.querySelectorAll('span'));
+        var mq = window.matchMedia('(max-width: 600px)');
+
+        function update() {
+          items.forEach(function (el) { el.style.display = ''; });
+          if (!mq.matches) return; // only trim on the single-row mobile layout
+          var cs = getComputedStyle(strip);
+          var avail = strip.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+          var gap = parseFloat(cs.columnGap || cs.gap) || 0;
+          var used = 0;
+          var hiding = false;
+          items.forEach(function (el) {
+            var need = used + (used > 0 ? gap : 0) + el.offsetWidth;
+            if (hiding || need > avail) {
+              el.style.display = 'none';
+              hiding = true;
+            } else {
+              used = need;
+            }
+          });
+        }
+
+        update();
+        window.addEventListener('resize', update);
+        if (mq.addEventListener) mq.addEventListener('change', update);
+      })();
+
     include _vswitch
