@@ -53,6 +53,7 @@ const bottleCatalogue = [
     abv: '42%',
     price: 79,
     available: true,
+    image: '/images/bottle-gin.png',
     tastingNotes: 'Bright citrus, kawakawa spice and a silky finish.'
   },
   {
@@ -64,6 +65,7 @@ const bottleCatalogue = [
     abv: '30%',
     price: 45,
     available: true,
+    image: '/images/bottle-limoncello.png',
     tastingNotes: 'Fresh lemon zest and a gentle, velvety mouthfeel.'
   },
   {
@@ -75,6 +77,7 @@ const bottleCatalogue = [
     abv: '40%',
     price: 65,
     available: false,
+    image: '/images/bottle-vodka.png',
     soldOutMessage: 'The next Seeking Vodka run is resting now. Leave your email to hear when it returns.'
   }
 ];
@@ -117,6 +120,14 @@ app.get('/design', requirePassword(), (req, res) => {
   res.render('design');
 });
 app.post('/design', handlePasswordPost('/design'));
+
+// Homepage design variations (for review / "lock in the style")
+app.get('/variations', (req, res) => res.render('variations'));
+['v1', 'v2', 'v3'].forEach((variant) => {
+  app.get('/' + variant, (req, res) => {
+    res.render(variant, { bottles: bottleCatalogue, current: variant });
+  });
+});
 
 // Load briefs from markdown files
 const BRIEFS_DIR = path.join(__dirname, '..', 'data', 'briefs');

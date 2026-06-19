@@ -29,7 +29,7 @@ block content
           article.card(class={"card--sold-out": !bottle.available})
             if !bottle.available
               span.badge.badge-sold-out Sold out
-            img.bottle-image(src="/images/bottle.png", alt=`${bottle.name} bottle`, width="120", height="200")
+            img.bottle-image(src=bottle.image || "/images/bottle.png", alt=`${bottle.name} bottle`, width="120", height="200")
             h3= bottle.name
             p= bottle.description
             p.card-meta #{bottle.volume} • #{bottle.abv} ABV • NZ$#{bottle.price}
