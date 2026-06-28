@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const express = require('express');
 const { marked } = require('marked');
+const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = process.env.PORT || 3322;
@@ -338,6 +340,33 @@ const v5Experimental = [
   }
 ];
 
+// --- Club signup storage (SQLite) ---
+// Stored outside the (root-owned) app dir so the app user can write to it.
+// Override the location with CLUB_DB_PATH if needed.
+const CLUB_DB_PATH =
+  process.env.CLUB_DB_PATH || path.join(os.homedir(), '.longstream', 'club-signups.db');
+fs.mkdirSync(path.dirname(CLUB_DB_PATH), { recursive: true });
+const clubDb = new Database(CLUB_DB_PATH);
+clubDb.pragma('journal_mode = WAL');
+clubDb.exec(`CREATE TABLE IF NOT EXISTS club_signups (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL UNIQUE,
+  variant TEXT,
+  ip TEXT,
+  user_agent TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);`);
+const insertSignup = clubDb.prepare(
+  'INSERT OR IGNORE INTO club_signups (email, variant, ip, user_agent) VALUES (?, ?, ?, ?)'
+);
+function saveSignup(email, variant, req) {
+  try {
+    insertSignup.run(email.toLowerCase(), variant, req.ip, req.get('user-agent') || null);
+  } catch (err) {
+    console.error('Failed to save club signup:', err.message);
+  }
+}
+
 const shippingOptions = [
   {
     id: 'standard',
@@ -366,9 +395,14 @@ const paymentSecurity = {
   acceptedCards: ['Visa', 'Mastercard', 'American Express', 'Apple Pay']
 };
 
+// Main homepage now serves the V5 design
 app.get('/', (req, res) => {
-  res.render('index', {
-    bottles: bottleCatalogue
+  res.render('v5', {
+    bottles: v5Bottles,
+    experimentalBatches: v5Experimental,
+    current: 'v5',
+    recaptchaSiteKey: RECAPTCHA_SITE_KEY,
+    clubStatus: req.query.club || null
   });
 });
 
@@ -410,7 +444,7 @@ app.post('/v4/club', async (req, res) => {
   const validEmail = /^\S+@\S+\.\S+$/.test(email);
   const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
   if (validEmail && human) {
-    // TODO: persist the email to a mailing list / CRM here.
+    saveSignup(email, 'v4', req);
     return res.redirect('/v4?club=ok#club');
   }
   return res.redirect('/v4?club=err#club');
@@ -432,7 +466,7 @@ app.post('/v5/club', async (req, res) => {
   const validEmail = /^\S+@\S+\.\S+$/.test(email);
   const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
   if (validEmail && human) {
-    // TODO: persist the email to a mailing list / CRM here.
+    saveSignup(email, 'v5', req);
     return res.redirect('/v5?club=ok#club');
   }
   return res.redirect('/v5?club=err#club');
