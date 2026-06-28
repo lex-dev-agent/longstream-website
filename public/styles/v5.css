@@ -361,4 +361,7 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
   .v5-detail-grid > * { grid-column: auto !important; }
   .v5-modal-grid { grid-template-columns: 1fr; }
   .v5-modal-dialog { padding: 3.25rem 1.5rem 2rem; }
+  /* on mobile the notice shows only the "Opening soon" tag */
+  .v5-notice-text { display: none; }
+  .v5-notice-tag { margin-right: 0; }
 }
