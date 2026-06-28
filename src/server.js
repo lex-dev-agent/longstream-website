@@ -2,7 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const express = require('express');
-const { marked } = require('marked');
+// marked is ESM-only; load it lazily via dynamic import (only used for /brief pages)
+let markedPromise = null;
+function getMarked() {
+  if (!markedPromise) markedPromise = import('marked').then((m) => m.marked);
+  return markedPromise;
+}
 const Database = require('better-sqlite3');
 
 const app = express();
@@ -483,7 +488,8 @@ const BRIEF_ORDER = [
   'conclusion.md',
 ];
 
-function loadBriefs() {
+async function loadBriefs() {
+  const marked = await getMarked();
   return BRIEF_ORDER.map((filename) => {
     const filePath = path.join(BRIEFS_DIR, 'longstream-' + filename);
     const raw = fs.readFileSync(filePath, 'utf-8');
@@ -498,14 +504,14 @@ function loadBriefs() {
 }
 
 let briefsCache = null;
-function getBriefs() {
-  if (!briefsCache) briefsCache = loadBriefs();
+async function getBriefs() {
+  if (!briefsCache) briefsCache = await loadBriefs();
   return briefsCache;
 }
 
 app.get('/brief', (req, res) => res.redirect('/brief/brief'));
-app.get('/brief/:slug', requirePassword(), (req, res) => {
-  const briefs = getBriefs();
+app.get('/brief/:slug', requirePassword(), async (req, res) => {
+  const briefs = await getBriefs();
   const docs = briefs.map((b) => ({ slug: b.slug, title: b.title }));
   const active = briefs.find((b) => b.slug === req.params.slug) || briefs[0];
   res.render('briefs', { docs, activeSlug: active.slug, activeContent: active.html });
