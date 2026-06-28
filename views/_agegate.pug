@@ -1,0 +1,49 @@
+//- Shared 18+ age gate. Self-contained (markup + styles + logic).
+//- Shows automatically once per browser (localStorage); call lsShowAgeGate() to reopen.
+.lsage(id="ls-agegate", hidden)
+  .lsage-card
+    p.lsage-kicker Mangaroa Valley Small Batch Spirits
+    h2.lsage-title Are you 18 or older?
+    p.lsage-text You must be of legal drinking age in New Zealand to enter this site.
+    .lsage-actions
+      button.lsage-btn.lsage-btn-yes(type="button", id="ls-age-yes") Yes, I'm 18 or older
+      button.lsage-btn.lsage-btn-no(type="button", id="ls-age-no") No
+    p.lsage-deny(id="ls-age-denied", hidden) Sorry — you must be 18 or older to view this site. Please drink responsibly.
+
+style.
+  .lsage{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:rgba(6,7,5,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-family:'Jost',system-ui,-apple-system,'Segoe UI',sans-serif}
+  .lsage[hidden]{display:none}
+  .lsage-card{max-width:460px;width:100%;text-align:center;background:linear-gradient(180deg,#1b1f1a,#10120d);border:1px solid #c9a85c;border-radius:2px;padding:3rem 2.25rem;box-shadow:0 40px 90px rgba(0,0,0,.7);color:#ece9df}
+  .lsage-kicker{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:#c9a85c;margin:0 0 1rem}
+  .lsage-title{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:1.9rem;margin:.4rem 0 .75rem;line-height:1.15}
+  .lsage-text{color:#9a988c;margin:0 0 1.5rem;line-height:1.6}
+  .lsage-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+  .lsage-btn{padding:.85rem 1.7rem;border-radius:1px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .3s ease}
+  .lsage-btn-yes{background:#c9a85c;color:#0e100d;border:1px solid #c9a85c}
+  .lsage-btn-yes:hover{background:transparent;color:#e6cf94}
+  .lsage-btn-no{background:transparent;color:#ece9df;border:1px solid rgba(201,168,92,.22)}
+  .lsage-btn-no:hover{border-color:#c9a85c;color:#e6cf94}
+  .lsage-deny{color:#f0b4b4;margin:1.5rem 0 0;font-size:.9rem}
+  .lsage-deny[hidden]{display:none}
+
+script.
+  (function () {
+    var KEY = 'longstream_age_ok';
+    var gate = document.getElementById('ls-agegate');
+    if (!gate) return;
+    var denied = document.getElementById('ls-age-denied');
+    function open() { gate.hidden = false; document.body.style.overflow = 'hidden'; }
+    function close() { gate.hidden = true; document.body.style.overflow = ''; }
+    // Expose a global so any nav button can reopen the gate.
+    window.lsShowAgeGate = function () { denied.hidden = true; open(); };
+    var verified = false;
+    try { verified = localStorage.getItem(KEY) === '1'; } catch (e) {}
+    if (!verified) open();
+    document.getElementById('ls-age-yes').addEventListener('click', function () {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      close();
+    });
+    document.getElementById('ls-age-no').addEventListener('click', function () {
+      denied.hidden = false;
+    });
+  })();

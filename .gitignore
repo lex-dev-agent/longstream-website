@@ -3,3 +3,6 @@ node_modules/
 npm-debug.log*
 .env
 *.log
+
+# Customer source briefs / mockups (not part of the deployed site)
+/*.pdf

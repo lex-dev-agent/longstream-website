@@ -1,0 +1,19 @@
+//- Shared in-page navigation: smooth-scrolls to #targets without writing the hash to the URL.
+script.
+  (function () {
+    function headerOffset() {
+      var h = document.querySelector('header');
+      return h ? h.offsetHeight : 0;
+    }
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href || href === '#') return; // ignore bare "#" (e.g. the age-gate trigger)
+      var target = document.getElementById(href.slice(1));
+      if (!target) return;
+      e.preventDefault(); // stops the browser from appending the hash
+      var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset();
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  })();

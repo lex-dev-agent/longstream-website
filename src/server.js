@@ -115,6 +115,229 @@ const experimentalBatches = [
   }
 ];
 
+// --- V4 content (sourced from the Website-Beta.pdf supplied by the client) ---
+// V4 is a pre-launch variant: the distillery is NOT open for business yet, so
+// these carry status flags instead of being directly orderable.
+const v4Bottles = [
+  {
+    id: 'blonde-dry-gin',
+    name: 'Blonde Dry Gin',
+    description:
+      'A classic dry gin with a juniper base and our blend including juniper, cardamom and lime botanicals.',
+    serve: 'Best served with a simple tonic and a slice of lime to garnish.',
+    volume: '700mL',
+    abv: '38%',
+    price: 79,
+    status: 'available'
+  },
+  {
+    id: 'louies-limoncello',
+    name: "Louie's Limoncello",
+    description:
+      'A clear, sweet and smooth limoncello made with fresh lemons and sugar for a refreshing summer drink.',
+    serve: 'Best served neat in a tall narrow glass.',
+    volume: '700mL',
+    abv: '35%',
+    price: 45,
+    status: 'available'
+  },
+  {
+    id: 'seeking-vodka',
+    name: 'Seeking Vodka',
+    description:
+      'A smooth vodka distilled with our signature process for a clean, neutral base.',
+    serve: 'Great for your favourite cocktails.',
+    volume: '700mL',
+    abv: '40%',
+    status: 'soldout'
+  }
+];
+
+const v4Experimental = [
+  {
+    id: 'may-morn-mill-gin',
+    name: 'May Morn Mill Gin',
+    description:
+      'Mānuka smoked gin with a whisper of sea salt. Dark, savoury, unforgettable.',
+    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
+    volume: '700mL',
+    abv: '38%',
+    price: 79,
+    status: 'available'
+  },
+  {
+    id: 'blonde-lemon-gin',
+    name: 'Blonde Lemon Gin',
+    description: 'Our flagship Blonde Dry Gin steeped in lemon peel.',
+    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
+    volume: '700mL',
+    abv: '38%',
+    price: 45,
+    status: 'available'
+  },
+  {
+    id: 'old-blonde-gin',
+    name: 'Old Blonde Gin',
+    description:
+      'Our flagship Blonde Dry Gin rested in charred oak for nine months. Spiced and golden.',
+    serve: 'Best served with a simple tonic.',
+    volume: '700mL',
+    abv: '38%',
+    status: 'coming-soon'
+  }
+];
+
+// reCAPTCHA keys. Defaults are Google's official test keys (always validate and
+// show a "for testing only" notice). Set RECAPTCHA_SITE_KEY / RECAPTCHA_SECRET_KEY
+// in the environment with the real keys before going live.
+const RECAPTCHA_SITE_KEY =
+  process.env.RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+const RECAPTCHA_SECRET_KEY =
+  process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+
+async function verifyRecaptcha(token, ip) {
+  if (!token) return false;
+  try {
+    const params = new URLSearchParams({ secret: RECAPTCHA_SECRET_KEY, response: token });
+    if (ip) params.append('remoteip', ip);
+    const resp = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params
+    });
+    const data = await resp.json();
+    return Boolean(data.success);
+  } catch (err) {
+    console.error('reCAPTCHA verification failed:', err.message);
+    return false;
+  }
+}
+
+// --- V5 content (sourced from "Website Beta v2.pdf") ---
+// V5 = pre-launch variant with per-spirit detail pages. Each spirit keeps the
+// column position it occupies on The Range (left / middle / right) on its detail page.
+const v5Bottles = [
+  {
+    id: 'blonde-gin',
+    name: 'Blonde Gin',
+    description: 'A classic dry gin with our blend of Juniper, Cardamom and Lime botanicals.',
+    serve: 'Best served with a simple tonic and a slice of lime to garnish.',
+    volume: '700mL',
+    abv: '38%',
+    price: 79,
+    status: 'available',
+    position: 'left',
+    photo: true,
+    photoAlt: 'Blonde Gin',
+    story: [
+      'This was my first success story in gin.',
+      'It took over two years to refine the process, the recipe and even the prime level of alcohol (an ABV — Alcohol by Volume — of 38%).',
+      'It was born of a discussion in 2020 at Flatpoint Beach on the east coast of the Wairarapa, whilst tasting various gins from around New Zealand and the world. I foolishly said I could make a gin of similar quality … and so the dare was made.',
+      'Many books were read and many mistakes were made on my trusty 25-litre hobby still, until by accident I made a very smooth gin. It took another six months of trial and error to repeat it.',
+      'I have been making Blonde Gin — named after my wife — ever since, and giving it to friends and family.'
+    ],
+    bestServed: [
+      'In a tall glass with a double shot on ice',
+      'With a simple tonic that does not overpower the taste',
+      'Garnished with slices of lime to complement the lime in the recipe'
+    ]
+  },
+  {
+    id: 'louies-limoncello',
+    name: "Louie's Limoncello",
+    description: 'A clear, sweet and smooth limoncello made with fresh lemons and sugar for a refreshing summer drink.',
+    serve: 'Best served neat in a tall narrow glass.',
+    volume: '700mL',
+    abv: '30%',
+    price: 45,
+    status: 'available',
+    position: 'middle',
+    photo: true,
+    photoAlt: "Lemon peel steeping for Louie's Limoncello",
+    story: [
+      'A very pure vodka is produced in the first three steps of our four-step method for dry gin.',
+      'The very outside layer of yellow lemon peel (the zest) is steeped in the vodka for a minimum of two weeks. The solution is then sieved and added to a sugar solution — with the correct proportions and temperature — to produce a yellow but clear, "see-through" limoncello, pleasing to both the eye and the palate.',
+      'The result is a sweet and smooth limoncello, perfect for sipping to refresh you on a hot summer day or to warm you in the heart of winter.'
+    ],
+    bestServed: ['Neat for sipping', 'In a tall narrow shot glass']
+  },
+  {
+    id: 'seeking-vodka',
+    name: 'Seeking Vodka',
+    description: 'A smooth vodka distilled with the first two steps of our signature process for a clean, neutral base.',
+    serve: 'Great for your favourite cocktails.',
+    volume: '700mL',
+    abv: '38%',
+    status: 'soldout',
+    position: 'right',
+    photo: true,
+    photoAlt: 'Seeking Vodka',
+    story: ['More to follow.'],
+    bestServed: ['Neat over ice', 'In your favourite cocktail']
+  }
+];
+
+const v5Experimental = [
+  {
+    id: 'maymorn-estate-gin',
+    name: 'Maymorn Estate Gin',
+    description: 'Mānuka smoked gin with a whisper of sea salt. Dark, savoury, unforgettable.',
+    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
+    volume: '700mL',
+    abv: '38%',
+    status: 'coming-soon',
+    position: 'left',
+    photo: true,
+    photoAlt: 'The historic Maymorn Estate sawmill',
+    story: [
+      'Maymorn Estate Gin is a homage to the rich history of Maymorn in the Mangaroa Valley near Upper Hutt, where our distillery is located.',
+      'The Maymorn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. It supplied timber and cleared land for pastoral farming.'
+    ],
+    bestServed: [
+      'In a tall glass with a double shot on ice',
+      'With a simple tonic that does not overpower the taste',
+      'Garnished with a slice of lemon'
+    ]
+  },
+  {
+    id: 'blonde-lemon-gin',
+    name: 'Blonde Lemon Gin',
+    description: 'Our flagship Blonde Gin steeped with lemon peel zest.',
+    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
+    volume: '700mL',
+    abv: '38%',
+    price: 45,
+    status: 'available',
+    position: 'middle',
+    photo: true,
+    photoAlt: 'Lemon peel steeping for Blonde Lemon Gin',
+    story: [
+      'This uses the same recipe as our flagship Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
+      'The gin is produced using our four-step method for dry gin. The very outside layer of lemon peel is then steeped in the gin for a minimum of two weeks.',
+      'The result is a clear gin, lightly coloured yellow in the bottle. It has the classic base of Blonde Gin with an extra hint of lemon.'
+    ],
+    bestServed: [
+      'In a tall glass with a double shot on ice',
+      'With a simple tonic',
+      'Garnished with slices of lemon to complement the lemon in the recipe'
+    ]
+  },
+  {
+    id: 'blonde-ambition-gin',
+    name: 'Blonde Ambition Gin',
+    description: 'Our flagship Blonde Gin rested in charred oak for nine months. Spiced and golden.',
+    serve: 'Best served with a simple tonic.',
+    volume: '700mL',
+    abv: '38%',
+    status: 'coming-soon',
+    position: 'right',
+    photo: true,
+    photoAlt: 'Blonde Ambition Gin',
+    story: ['More info to follow.'],
+    bestServed: ['With a simple tonic', 'Sipped neat over ice']
+  }
+];
+
 const shippingOptions = [
   {
     id: 'standard',
@@ -168,6 +391,51 @@ app.get('/v0', (req, res) => {
       current: variant
     });
   });
+});
+
+// V4 = pre-launch variant with its own PDF-sourced content and reCAPTCHA club form
+app.get('/v4', (req, res) => {
+  res.render('v4', {
+    bottles: v4Bottles,
+    experimentalBatches: v4Experimental,
+    current: 'v4',
+    recaptchaSiteKey: RECAPTCHA_SITE_KEY,
+    clubStatus: req.query.club || null
+  });
+});
+app.post('/v4/club', async (req, res) => {
+  // Honeypot: bots fill this hidden field; humans never see it.
+  if (req.body.company) return res.redirect('/v4?club=ok#club');
+  const email = (req.body.email || '').trim();
+  const validEmail = /^\S+@\S+\.\S+$/.test(email);
+  const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
+  if (validEmail && human) {
+    // TODO: persist the email to a mailing list / CRM here.
+    return res.redirect('/v4?club=ok#club');
+  }
+  return res.redirect('/v4?club=err#club');
+});
+
+// V5 = pre-launch variant with per-spirit detail pages
+app.get('/v5', (req, res) => {
+  res.render('v5', {
+    bottles: v5Bottles,
+    experimentalBatches: v5Experimental,
+    current: 'v5',
+    recaptchaSiteKey: RECAPTCHA_SITE_KEY,
+    clubStatus: req.query.club || null
+  });
+});
+app.post('/v5/club', async (req, res) => {
+  if (req.body.company) return res.redirect('/v5?club=ok#club');
+  const email = (req.body.email || '').trim();
+  const validEmail = /^\S+@\S+\.\S+$/.test(email);
+  const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
+  if (validEmail && human) {
+    // TODO: persist the email to a mailing list / CRM here.
+    return res.redirect('/v5?club=ok#club');
+  }
+  return res.redirect('/v5?club=err#club');
 });
 
 // Load briefs from markdown files
