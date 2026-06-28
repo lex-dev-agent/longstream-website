@@ -8,7 +8,13 @@ function getMarked() {
   if (!markedPromise) markedPromise = import('marked').then((m) => m.marked);
   return markedPromise;
 }
-const Database = require('better-sqlite3');
+// Native module — load defensively so a missing/broken binary can't crash the app
+let Database = null;
+try {
+  Database = require('better-sqlite3');
+} catch (err) {
+  console.error('better-sqlite3 unavailable:', err.message);
+}
 
 const app = express();
 const PORT = process.env.PORT || 3322;
@@ -348,28 +354,43 @@ const v5Experimental = [
 // --- Club signup storage (SQLite) ---
 // Stored outside the (root-owned) app dir so the app user can write to it.
 // Override the location with CLUB_DB_PATH if needed.
-const CLUB_DB_PATH =
-  process.env.CLUB_DB_PATH || path.join(os.homedir(), '.longstream', 'club-signups.db');
-fs.mkdirSync(path.dirname(CLUB_DB_PATH), { recursive: true });
-const clubDb = new Database(CLUB_DB_PATH);
-clubDb.pragma('journal_mode = WAL');
-clubDb.exec(`CREATE TABLE IF NOT EXISTS club_signups (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT NOT NULL UNIQUE,
-  variant TEXT,
-  ip TEXT,
-  user_agent TEXT,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
-);`);
-const insertSignup = clubDb.prepare(
-  'INSERT OR IGNORE INTO club_signups (email, variant, ip, user_agent) VALUES (?, ?, ?, ?)'
-);
+// Initialised defensively: if better-sqlite3 (a native module) is missing or
+// fails to load, the site must still run — signups fall back to the log.
+let insertSignup = null;
+try {
+  if (!Database) throw new Error('better-sqlite3 module not loaded');
+  const CLUB_DB_PATH =
+    process.env.CLUB_DB_PATH || path.join(os.homedir(), '.longstream', 'club-signups.db');
+  fs.mkdirSync(path.dirname(CLUB_DB_PATH), { recursive: true });
+  const clubDb = new Database(CLUB_DB_PATH);
+  clubDb.pragma('journal_mode = WAL');
+  clubDb.exec(`CREATE TABLE IF NOT EXISTS club_signups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL UNIQUE,
+    variant TEXT,
+    ip TEXT,
+    user_agent TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );`);
+  insertSignup = clubDb.prepare(
+    'INSERT OR IGNORE INTO club_signups (email, variant, ip, user_agent) VALUES (?, ?, ?, ?)'
+  );
+  console.log('Club signups -> SQLite at', CLUB_DB_PATH);
+} catch (err) {
+  console.error('Club DB unavailable — signups will be logged instead:', err.message);
+}
 function saveSignup(email, variant, req) {
-  try {
-    insertSignup.run(email.toLowerCase(), variant, req.ip, req.get('user-agent') || null);
-  } catch (err) {
-    console.error('Failed to save club signup:', err.message);
+  const addr = email.toLowerCase();
+  if (insertSignup) {
+    try {
+      insertSignup.run(addr, variant, req.ip, req.get('user-agent') || null);
+      return;
+    } catch (err) {
+      console.error('Failed to save club signup to DB:', err.message);
+    }
   }
+  // Fallback so a signup is never silently lost
+  console.log('CLUB_SIGNUP_FALLBACK ' + JSON.stringify({ email: addr, variant, ip: req.ip, at: new Date().toISOString() }));
 }
 
 const shippingOptions = [
