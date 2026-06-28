@@ -364,4 +364,6 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
   /* on mobile the notice shows only the "Opening soon" tag */
   .v5-notice-text { display: none; }
   .v5-notice-tag { margin-right: 0; }
+  /* size the hero to the initial visible viewport (toolbars shown), not the full vh */
+  .v5-hero { min-height: 88svh; }
 }
