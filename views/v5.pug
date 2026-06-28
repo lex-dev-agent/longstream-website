@@ -166,7 +166,8 @@ html(lang="en")
 
     include _navscroll
     include _agegate
-    include _vswitch
+    unless hideSwitch
+      include _vswitch
 
     script.
       // Invisible reCAPTCHA callback — fires after the (usually invisible) check passes

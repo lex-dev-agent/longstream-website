@@ -421,12 +421,13 @@ const paymentSecurity = {
   acceptedCards: ['Visa', 'Mastercard', 'American Express', 'Apple Pay']
 };
 
-// Main homepage now serves the V5 design
+// Main homepage now serves the V5 design (no version switcher on the public root)
 app.get('/', (req, res) => {
   res.render('v5', {
     bottles: v5Bottles,
     experimentalBatches: v5Experimental,
     current: 'v5',
+    hideSwitch: true,
     recaptchaSiteKey: RECAPTCHA_SITE_KEY,
     clubStatus: req.query.club || null
   });
