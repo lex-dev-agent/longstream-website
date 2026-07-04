@@ -282,6 +282,11 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
   font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.16em;
   text-transform: uppercase; font-weight: 600; cursor: not-allowed;
 }
+.v5-modal-cart:not(:disabled) {
+  border-color: var(--gold); background: var(--gold); color: var(--bg);
+  cursor: pointer; transition: all 0.3s ease;
+}
+.v5-modal-cart:not(:disabled):hover { background: transparent; color: var(--gold-2); }
 .v5-modal-story-content h2 {
   font-family: var(--font-head); font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2.4rem);
   line-height: 1.1; margin: 0 0 1.25rem;

@@ -15,9 +15,7 @@ html(lang="en")
     //- Spirit card — opens the standardised modal on click. Carries a hidden
     //- payload (story + best served) the modal clones into its middle/right columns.
     mixin spiritCard(s)
-      //- Available bottles link straight to the order page; the rest open the detail modal.
-      - var available = s.status === 'available'
-      a.v5-card(href=(available ? "/order" : "#"), role="button", data-spirit=(available ? false : s.id), data-status=s.status, class={"v5-card-out": s.status !== 'available'})
+      a.v5-card(href="#", role="button", data-spirit=s.id, data-status=s.status, class={"v5-card-out": s.status !== 'available'})
         if s.status === 'soldout'
           span.v5-badge Sold out
         else if s.status === 'coming-soon'
@@ -213,12 +211,15 @@ html(lang="en")
             if (story) mid.appendChild(story);
             if (aside) right.appendChild(aside);
           }
-          // cart button reflects the product state (it stays disabled either way)
+          // cart button: available spirits link to the order page; others stay disabled
           if (cart) {
             var status = card.getAttribute('data-status');
-            cart.textContent = status === 'soldout' ? 'Sold out'
-              : status === 'coming-soon' ? 'Coming soon'
-              : 'Add to cart';
+            if (status === 'available') {
+              cart.textContent = 'Order now'; cart.disabled = false; cart.title = '';
+            } else {
+              cart.textContent = status === 'soldout' ? 'Sold out' : 'Coming soon';
+              cart.disabled = true; cart.title = 'Not yet on sale';
+            }
           }
           modal.hidden = false;
           document.body.style.overflow = 'hidden';
@@ -230,6 +231,8 @@ html(lang="en")
         document.querySelectorAll('.v5-card[data-spirit]').forEach(function (card) {
           card.addEventListener('click', function (e) { e.preventDefault(); open(card); });
         });
+        // "Order now" in the modal takes available spirits to the order page
+        if (cart) cart.addEventListener('click', function () { if (!cart.disabled) window.location.href = '/order'; });
         modal.addEventListener('click', function (e) {
           if (e.target === modal || (e.target.closest && e.target.closest('[data-close]'))) close();
         });
