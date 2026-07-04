@@ -401,9 +401,10 @@ app.post('/brief/:slug', (req, res) => {
 });
 
 app.get('/order', (req, res) => {
-  // Only offer the spirits that are actually available on The Range.
+  // Offer every spirit that's actually available — from both the main range and
+  // the experimental batches — so any "available" card on the homepage can order.
   res.render('order', {
-    bottles: v5Bottles.filter((b) => b.status === 'available')
+    bottles: [...v5Bottles, ...v5Experimental].filter((b) => b.status === 'available')
   });
 });
 
