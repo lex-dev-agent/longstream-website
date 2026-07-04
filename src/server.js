@@ -147,7 +147,7 @@ const v4Bottles = [
     id: 'louies-limoncello',
     name: "Louie's Limoncello",
     description:
-      'A clear, sweet and smooth limoncello made with fresh lemons and sugar for a refreshing summer drink.',
+      'A clear, sweet and smooth limoncello made with our Seeking Vodka and fresh local lemons for a refreshing summer drink.',
     serve: 'Best served neat in a tall narrow glass.',
     volume: '700mL',
     abv: '35%',
@@ -258,7 +258,7 @@ const v5Bottles = [
   {
     id: 'louies-limoncello',
     name: "Louie's Limoncello",
-    description: 'A clear, sweet and smooth limoncello made with fresh lemons and sugar for a refreshing summer drink.',
+    description: 'A clear, sweet and smooth limoncello made with our Seeking Vodka and fresh local lemons for a refreshing summer drink.',
     serve: 'Best served neat in a tall narrow glass.',
     volume: '700mL',
     abv: '30%',
