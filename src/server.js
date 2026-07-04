@@ -233,7 +233,7 @@ const v5Bottles = [
   {
     id: 'blonde-gin',
     name: 'Blonde Gin',
-    description: 'A classic dry gin with our blend of Juniper, Cardamom and Lime botanicals.',
+    description: 'The gin that started it all. Our classic dry gin including Juniper, Cardamom and Lime botanicals.',
     serve: 'Best served with a simple tonic and a slice of lime to garnish.',
     volume: '700mL',
     abv: '38%',
