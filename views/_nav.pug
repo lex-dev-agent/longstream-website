@@ -4,8 +4,32 @@ header.v5-header
     a.v5-brand(href="/")
       img(src="/images/logo-white.png", alt="Longstream Distillery")
       span Longstream
-    nav.v5-nav
+    button.v5-navtoggle(type="button", aria-label="Menu", aria-expanded="false", aria-controls="v5-nav")
+      span.v5-navtoggle-bar
+      span.v5-navtoggle-bar
+      span.v5-navtoggle-bar
+    nav.v5-nav#v5-nav
       a(href="/products") Products
       a(href="/our-story") Our Story
       a(href="/contact") Contact
       a.v5-btn(href="/order") Order
+
+script.
+  (function () {
+    var toggle = document.querySelector('.v5-navtoggle');
+    var nav = document.getElementById('v5-nav');
+    if (!toggle || !nav) return;
+    function setOpen(open) {
+      nav.classList.toggle('is-open', open);
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', function () {
+      setOpen(!nav.classList.contains('is-open'));
+    });
+    // Close after tapping a link, or when tapping outside the menu
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('click', function (e) {
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+    });
+  })();
