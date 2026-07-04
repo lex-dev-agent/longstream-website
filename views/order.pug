@@ -31,7 +31,7 @@ html(lang="en")
           .ord-choose
             each bottle in bottles
               .ord-item(data-id=bottle.id, data-name=bottle.name, data-price=bottle.price)
-                img.ord-item-img(src="/images/v3-bottle-new-2.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
+                img.ord-item-img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
                 .ord-item-body
                   h3.ord-item-name= bottle.name
                   p.ord-item-desc= bottle.description
