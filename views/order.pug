@@ -21,7 +21,7 @@ html(lang="en")
     mixin orderItem(bottle)
       - var available = bottle.status === 'available'
       .ord-item(class={"ord-item--out": !available}, data-id=bottle.id, data-name=bottle.name, data-price=bottle.price)
-        img.ord-item-img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
+        img.ord-item-img(src="/images/v3-bottle-new-3.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
         .ord-item-body
           h3.ord-item-name= bottle.name
           p.ord-item-desc= bottle.description
@@ -51,12 +51,10 @@ html(lang="en")
         .wrap.ord-grid
           .ord-choose
             .ord-section-head
-              .v5-rule
               h2 Signature Range
             each bottle in bottles
               +orderItem(bottle)
             .ord-section-head
-              .v5-rule
               h2 Experimental Range
             each batch in experimentalBatches
               +orderItem(batch)
