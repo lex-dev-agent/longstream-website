@@ -277,7 +277,7 @@ const v5Bottles = [
   {
     id: 'seeking-vodka',
     name: 'Seeking Vodka',
-    description: 'A smooth vodka distilled with the first two steps of our signature process for a clean, neutral base.',
+    description: 'A smooth vodka distilled with the first three steps of our signature process for a clean, neutral base.',
     serve: 'Great for your favourite cocktails.',
     volume: '700mL',
     abv: '38%',
