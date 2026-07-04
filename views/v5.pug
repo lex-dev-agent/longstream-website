@@ -53,7 +53,7 @@ html(lang="en")
 
     header.v5-header
       .wrap
-        a.v5-brand(href="/v5")
+        a.v5-brand(href="/")
           img(src="/images/logo-white.png", alt="Longstream Distillery")
           span Longstream
         nav.v5-nav
@@ -130,7 +130,7 @@ html(lang="en")
             p.v5-club-msg.ok Thanks — you're on the list. We'll be in touch when we launch.
           else if clubStatus === 'err'
             p.v5-club-msg.err Sorry, we couldn't add you. Please check your email and the verification, then try again.
-          form.v5-club-form#v5-club-form(action="/v5/club", method="post")
+          form.v5-club-form#v5-club-form(action="/club", method="post")
             //- Honeypot: hidden from humans, catches naive bots
             .v5-hp(aria-hidden="true")
               label(for="company") Company
@@ -167,8 +167,6 @@ html(lang="en")
 
     include _navscroll
     include _agegate
-    unless hideSwitch
-      include _vswitch
 
     script.
       // Invisible reCAPTCHA callback — fires after the (usually invisible) check passes

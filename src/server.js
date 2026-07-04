@@ -56,149 +56,6 @@ function handlePasswordPost(route) {
   };
 }
 
-const bottleCatalogue = [
-  {
-    id: 'blonde-dry-gin',
-    name: 'Blonde Dry Gin',
-    description:
-      'A classic dry gin with a juniper base and our secret blend of local botanicals.',
-    volume: '700ml',
-    abv: '42%',
-    price: 79,
-    available: true,
-    image: '/images/bottle-gin.webp',
-    tastingNotes: 'Bright citrus, kawakawa spice and a silky finish.'
-  },
-  {
-    id: 'louie-limoncello',
-    name: 'Louie Limoncello',
-    description:
-      'A simple limoncello made with fresh lemons and a touch of sugar for a refreshing summer drink.',
-    volume: '500ml',
-    abv: '30%',
-    price: 45,
-    available: true,
-    image: '/images/bottle-limoncello.webp',
-    tastingNotes: 'Fresh lemon zest and a gentle, velvety mouthfeel.'
-  },
-  {
-    id: 'seeking-vodka',
-    name: 'Seeking Vodka',
-    description:
-      'A smooth vodka distilled with our signature process for a clean, neutral base.',
-    volume: '700ml',
-    abv: '40%',
-    price: 65,
-    available: false,
-    image: '/images/bottle-vodka.webp',
-    soldOutMessage: 'The next Seeking Vodka run is resting now. Leave your email to hear when it returns.'
-  }
-];
-
-const experimentalBatches = [
-  {
-    id: 'manuka-smoked-gin',
-    name: 'Mānuka Smoked Gin',
-    blurb: 'Juniper kissed with mānuka smoke and a whisper of sea salt. Dark, savoury, unforgettable.',
-    volume: '500ml',
-    abv: '45%',
-    price: 95,
-    total: 100,
-    left: 56
-  },
-  {
-    id: 'feijoa-spring',
-    name: 'Feijoa Spring Gin',
-    blurb: 'A fleeting tribute to the autumn feijoa glut — bright, tropical and grassy green.',
-    volume: '500ml',
-    abv: '41%',
-    price: 89,
-    total: 80,
-    left: 23
-  },
-  {
-    id: 'barrel-aged-reserve',
-    name: 'Barrel-Aged Reserve',
-    blurb: 'Our Blonde Dry rested in charred oak for nine months. Spiced, golden, sippable neat.',
-    volume: '500ml',
-    abv: '48%',
-    price: 120,
-    total: 40,
-    left: 9
-  }
-];
-
-// --- V4 content (sourced from the Website-Beta.pdf supplied by the client) ---
-// V4 is a pre-launch variant: the distillery is NOT open for business yet, so
-// these carry status flags instead of being directly orderable.
-const v4Bottles = [
-  {
-    id: 'blonde-dry-gin',
-    name: 'Blonde Dry Gin',
-    description:
-      'A classic dry gin with a juniper base and our blend including juniper, cardamom and lime botanicals.',
-    serve: 'Best served with a simple tonic and a slice of lime.',
-    volume: '700mL',
-    abv: '38%',
-    price: 79,
-    status: 'available'
-  },
-  {
-    id: 'louies-limoncello',
-    name: "Louie's Limoncello",
-    description:
-      'A clear, sweet and smooth limoncello made with our Seeking Vodka and fresh local lemons for a refreshing summer drink.',
-    serve: 'Best served neat in a tall narrow glass.',
-    volume: '700mL',
-    abv: '35%',
-    price: 45,
-    status: 'available'
-  },
-  {
-    id: 'seeking-vodka',
-    name: 'Seeking Vodka',
-    description:
-      'A smooth vodka distilled with our signature process for a clean, neutral base.',
-    serve: 'Great for your favourite cocktails.',
-    volume: '700mL',
-    abv: '40%',
-    status: 'soldout'
-  }
-];
-
-const v4Experimental = [
-  {
-    id: 'may-morn-mill-gin',
-    name: 'May Morn Mill Gin',
-    description:
-      'Mānuka smoked gin with a whisper of sea salt. Dark, savoury, unforgettable.',
-    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
-    volume: '700mL',
-    abv: '38%',
-    price: 79,
-    status: 'available'
-  },
-  {
-    id: 'blonde-lemon-gin',
-    name: 'Blonde Lemon Gin',
-    description: 'Our flagship Blonde Dry Gin steeped in lemon peel.',
-    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
-    volume: '700mL',
-    abv: '38%',
-    price: 45,
-    status: 'available'
-  },
-  {
-    id: 'old-blonde-gin',
-    name: 'Old Blonde Gin',
-    description:
-      'Our flagship Blonde Dry Gin rested in charred oak for nine months. Spiced and golden.',
-    serve: 'Best served with a simple tonic.',
-    volume: '700mL',
-    abv: '38%',
-    status: 'coming-soon'
-  }
-];
 
 // reCAPTCHA keys. Defaults are Google's official test keys (always validate and
 // show a "for testing only" notice). Set RECAPTCHA_SITE_KEY / RECAPTCHA_SECRET_KEY
@@ -438,16 +295,28 @@ const paymentSecurity = {
   acceptedCards: ['Visa', 'Mastercard', 'American Express', 'Apple Pay']
 };
 
-// Main homepage now serves the V5 design (no version switcher on the public root)
+// Main homepage
 app.get('/', (req, res) => {
   res.render('v5', {
     bottles: v5Bottles,
     experimentalBatches: v5Experimental,
-    current: 'v5',
-    hideSwitch: true,
     recaptchaSiteKey: RECAPTCHA_SITE_KEY,
     clubStatus: req.query.club || null
   });
+});
+
+// Longstream Club signup (posted from the homepage)
+app.post('/club', async (req, res) => {
+  // Honeypot: bots fill this hidden field; humans never see it.
+  if (req.body.company) return res.redirect('/?club=ok#club');
+  const email = (req.body.email || '').trim();
+  const validEmail = /^\S+@\S+\.\S+$/.test(email);
+  const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
+  if (validEmail && human) {
+    saveSignup(email, 'main', req);
+    return res.redirect('/?club=ok#club');
+  }
+  return res.redirect('/?club=err#club');
 });
 
 app.get('/design', requirePassword(), (req, res) => {
@@ -464,67 +333,6 @@ app.get('/emails', requirePassword(), (req, res) => {
   });
 });
 app.post('/emails', handlePasswordPost('/emails'));
-
-// Homepage design variations (for review / "lock in the style")
-app.get('/variations', (req, res) => res.render('variations'));
-// V0 = the original/live homepage, shown with the compare switcher
-app.get('/v0', (req, res) => {
-  res.render('index', { bottles: bottleCatalogue, showSwitch: true, current: 'v0' });
-});
-['v1', 'v2', 'v3'].forEach((variant) => {
-  app.get('/' + variant, (req, res) => {
-    res.render(variant, {
-      bottles: bottleCatalogue,
-      experimentalBatches,
-      current: variant
-    });
-  });
-});
-
-// V4 = pre-launch variant with its own PDF-sourced content and reCAPTCHA club form
-app.get('/v4', (req, res) => {
-  res.render('v4', {
-    bottles: v4Bottles,
-    experimentalBatches: v4Experimental,
-    current: 'v4',
-    recaptchaSiteKey: RECAPTCHA_SITE_KEY,
-    clubStatus: req.query.club || null
-  });
-});
-app.post('/v4/club', async (req, res) => {
-  // Honeypot: bots fill this hidden field; humans never see it.
-  if (req.body.company) return res.redirect('/v4?club=ok#club');
-  const email = (req.body.email || '').trim();
-  const validEmail = /^\S+@\S+\.\S+$/.test(email);
-  const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
-  if (validEmail && human) {
-    saveSignup(email, 'v4', req);
-    return res.redirect('/v4?club=ok#club');
-  }
-  return res.redirect('/v4?club=err#club');
-});
-
-// V5 = pre-launch variant with per-spirit detail pages
-app.get('/v5', (req, res) => {
-  res.render('v5', {
-    bottles: v5Bottles,
-    experimentalBatches: v5Experimental,
-    current: 'v5',
-    recaptchaSiteKey: RECAPTCHA_SITE_KEY,
-    clubStatus: req.query.club || null
-  });
-});
-app.post('/v5/club', async (req, res) => {
-  if (req.body.company) return res.redirect('/v5?club=ok#club');
-  const email = (req.body.email || '').trim();
-  const validEmail = /^\S+@\S+\.\S+$/.test(email);
-  const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
-  if (validEmail && human) {
-    saveSignup(email, 'v5', req);
-    return res.redirect('/v5?club=ok#club');
-  }
-  return res.redirect('/v5?club=err#club');
-});
 
 // Load briefs from markdown files
 const BRIEFS_DIR = path.join(__dirname, '..', 'data', 'briefs');
