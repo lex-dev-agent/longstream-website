@@ -1,0 +1,39 @@
+//- Spirit card — opens the standardised modal on click. Carries a hidden
+//- payload (story + best served) the modal clones into its middle/right columns.
+//- Include this before using +spiritCard, and include _spiritmodal once on the page.
+mixin spiritCard(s)
+  a.v5-card(href="#", role="button", data-spirit=s.id, data-status=s.status, class={"v5-card-out": s.status !== 'available'})
+    if s.status === 'soldout'
+      span.v5-badge Sold out
+    else if s.status === 'coming-soon'
+      span.v5-badge Coming soon
+    img.v5-card-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+    h3= s.name
+    p= s.description
+    if s.serve
+      p.v5-card-serve= s.serve
+    .v5-card-foot
+      p.v5-card-meta
+        | #{s.volume} · #{s.abv}
+        if s.status === 'available'
+          |  · NZ$#{s.price}
+        else if s.status === 'soldout'
+          |  · Sold out
+        else if s.status === 'coming-soon'
+          |  · Coming soon
+    template.v5-card-data
+      .v5-modal-story-content
+        h2= s.name
+        if s.story
+          each para in s.story
+            p= para
+      .v5-modal-aside-content
+        if s.bestServed && s.bestServed.length
+          p.v5-kicker Best served
+          ul.v5-served
+            each item in s.bestServed
+              li= item
+        if s.photo
+          figure.v5-detail-photo
+            img(src=`/images/v5-${s.id}.jpg`, alt=s.photoAlt, onerror="this.style.display='none'; this.parentNode.classList.add('is-empty')")
+            figcaption Photo coming soon

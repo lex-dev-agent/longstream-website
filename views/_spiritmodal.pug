@@ -1,0 +1,67 @@
+//- Standardised spirit modal + open/close logic. Include once on any page that
+//- renders +spiritCard. Left: card copy · middle: story · right: best served.
+.v5-modal(id="v5-modal", hidden)
+  .v5-modal-dialog(role="dialog", aria-modal="true", aria-label="Spirit details")
+    button.v5-modal-close(type="button", data-close, aria-label="Close") ×
+    .v5-modal-grid
+      .v5-modal-left
+        .v5-modal-card
+        button.v5-modal-cart(type="button", disabled, title="Not yet on sale") Add to cart
+      .v5-modal-story
+      .v5-modal-aside
+
+script.
+  (function () {
+    var modal = document.getElementById('v5-modal');
+    if (!modal) return;
+    var left = modal.querySelector('.v5-modal-card');
+    var mid = modal.querySelector('.v5-modal-story');
+    var right = modal.querySelector('.v5-modal-aside');
+    var cart = modal.querySelector('.v5-modal-cart');
+    function open(card) {
+      left.innerHTML = ''; mid.innerHTML = ''; right.innerHTML = '';
+      // left column = a copy of the clicked card (minus the hidden payload + cue)
+      var clone = card.cloneNode(true);
+      var data = clone.querySelector('.v5-card-data'); if (data) data.remove();
+      var more = clone.querySelector('.v5-card-more'); if (more) more.remove();
+      clone.removeAttribute('data-spirit');
+      clone.classList.add('v5-modal-cardclone');
+      left.appendChild(clone);
+      // middle = story, right = best served (cloned from the card's payload)
+      var tpl = card.querySelector('.v5-card-data');
+      if (tpl && tpl.content) {
+        var frag = tpl.content.cloneNode(true);
+        var story = frag.querySelector('.v5-modal-story-content');
+        var aside = frag.querySelector('.v5-modal-aside-content');
+        if (story) mid.appendChild(story);
+        if (aside) right.appendChild(aside);
+      }
+      // cart button: available spirits link to the order page; others stay disabled
+      if (cart) {
+        var status = card.getAttribute('data-status');
+        if (status === 'available') {
+          cart.textContent = 'Order now'; cart.disabled = false; cart.title = '';
+        } else {
+          cart.textContent = status === 'soldout' ? 'Sold out' : 'Coming soon';
+          cart.disabled = true; cart.title = 'Not yet on sale';
+        }
+      }
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      modal.hidden = true; document.body.style.overflow = '';
+      left.innerHTML = ''; mid.innerHTML = ''; right.innerHTML = '';
+    }
+    document.querySelectorAll('.v5-card[data-spirit]').forEach(function (card) {
+      card.addEventListener('click', function (e) { e.preventDefault(); open(card); });
+    });
+    // "Order now" in the modal takes available spirits to the order page
+    if (cart) cart.addEventListener('click', function () { if (!cart.disabled) window.location.href = '/order'; });
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || (e.target.closest && e.target.closest('[data-close]'))) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) close();
+    });
+  })();

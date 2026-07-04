@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Products — Longstream Distillery
+    //- Dark logo by default (shows on light tab bars); white logo in dark mode
+    link(rel="icon", type="image/png", href="/images/logo.png")
+    link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/v5.css")
+    style.
+      .prod-hero { text-align: center; padding: 5rem 0 1.5rem; }
+      .prod-hero h1 { font-family: var(--font-head); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; margin: 0.5rem 0 1rem; }
+      .prod-lead { color: var(--muted); max-width: 38rem; margin: 0 auto; }
+
+  body
+    include _spiritcard
+    include _nav
+
+    main
+      //- Page intro
+      section.prod-hero
+        .wrap
+          .v5-rule.center
+          p.v5-kicker Mangaroa Valley Small Batch Spirits
+          h1 Our Products
+          p.prod-lead Small-batch gin, limoncello and vodka — each hand-produced on site through our signature four-step process. Tap any bottle to read its story and how it's best served.
+
+      //- SIGNATURE RANGE
+      section.v5-range#range
+        .wrap
+          .v5-range-head
+            .v5-rule.center
+            p.v5-kicker The range
+            h2 Signature Range
+            p Our core collection of small-batch spirits, made from scratch and perfected over years.
+          .v5-cards
+            each bottle in bottles
+              +spiritCard(bottle)
+
+      //- EXPERIMENTAL / LIMITED BATCHES
+      section.v5-experimental#experimental
+        .wrap
+          .v5-range-head
+            .v5-rule.center
+            p.v5-kicker Limited batches
+            h2 Experimental Range
+            p One-off and seasonal distillations from the back of the shed. Our club members are the first in line when released.
+          .v5-cards
+            each batch in experimentalBatches
+              +spiritCard(batch)
+
+    include _footer
+    include _spiritmodal
+    include _navscroll
+    include _agegate
