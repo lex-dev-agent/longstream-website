@@ -17,9 +17,20 @@ html(lang="en")
       .prod-lead { color: var(--muted); max-width: 38rem; margin: 0 auto; }
       /* Both ranges share one continuous bg-2, no dividing line */
       .v5-range, .v5-experimental { background: var(--bg-2); border-top: none; }
+      /* tighter product grid */
+      .v5-cards { gap: 1.25rem; }
+      /* shopping-style product cards */
+      .shop-card { cursor: pointer; padding: 2.25rem 1.25rem 1.75rem; }
+      .shop-card .v5-card-bottle { width: 92px; margin-bottom: 1.1rem; }
+      .shop-card h3 { font-size: 1.3rem; margin: 0 0 0.4rem; }
+      .shop-card .shop-meta { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0; }
+      .shop-card .shop-foot { margin-top: auto; padding-top: 1.25rem; }
+      .shop-card .shop-price { font-family: var(--font-head); font-size: 1.5rem; color: var(--gold-2); margin: 0 0 0.9rem; }
+      .shop-card .shop-order { display: block; width: 100%; }
+      .shop-card .shop-order-out { display: inline-block; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 0.65rem 1rem; border-radius: 1px; }
 
   body
-    include _spiritcard
+    include _shopcard
     include _nav
 
     main
@@ -40,7 +51,7 @@ html(lang="en")
             p Our core collection of small-batch spirits, made from scratch and perfected over years.
           .v5-cards
             each bottle in bottles
-              +spiritCard(bottle)
+              +shopCard(bottle)
 
       //- EXPERIMENTAL / LIMITED BATCHES
       section.v5-experimental#experimental
@@ -51,7 +62,7 @@ html(lang="en")
             p One-off and seasonal distillations from the back of the shed. Our club members are the first in line when released.
           .v5-cards
             each batch in experimentalBatches
-              +spiritCard(batch)
+              +shopCard(batch)
 
     include _footer
     include _spiritmodal

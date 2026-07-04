@@ -24,6 +24,8 @@ script.
       var clone = card.cloneNode(true);
       var data = clone.querySelector('.v5-card-data'); if (data) data.remove();
       var more = clone.querySelector('.v5-card-more'); if (more) more.remove();
+      // shop cards carry their own Order button/status — the modal has its own, so drop it
+      var foot = clone.querySelector('.shop-foot'); if (foot) foot.remove();
       clone.removeAttribute('data-spirit');
       clone.classList.add('v5-modal-cardclone');
       left.appendChild(clone);
