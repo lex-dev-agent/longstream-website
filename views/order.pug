@@ -51,10 +51,12 @@ html(lang="en")
         .wrap.ord-grid
           .ord-choose
             .ord-section-head
+              .v5-rule
               h2 Signature Range
             each bottle in bottles
               +orderItem(bottle)
             .ord-section-head
+              .v5-rule
               h2 Experimental Range
             each batch in experimentalBatches
               +orderItem(batch)

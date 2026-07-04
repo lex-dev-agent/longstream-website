@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* hero */
-.ord-hero { text-align: center; padding: 6rem 0 3.5rem; background: var(--bg-2); }
+.ord-hero { text-align: center; padding: 6rem 0 3.5rem; }
 .ord-hero .v5-rule.center { margin-bottom: 1.25rem; }
 .ord-hero h1 {
   font-family: var(--font-head); font-weight: 500; font-size: clamp(2.2rem, 5vw, 3.4rem);
@@ -13,7 +13,7 @@
 .ord-lead { color: var(--muted); max-width: 34rem; margin: 0 auto; }
 
 /* layout */
-.ord-main { padding: 0 0 6rem; background: var(--bg-2); }
+.ord-main { padding: 0 0 6rem; }
 .ord-grid { display: grid; grid-template-columns: 1fr 22rem; gap: 2.5rem; align-items: start; }
 
 /* bottle chooser */

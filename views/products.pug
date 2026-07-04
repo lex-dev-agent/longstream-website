@@ -12,9 +12,11 @@ html(lang="en")
     link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
     link(rel="stylesheet", href="/styles/v5.css")
     style.
-      .prod-hero { text-align: center; padding: 5rem 0 1.5rem; }
+      .prod-hero { text-align: center; padding: 5rem 0 1.5rem; background: var(--bg-2); }
       .prod-hero h1 { font-family: var(--font-head); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; margin: 0.5rem 0 1rem; }
       .prod-lead { color: var(--muted); max-width: 38rem; margin: 0 auto; }
+      /* Both ranges share one continuous bg-2, no dividing line */
+      .v5-range, .v5-experimental { background: var(--bg-2); border-top: none; }
 
   body
     include _spiritcard
@@ -33,7 +35,6 @@ html(lang="en")
       section.v5-range#range
         .wrap
           .v5-range-head
-            .v5-rule.center
             p.v5-kicker The range
             h2 Signature Range
             p Our core collection of small-batch spirits, made from scratch and perfected over years.
@@ -45,7 +46,6 @@ html(lang="en")
       section.v5-experimental#experimental
         .wrap
           .v5-range-head
-            .v5-rule.center
             p.v5-kicker Limited batches
             h2 Experimental Range
             p One-off and seasonal distillations from the back of the shed. Our club members are the first in line when released.
