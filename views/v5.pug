@@ -15,7 +15,9 @@ html(lang="en")
     //- Spirit card — opens the standardised modal on click. Carries a hidden
     //- payload (story + best served) the modal clones into its middle/right columns.
     mixin spiritCard(s)
-      a.v5-card(href="#", role="button", data-spirit=s.id, data-status=s.status, class={"v5-card-out": s.status !== 'available'})
+      //- Available bottles link straight to the order page; the rest open the detail modal.
+      - var available = s.status === 'available'
+      a.v5-card(href=(available ? "/order" : "#"), role="button", data-spirit=(available ? false : s.id), data-status=s.status, class={"v5-card-out": s.status !== 'available'})
         if s.status === 'soldout'
           span.v5-badge Sold out
         else if s.status === 'coming-soon'
@@ -60,7 +62,7 @@ html(lang="en")
           a(href="#story") Our Story
           a(href="#range") The Range
           a(href="#club") The Club
-          a.v5-btn(href="#club") Notify Me
+          a.v5-btn(href="/order") Order
 
     main
       //- HERO
