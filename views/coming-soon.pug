@@ -1,0 +1,43 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title #{pageTitle} — Longstream Distillery
+    //- Dark logo by default (shows on light tab bars); white logo in dark mode
+    link(rel="icon", type="image/png", href="/images/logo.png")
+    link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/v5.css")
+    style.
+      .cs { min-height: 68vh; display: flex; align-items: center; text-align: center; padding: 5rem 0; }
+      .cs h1 { font-family: var(--font-head); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.1; margin: 0.5rem 0 1.25rem; }
+      .cs-badge { display: inline-block; padding: 0.3rem 0.9rem; background: var(--gold); color: var(--bg); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 1px; margin-bottom: 1.75rem; }
+      .cs-lead { color: var(--muted); max-width: 32rem; margin: 0 auto 2rem; }
+      .cs-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  body
+    include _nav
+
+    main
+      section.cs
+        .wrap
+          .v5-rule.center
+          p.v5-kicker Longstream Distillery
+          h1= pageTitle
+          p.cs-badge Coming soon
+          p.cs-lead We're putting the finishing touches on this page. Join the Longstream Club to be first to know when it's live.
+          .cs-actions
+            a.v5-btn-solid(href="/#club") Join the Club
+            a.v5-btn-ghost(href="/") Back to home
+
+    footer.v5-footer
+      .wrap
+        .v5-foot-brand Longstream Distillery
+        p Crafted with passion in Mangaroa, Upper Hutt.
+        p © #{new Date().getFullYear()} Longstream Distillery Limited. All rights reserved.
+
+    include _navscroll
+    include _agegate

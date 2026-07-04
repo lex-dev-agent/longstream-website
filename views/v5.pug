@@ -53,16 +53,7 @@ html(lang="en")
                 img(src=`/images/v5-${s.id}.jpg`, alt=s.photoAlt, onerror="this.style.display='none'; this.parentNode.classList.add('is-empty')")
                 figcaption Photo coming soon
 
-    header.v5-header
-      .wrap
-        a.v5-brand(href="/")
-          img(src="/images/logo-white.png", alt="Longstream Distillery")
-          span Longstream
-        nav.v5-nav
-          a(href="#story") Our Story
-          a(href="#range") The Range
-          a(href="#club") The Club
-          a.v5-btn(href="/order") Order
+    include _nav
 
     main
       //- HERO
