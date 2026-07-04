@@ -329,11 +329,24 @@ app.get('/design', requirePassword(), (req, res) => {
 });
 app.post('/design', handlePasswordPost('/design'));
 
+// Format a UTC SQLite timestamp ('YYYY-MM-DD HH:MM:SS') as New Zealand local
+// time. Pacific/Auckland handles NZST/NZDT (daylight saving) automatically.
+function toNZTime(utcStr) {
+  if (!utcStr) return '';
+  const d = new Date(utcStr.replace(' ', 'T') + 'Z');
+  if (isNaN(d.getTime())) return utcStr;
+  return new Intl.DateTimeFormat('en-NZ', {
+    timeZone: 'Pacific/Auckland',
+    day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', hour12: true
+  }).format(d);
+}
+
 // Gated view of Longstream Club signups (password-protected, same gate as /design)
 app.get('/emails', requirePassword(), (req, res) => {
   const signups = listSignups();
   res.render('emails', {
-    signups: signups || [],
+    signups: (signups || []).map((r) => ({ ...r, created_at: toNZTime(r.created_at) })),
     dbAvailable: signups !== null
   });
 });
