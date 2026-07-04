@@ -406,10 +406,11 @@ app.post('/brief/:slug', (req, res) => {
 });
 
 app.get('/order', (req, res) => {
-  // Offer every spirit that's actually available — from both the main range and
-  // the experimental batches — so any "available" card on the homepage can order.
+  // Show both ranges; the template greys out coming-soon / sold-out spirits and
+  // only gives the available ones a quantity stepper.
   res.render('order', {
-    bottles: [...v5Bottles, ...v5Experimental].filter((b) => b.status === 'available')
+    bottles: v5Bottles,
+    experimentalBatches: v5Experimental
   });
 });
 

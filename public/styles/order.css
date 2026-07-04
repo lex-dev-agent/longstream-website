@@ -18,6 +18,19 @@
 
 /* bottle chooser */
 .ord-choose { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* section headings within the chooser */
+.ord-section-head { margin: 0.25rem 0 -0.25rem; }
+.ord-section-head:not(:first-child) { margin-top: 1.5rem; }
+.ord-section-head h2 { font-family: var(--font-head); font-weight: 500; font-size: 1.7rem; margin: 0; }
+
+/* coming soon / sold out — greyed out, not orderable */
+.ord-item--out { opacity: 0.6; }
+.ord-item--out .ord-item-img { filter: grayscale(0.85) brightness(0.7); }
+.ord-item-status {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--line); padding: 0.5rem 0.85rem; border-radius: 1px; white-space: nowrap;
+}
 .ord-item {
   display: grid; grid-template-columns: 88px 1fr auto; gap: 1.5rem; align-items: center;
   background: linear-gradient(180deg, var(--panel), #12150f);
@@ -99,4 +112,5 @@
   .ord-item-img { grid-area: img; width: 64px; height: 96px; }
   .ord-item-body { grid-area: body; }
   .ord-stepper { grid-area: stepper; justify-content: flex-start; }
+  .ord-item-status { grid-area: stepper; justify-self: start; }
 }

@@ -16,6 +16,27 @@ html(lang="en")
   body
     include _nav
 
+    //- Order row — available spirits get a quantity stepper; coming soon / sold
+    //- out spirits are shown greyed out and can't be ordered.
+    mixin orderItem(bottle)
+      - var available = bottle.status === 'available'
+      .ord-item(class={"ord-item--out": !available}, data-id=bottle.id, data-name=bottle.name, data-price=bottle.price)
+        img.ord-item-img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
+        .ord-item-body
+          h3.ord-item-name= bottle.name
+          p.ord-item-desc= bottle.description
+          if available
+            p.ord-item-meta #{bottle.volume} · #{bottle.abv} · NZ$#{bottle.price}
+          else
+            p.ord-item-meta #{bottle.volume} · #{bottle.abv}
+        if available
+          .ord-stepper
+            button.ord-step-btn(type="button", data-act="dec", aria-label=`Remove one ${bottle.name}`) −
+            input.ord-qty(type="number", min="0", max="12", value="0", readonly, aria-label=`${bottle.name} quantity`)
+            button.ord-step-btn(type="button", data-act="inc", aria-label=`Add one ${bottle.name}`) +
+        else
+          span.ord-item-status= bottle.status === 'soldout' ? 'Sold out' : 'Coming soon'
+
     main
       //- HERO
       section.ord-hero
@@ -29,17 +50,16 @@ html(lang="en")
       section.ord-main
         .wrap.ord-grid
           .ord-choose
+            .ord-section-head
+              .v5-rule
+              h2 Signature Range
             each bottle in bottles
-              .ord-item(data-id=bottle.id, data-name=bottle.name, data-price=bottle.price)
-                img.ord-item-img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
-                .ord-item-body
-                  h3.ord-item-name= bottle.name
-                  p.ord-item-desc= bottle.description
-                  p.ord-item-meta #{bottle.volume} · #{bottle.abv} · NZ$#{bottle.price}
-                .ord-stepper
-                  button.ord-step-btn(type="button", data-act="dec", aria-label=`Remove one ${bottle.name}`) −
-                  input.ord-qty(type="number", min="0", max="12", value="0", readonly, aria-label=`${bottle.name} quantity`)
-                  button.ord-step-btn(type="button", data-act="inc", aria-label=`Add one ${bottle.name}`) +
+              +orderItem(bottle)
+            .ord-section-head
+              .v5-rule
+              h2 Experimental Range
+            each batch in experimentalBatches
+              +orderItem(batch)
 
           aside.ord-summary
             .ord-summary-card
@@ -81,7 +101,7 @@ html(lang="en")
     script.
       (function () {
         var currency = new Intl.NumberFormat('en-NZ', { style: 'currency', currency: 'NZD' });
-        var items = Array.prototype.slice.call(document.querySelectorAll('.ord-item'));
+        var items = Array.prototype.slice.call(document.querySelectorAll('.ord-item:not(.ord-item--out)'));
         var listEl = document.querySelector('.ord-summary-list');
         var subtotalEl = document.getElementById('ord-subtotal');
         var continueBtn = document.getElementById('ord-continue');
