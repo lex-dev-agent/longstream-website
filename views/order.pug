@@ -1,183 +1,163 @@
-extends layout
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Order — Longstream Distillery
+    link(rel="icon", type="image/png", href="/images/logo-white.png")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/v5.css")
+    link(rel="stylesheet", href="/styles/order.css")
 
-block nav
-  a.button.button-primary(href="/") Home
+  body
+    header.v5-header
+      .wrap
+        a.v5-brand(href="/")
+          img(src="/images/logo-white.png", alt="Longstream Distillery")
+          span Longstream
+        nav.v5-nav
+          a(href="/") Home
+          a(href="/#range") The Range
+          a.v5-btn(href="/#club") Join the Club
 
-block fab
+    main
+      //- HERO
+      section.ord-hero
+        .wrap
+          .v5-rule.center
+          p.v5-kicker Cellar door
+          h1 Order your bottles
+          p.ord-lead Choose the Longstream spirits you'd like below, then continue to checkout.
 
-block content
-  section.order-hero
-    .container
-      h1 Order Longstream Distillery
-      p.lead Have bottles delivered nationwide with secure online payment straight from our cellar door.
-      ul.order-hero-list
-        li Nationwide delivery from our Mangaroa distillery
-        li Secure payment powered by Stripe with 3D Secure
-        li Same-day dispatch on weekday orders placed before 1pm
-  section.section.order-section
-    .container
-      .order-layout
-        form.order-form(action="#" method="post")
-          fieldset.order-fieldset
-            legend 1. Choose your bottles
-            p.order-fieldset-description Select the bottles for your delivery. Quantities are limited while small batches finish resting.
+      //- CHOOSER + SUMMARY
+      section.ord-main
+        .wrap.ord-grid
+          .ord-choose
             each bottle in bottles
-              .order-product(class={"order-product--sold-out": !bottle.available})
-                .order-product-info
-                  h3= bottle.name
-                  p= bottle.description
-                  ul.order-product-meta
-                    li #{bottle.volume} bottle
-                    li #{bottle.abv} ABV
-                    if bottle.available
-                      li NZ$#{bottle.price}
-                  if bottle.available
-                    .order-product-quantity
-                      label(for=`${bottle.id}-qty`) Quantity
-                      input(type="number", id=`${bottle.id}-qty`, name=`${bottle.id}[quantity]`, min="0", max="12", value="0", data-price=bottle.price, data-name=bottle.name)
-                  else
-                    .order-product-status
-                      span.badge.badge-sold-out Sold out
-                      if bottle.soldOutMessage
-                        p.order-product-status-note= bottle.soldOutMessage
-          fieldset.order-fieldset
-            legend 2. Delivery details
-            p.order-fieldset-description We currently deliver within New Zealand only. Rural addresses may take an additional day.
-            .form-row
-              .form-group
-                label(for="customerName") Full name
-                input#customerName(type="text", name="customerName", autocomplete="name", required)
-              .form-group
-                label(for="email") Email
-                input#email(type="email", name="email", autocomplete="email", required)
-            .form-row
-              .form-group
-                label(for="phone") Phone number
-                input#phone(type="tel", name="phone", autocomplete="tel", placeholder="e.g. 021 123 4567")
-              .form-group
-                label(for="shippingOption") Delivery option
-                select#shippingOption(name="shippingOption")
-                  each option in shippingOptions
-                    option(value=option.id, data-price=option.price, data-note=option.note, selected=option.default) #{option.label} — !{option.price === 0 ? 'Free' : 'NZ$' + option.price.toFixed(2)}
-            .form-group
-              label(for="address") Delivery address
-              textarea#address(name="address", rows="3", autocomplete="street-address", placeholder="Street address and house number", required)
-            .form-row
-              .form-group
-                label(for="suburb") Suburb / City
-                input#suburb(type="text", name="suburb", autocomplete="address-level2", required)
-              .form-group
-                label(for="postcode") Postcode
-                input#postcode(type="text", name="postcode", inputmode="numeric", pattern="[0-9]{4}", maxlength="4", required)
-            p.order-delivery-note(data-delivery-note)
-          fieldset.order-fieldset
-            legend 3. Payment
-            p.order-fieldset-description= paymentSecurity.statement
-            .form-row
-              .form-group
-                label(for="cardName") Name on card
-                input#cardName(type="text", name="cardName", autocomplete="cc-name", required)
-              .form-group
-                label(for="cardNumber") Card number
-                input#cardNumber(type="text", name="cardNumber", inputmode="numeric", autocomplete="cc-number", placeholder="1234 5678 9012 3456", pattern="[0-9 ]{12,23}", required)
-            .form-row
-              .form-group
-                label(for="expiry") Expiry (MM/YY)
-                input#expiry(type="text", name="expiry", inputmode="numeric", autocomplete="cc-exp", placeholder="08/26", pattern="(0[1-9]|1[0-2])/[0-9]{2}", required)
-              .form-group
-                label(for="cvc") CVC
-                input#cvc(type="text", name="cvc", inputmode="numeric", autocomplete="cc-csc", placeholder="123", pattern="[0-9]{3,4}", required)
-            .checkbox-group
-              input#ageConfirm(type="checkbox", name="ageConfirm", required)
-              label(for="ageConfirm") I confirm I am over 18 and legally permitted to purchase alcohol in New Zealand.
-            button.button.button-primary(type="submit") Pay securely now
-            p.order-form-disclaimer Online orders are encrypted end-to-end. A payment confirmation receipt will arrive in your inbox instantly.
-        aside.order-summary
-          .order-summary-card
-            h2 Order summary
-            p.order-summary-intro Review your chosen bottles and delivery before placing your order.
-            ul.order-summary-list
-            dl.order-summary-totals
-              div
-                dt Bottles
-                dd#bottles-total NZ$0.00
-              div
-                dt Delivery
-                dd#delivery-total NZ$0.00
-              div.order-summary-grand
-                dt Total due
-                dd#grand-total NZ$0.00
-            .order-summary-payment
-              h3 Accepted payment methods
-              ul.order-card-list
-                each card in paymentSecurity.acceptedCards
-                  li= card
-            p.order-summary-note
-              | Need a larger allocation or corporate gifting? Email 
-              a(href="mailto:enquiries@longstream.nz") enquiries@longstream.nz
-              |  and we'll tailor something special.
-  script.
-    (function () {
-      var form = document.querySelector('.order-form');
-      if (!form) return;
-      var quantityInputs = form.querySelectorAll('input[data-price]');
-      var shippingSelect = form.querySelector('#shippingOption');
-      var summaryList = document.querySelector('.order-summary-list');
-      var bottleTotalEl = document.getElementById('bottles-total');
-      var deliveryTotalEl = document.getElementById('delivery-total');
-      var grandTotalEl = document.getElementById('grand-total');
-      var deliveryNoteEl = document.querySelector('[data-delivery-note]');
-      var currencyFormatter = new Intl.NumberFormat('en-NZ', { style: 'currency', currency: 'NZD' });
+              .ord-item(data-id=bottle.id, data-name=bottle.name, data-price=bottle.price)
+                img.ord-item-img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
+                .ord-item-body
+                  h3.ord-item-name= bottle.name
+                  p.ord-item-desc= bottle.description
+                  p.ord-item-meta #{bottle.volume} · #{bottle.abv} · NZ$#{bottle.price}
+                .ord-stepper
+                  button.ord-step-btn(type="button", data-act="dec", aria-label=`Remove one ${bottle.name}`) −
+                  input.ord-qty(type="number", min="0", max="12", value="0", readonly, aria-label=`${bottle.name} quantity`)
+                  button.ord-step-btn(type="button", data-act="inc", aria-label=`Add one ${bottle.name}`) +
 
-      function formatCurrency(amount) {
-        return currencyFormatter.format(amount || 0);
-      }
+          aside.ord-summary
+            .ord-summary-card
+              h2 Your order
+              ul.ord-summary-list
+                li.ord-summary-empty No bottles selected yet.
+              dl.ord-summary-totals
+                div
+                  dt Subtotal
+                  dd#ord-subtotal NZ$0.00
+              button.v5-btn-solid.ord-continue(type="button", id="ord-continue", disabled) Checkout
+              p.ord-summary-legal You must be 18 or older to purchase.
 
-      function updateSummary() {
-        var bottleTotal = 0;
-        summaryList.innerHTML = '';
+    footer.v5-footer
+      .wrap
+        .v5-foot-brand Longstream Distillery
+        p Crafted with pride in Mangaroa, Upper Hutt.
+        p.v5-foot-warn Please enjoy responsibly. Not for sale to persons under 18.
+        p © #{new Date().getFullYear()} Longstream Distillery. All rights reserved.
 
-        quantityInputs.forEach(function (input) {
-          var quantity = parseInt(input.value, 10) || 0;
-          if (quantity > 0) {
-            var lineTotal = quantity * parseFloat(input.dataset.price);
-            bottleTotal += lineTotal;
-            var listItem = document.createElement('li');
-            listItem.className = 'order-summary-item';
-            var name = input.dataset.name;
-            listItem.innerHTML = '<span>' + quantity + ' × ' + name + '</span><span>' + formatCurrency(lineTotal) + '</span>';
-            summaryList.appendChild(listItem);
+    //- SECOND 18+ gate — shown at checkout (the site-entry gate is the first)
+    .ord-gate(id="ord-gate", hidden)
+      .ord-gate-card
+        //- Step A: the age question
+        div(id="ord-gate-ask")
+          p.v5-kicker Mangaroa Valley Small Batch Spirits
+          h2.ord-gate-title Are you 18 or older?
+          p.ord-gate-text You must be of legal drinking age in New Zealand to purchase alcohol.
+          .ord-gate-actions
+            button.v5-btn-solid(type="button", id="ord-gate-yes") Yes, I'm 18 or older
+            button.v5-btn-ghost(type="button", id="ord-gate-no") No
+          p.ord-gate-deny(id="ord-gate-deny", hidden) Sorry — you must be 18 or older to purchase. Please drink responsibly.
+        //- Step B: confirmation — not selling online yet
+        .ord-gate-done(id="ord-gate-done", hidden)
+          p.v5-kicker Thanks for checking us out
+          h2.ord-gate-title We're not selling online just yet
+          p We're not open for business quite yet. Join the Longstream Club and we'll let you know the moment our spirits go on sale.
+          .ord-gate-actions
+            a.v5-btn-solid(href="/#club") Join the Club
+            button.v5-btn-ghost(type="button", id="ord-gate-close") Keep browsing
+
+    include _agegate
+
+    script.
+      (function () {
+        var currency = new Intl.NumberFormat('en-NZ', { style: 'currency', currency: 'NZD' });
+        var items = Array.prototype.slice.call(document.querySelectorAll('.ord-item'));
+        var listEl = document.querySelector('.ord-summary-list');
+        var subtotalEl = document.getElementById('ord-subtotal');
+        var continueBtn = document.getElementById('ord-continue');
+
+        function render() {
+          var subtotal = 0, lines = [];
+          items.forEach(function (item) {
+            var qty = parseInt(item.querySelector('.ord-qty').value, 10) || 0;
+            item.classList.toggle('is-picked', qty > 0);
+            if (qty > 0) {
+              var price = parseFloat(item.dataset.price) || 0;
+              subtotal += qty * price;
+              lines.push({ name: item.dataset.name, qty: qty, total: qty * price });
+            }
+          });
+          listEl.innerHTML = '';
+          if (!lines.length) {
+            var empty = document.createElement('li');
+            empty.className = 'ord-summary-empty';
+            empty.textContent = 'No bottles selected yet.';
+            listEl.appendChild(empty);
+          } else {
+            lines.forEach(function (l) {
+              var li = document.createElement('li');
+              li.innerHTML = '<span>' + l.qty + ' × ' + l.name + '</span><span>' + currency.format(l.total) + '</span>';
+              listEl.appendChild(li);
+            });
           }
+          subtotalEl.textContent = currency.format(subtotal);
+          continueBtn.disabled = !lines.length;
+        }
+
+        items.forEach(function (item) {
+          var input = item.querySelector('.ord-qty');
+          item.querySelectorAll('.ord-step-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var qty = parseInt(input.value, 10) || 0;
+              qty += btn.dataset.act === 'inc' ? 1 : -1;
+              if (qty < 0) qty = 0;
+              if (qty > 12) qty = 12;
+              input.value = qty;
+              render();
+            });
+          });
         });
 
-        if (!summaryList.children.length) {
-          var emptyItem = document.createElement('li');
-          emptyItem.className = 'order-summary-empty';
-          emptyItem.textContent = 'No bottles selected yet.';
-          summaryList.appendChild(emptyItem);
+        // --- 18+ checkout gate (second gate before purchase) ---
+        var gate = document.getElementById('ord-gate');
+        var ask = document.getElementById('ord-gate-ask');
+        var done = document.getElementById('ord-gate-done');
+        var deny = document.getElementById('ord-gate-deny');
+        function openGate() {
+          ask.hidden = false; done.hidden = true; deny.hidden = true;
+          gate.hidden = false; document.body.style.overflow = 'hidden';
         }
+        function closeGate() { gate.hidden = true; document.body.style.overflow = ''; }
 
-        var shippingOption = shippingSelect ? shippingSelect.options[shippingSelect.selectedIndex] : null;
-        var shippingPrice = shippingOption ? parseFloat(shippingOption.dataset.price || '0') : 0;
-        if (deliveryNoteEl && shippingOption) {
-          var note = shippingOption.dataset.note || '';
-          deliveryNoteEl.textContent = note;
-          deliveryNoteEl.style.display = note ? '' : 'none';
-        }
+        continueBtn.addEventListener('click', function () { if (!continueBtn.disabled) openGate(); });
+        document.getElementById('ord-gate-yes').addEventListener('click', function () {
+          ask.hidden = true; done.hidden = false;
+        });
+        document.getElementById('ord-gate-no').addEventListener('click', function () { deny.hidden = false; });
+        document.getElementById('ord-gate-close').addEventListener('click', closeGate);
+        gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !gate.hidden) closeGate(); });
 
-        bottleTotalEl.textContent = formatCurrency(bottleTotal);
-        deliveryTotalEl.textContent = formatCurrency(shippingPrice);
-        grandTotalEl.textContent = formatCurrency(bottleTotal + shippingPrice);
-      }
-
-      quantityInputs.forEach(function (input) {
-        input.addEventListener('input', updateSummary);
-        input.addEventListener('change', updateSummary);
-      });
-
-      if (shippingSelect) {
-        shippingSelect.addEventListener('change', updateSummary);
-      }
-
-      updateSummary();
-    })();
+        render();
+      })();

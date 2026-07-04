@@ -1,0 +1,102 @@
+/* ============================================================
+   Order page — bottle picker + 18+ checkout gate.
+   Rides on top of v5.css (shares the same design tokens).
+   ============================================================ */
+
+/* hero */
+.ord-hero { text-align: center; padding: 6rem 0 3.5rem; }
+.ord-hero .v5-rule.center { margin-bottom: 1.25rem; }
+.ord-hero h1 {
+  font-family: var(--font-head); font-weight: 500; font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.1; margin: 0 0 1rem;
+}
+.ord-lead { color: var(--muted); max-width: 34rem; margin: 0 auto; }
+
+/* layout */
+.ord-main { padding: 0 0 6rem; }
+.ord-grid { display: grid; grid-template-columns: 1fr 22rem; gap: 2.5rem; align-items: start; }
+
+/* bottle chooser */
+.ord-choose { display: flex; flex-direction: column; gap: 1.25rem; }
+.ord-item {
+  display: grid; grid-template-columns: 88px 1fr auto; gap: 1.5rem; align-items: center;
+  background: linear-gradient(180deg, var(--panel), #12150f);
+  border: 1px solid var(--line); padding: 1.5rem 1.75rem;
+  transition: border-color 0.3s ease;
+}
+.ord-item.is-picked { border-color: var(--gold); }
+.ord-item-img {
+  width: 88px; height: 128px; object-fit: contain; display: block;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.5));
+}
+.ord-item-name { font-family: var(--font-head); font-size: 1.4rem; font-weight: 500; margin: 0 0 0.35rem; }
+.ord-item-desc { color: var(--muted); font-size: 0.88rem; margin: 0 0 0.6rem; }
+.ord-item-meta {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0;
+}
+
+/* quantity stepper */
+.ord-stepper { display: flex; align-items: center; gap: 0.5rem; }
+.ord-step-btn {
+  width: 2.2rem; height: 2.2rem; border: 1px solid var(--line); background: transparent;
+  color: var(--gold-2); font-size: 1.2rem; line-height: 1; cursor: pointer; border-radius: 1px;
+  transition: all 0.25s ease;
+}
+.ord-step-btn:hover { border-color: var(--gold); background: var(--gold); color: var(--bg); }
+.ord-qty {
+  width: 2.6rem; text-align: center; background: transparent; border: none; color: var(--ink);
+  font-family: var(--font-body); font-size: 1rem; -moz-appearance: textfield;
+}
+.ord-qty::-webkit-outer-spin-button, .ord-qty::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* summary */
+.ord-summary { position: sticky; top: 6rem; }
+.ord-summary-card {
+  background: linear-gradient(180deg, var(--panel), #12150f);
+  border: 1px solid var(--line); padding: 2rem 1.75rem;
+}
+.ord-summary-card h2 { font-family: var(--font-head); font-weight: 500; font-size: 1.5rem; margin: 0 0 1.25rem; }
+.ord-summary-list { list-style: none; margin: 0 0 1.25rem; padding: 0; }
+.ord-summary-list li {
+  display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0;
+  font-size: 0.9rem; color: var(--ink); border-bottom: 1px solid rgba(201,168,92,0.1);
+}
+.ord-summary-empty { color: var(--muted); font-style: italic; }
+.ord-summary-totals { margin: 0 0 1.5rem; }
+.ord-summary-totals div { display: flex; justify-content: space-between; align-items: baseline; }
+.ord-summary-totals dt { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.ord-summary-totals dd { margin: 0; font-family: var(--font-head); font-size: 1.6rem; color: var(--gold-2); }
+.ord-continue { width: 100%; }
+.ord-continue:disabled { opacity: 0.4; cursor: not-allowed; }
+.ord-summary-legal { text-align: center; color: var(--muted); font-size: 0.74rem; margin: 0.9rem 0 0; }
+
+/* 18+ checkout gate (styled to mirror the site entry gate) */
+.ord-gate {
+  position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem; background: rgba(6,7,5,0.92); backdrop-filter: blur(8px);
+}
+.ord-gate[hidden] { display: none; }
+.ord-gate-card {
+  max-width: 460px; width: 100%; text-align: center;
+  background: linear-gradient(180deg, #1b1f1a, #10120d);
+  border: 1px solid var(--gold); border-radius: 2px; padding: 3rem 2.25rem;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.7);
+}
+.ord-gate-title { font-family: var(--font-head); font-weight: 500; font-size: 1.9rem; margin: 0.4rem 0 0.75rem; line-height: 1.15; }
+.ord-gate-text { color: var(--muted); margin: 0 0 1.5rem; }
+.ord-gate-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+.ord-gate-deny { color: #f0b4b4; margin: 1.5rem 0 0; font-size: 0.9rem; }
+.ord-gate-deny[hidden] { display: none; }
+/* post-confirmation "not selling yet" panel */
+.ord-gate-done { }
+.ord-gate-done[hidden] { display: none; }
+.ord-gate-done p { color: var(--muted); margin: 0 0 1.5rem; }
+
+@media (max-width: 820px) {
+  .ord-grid { grid-template-columns: 1fr; }
+  .ord-summary { position: static; }
+  .ord-item { grid-template-columns: 64px 1fr; grid-template-areas: "img body" "stepper stepper"; row-gap: 1rem; }
+  .ord-item-img { grid-area: img; width: 64px; height: 96px; }
+  .ord-item-body { grid-area: body; }
+  .ord-stepper { grid-area: stepper; justify-content: flex-start; }
+}

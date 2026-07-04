@@ -549,10 +549,9 @@ app.post('/brief/:slug', (req, res) => {
 });
 
 app.get('/order', (req, res) => {
+  // Only offer the spirits that are actually available on The Range.
   res.render('order', {
-    bottles: bottleCatalogue,
-    shippingOptions,
-    paymentSecurity
+    bottles: v5Bottles.filter((b) => b.status === 'available')
   });
 });
 
