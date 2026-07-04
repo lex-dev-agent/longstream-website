@@ -1,0 +1,95 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Club Signups — Longstream Distillery
+    link(rel="icon", type="image/png", href="/images/logo-white.png")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/v5.css")
+    style.
+      .em-wrap { max-width: 1000px; margin: 0 auto; padding: 4rem 1.75rem 6rem; }
+      .em-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
+      .em-head h1 { font-family: var(--font-head); font-weight: 500; font-size: clamp(2rem, 4vw, 2.8rem); margin: 0; }
+      .em-count { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+      .em-actions { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+      .em-note { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.5rem; }
+      .em-empty { color: var(--muted); font-style: italic; padding: 3rem 0; text-align: center; }
+      table.em-table { width: 100%; border-collapse: collapse; }
+      .em-table th, .em-table td { text-align: left; padding: 0.85rem 1rem; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+      .em-table th { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+      .em-table tbody tr:hover, .em-table tr:hover { background: rgba(201,168,92,0.04); }
+      .em-table td.em-email { color: var(--gold-2); }
+      .em-table td.em-meta { color: var(--muted); font-size: 0.82rem; }
+      .em-idx { color: var(--muted); width: 3rem; }
+      .em-copied { color: var(--gold-2); font-size: 0.8rem; margin-left: 0.5rem; opacity: 0; transition: opacity 0.3s ease; }
+      .em-copied.show { opacity: 1; }
+
+  body
+    header.v5-header
+      .wrap
+        a.v5-brand(href="/")
+          img(src="/images/logo-white.png", alt="Longstream Distillery")
+          span Longstream
+        nav.v5-nav
+          a(href="/") Home
+          a.v5-btn(href="/#club") Join the Club
+
+    main
+      .em-wrap
+        .em-head
+          div
+            .v5-rule
+            p.v5-kicker Members only
+            h1 Longstream Club signups
+          span.em-count #{signups.length} #{signups.length === 1 ? 'email' : 'emails'}
+
+        if !dbAvailable
+          p.em-note The signups database isn't currently available on this server, so nothing can be shown here.
+        else if !signups.length
+          p.em-empty No one has signed up yet.
+        else
+          .em-actions
+            button.v5-btn-solid#em-copy(type="button") Copy all emails
+            span.em-copied#em-copied Copied!
+          table.em-table
+            thead
+              tr
+                th.em-idx #
+                th Email
+                th Source
+                th Signed up
+            tbody
+              each row, i in signups
+                tr
+                  td.em-idx= i + 1
+                  td.em-email= row.email
+                  td.em-meta= row.variant || '—'
+                  td.em-meta= row.created_at
+
+    footer.v5-footer
+      .wrap
+        .v5-foot-brand Longstream Distillery
+        p Crafted with pride in Mangaroa, Upper Hutt.
+        p © #{new Date().getFullYear()} Longstream Distillery. All rights reserved.
+
+    script.
+      (function () {
+        var btn = document.getElementById('em-copy');
+        if (!btn) return;
+        var emails = Array.prototype.map.call(document.querySelectorAll('.em-email'), function (el) {
+          return el.textContent.trim();
+        });
+        btn.addEventListener('click', function () {
+          var text = emails.join(', ');
+          var done = document.getElementById('em-copied');
+          function flash() { done.classList.add('show'); setTimeout(function () { done.classList.remove('show'); }, 1600); }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(flash, function () { window.prompt('Copy these emails:', text); });
+          } else {
+            window.prompt('Copy these emails:', text);
+          }
+        });
+      })();

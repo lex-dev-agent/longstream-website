@@ -358,6 +358,7 @@ const v5Experimental = [
 // Initialised defensively: if better-sqlite3 (a native module) is missing or
 // fails to load, the site must still run — signups fall back to the log.
 let insertSignup = null;
+let selectSignups = null;
 try {
   if (!Database) throw new Error('better-sqlite3 module not loaded');
   const CLUB_DB_PATH =
@@ -376,6 +377,9 @@ try {
   insertSignup = clubDb.prepare(
     'INSERT OR IGNORE INTO club_signups (email, variant, ip, user_agent) VALUES (?, ?, ?, ?)'
   );
+  selectSignups = clubDb.prepare(
+    'SELECT email, variant, created_at FROM club_signups ORDER BY id DESC'
+  );
   console.log('Club signups -> SQLite at', CLUB_DB_PATH);
 } catch (err) {
   console.error('Club DB unavailable — signups will be logged instead:', err.message);
@@ -392,6 +396,18 @@ function saveSignup(email, variant, req) {
   }
   // Fallback so a signup is never silently lost
   console.log('CLUB_SIGNUP_FALLBACK ' + JSON.stringify({ email: addr, variant, ip: req.ip, at: new Date().toISOString() }));
+}
+
+// Read the club signups for the gated admin page. Returns [] (never throws) if
+// the DB isn't available, so the page renders with an empty state.
+function listSignups() {
+  if (!selectSignups) return null;
+  try {
+    return selectSignups.all();
+  } catch (err) {
+    console.error('Failed to read club signups:', err.message);
+    return null;
+  }
 }
 
 const shippingOptions = [
@@ -438,6 +454,16 @@ app.get('/design', requirePassword(), (req, res) => {
   res.render('design');
 });
 app.post('/design', handlePasswordPost('/design'));
+
+// Gated view of Longstream Club signups (password-protected, same gate as /design)
+app.get('/emails', requirePassword(), (req, res) => {
+  const signups = listSignups();
+  res.render('emails', {
+    signups: signups || [],
+    dbAvailable: signups !== null
+  });
+});
+app.post('/emails', handlePasswordPost('/emails'));
 
 // Homepage design variations (for review / "lock in the style")
 app.get('/variations', (req, res) => res.render('variations'));
