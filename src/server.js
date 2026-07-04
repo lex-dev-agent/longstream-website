@@ -175,7 +175,7 @@ const v5Experimental = [
   {
     id: 'blonde-ambition-gin',
     name: 'Blonde Ambition Gin',
-    description: 'Our flagship Blonde Gin rested in charred oak for nine months. Spiced and golden.',
+    description: 'Mānuka smoked gin with a whisper of sea salt. Dark, savoury, unforgettable.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
