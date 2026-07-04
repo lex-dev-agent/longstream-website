@@ -137,7 +137,7 @@ const v4Bottles = [
     name: 'Blonde Dry Gin',
     description:
       'A classic dry gin with a juniper base and our blend including juniper, cardamom and lime botanicals.',
-    serve: 'Best served with a simple tonic and a slice of lime to garnish.',
+    serve: 'Best served with a simple tonic and a slice of lime.',
     volume: '700mL',
     abv: '38%',
     price: 79,
@@ -234,7 +234,7 @@ const v5Bottles = [
     id: 'blonde-gin',
     name: 'Blonde Gin',
     description: 'The gin that started it all. Our classic dry gin including Juniper, Cardamom and Lime botanicals.',
-    serve: 'Best served with a simple tonic and a slice of lime to garnish.',
+    serve: 'Best served with a simple tonic and a slice of lime.',
     volume: '700mL',
     abv: '38%',
     price: 79,
