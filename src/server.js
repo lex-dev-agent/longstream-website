@@ -305,18 +305,23 @@ app.get('/', (req, res) => {
   });
 });
 
-// Longstream Club signup (posted from the homepage)
+// Longstream Club signup (posted from the homepage).
+// Fetch requests (X-Requested-With: fetch) get JSON so the page never reloads;
+// a plain form post still falls back to a redirect.
 app.post('/club', async (req, res) => {
+  const wantsJson = req.get('X-Requested-With') === 'fetch';
+  const done = (ok) =>
+    wantsJson ? res.json({ ok }) : res.redirect(ok ? '/?club=ok#club' : '/?club=err#club');
   // Honeypot: bots fill this hidden field; humans never see it.
-  if (req.body.company) return res.redirect('/?club=ok#club');
+  if (req.body.company) return done(true);
   const email = (req.body.email || '').trim();
   const validEmail = /^\S+@\S+\.\S+$/.test(email);
   const human = await verifyRecaptcha(req.body['g-recaptcha-response'], req.ip);
   if (validEmail && human) {
     saveSignup(email, 'main', req);
-    return res.redirect('/?club=ok#club');
+    return done(true);
   }
-  return res.redirect('/?club=err#club');
+  return done(false);
 });
 
 app.get('/design', requirePassword(), (req, res) => {

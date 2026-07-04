@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title Longstream Distillery — V5 (Pre-launch)
+    title Longstream Distillery
     link(rel="icon", type="image/png", href="/images/logo-white.png")
     link(rel="preconnect", href="https://fonts.googleapis.com")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
@@ -126,10 +126,8 @@ html(lang="en")
           p.v5-kicker Members only
           h2 Join the Longstream Club
           p.lead We're not open for business just yet. Join the club to get updates and be first to know when our spirits go on sale.
-          if clubStatus === 'ok'
-            p.v5-club-msg.ok Thanks — you're on the list. We'll be in touch when we launch.
-          else if clubStatus === 'err'
-            p.v5-club-msg.err Sorry, we couldn't add you. Please check your email and the verification, then try again.
+          p.v5-club-msg.ok#club-ok(hidden=(clubStatus !== 'ok')) Thanks — you're on the list. We'll be in touch when we launch.
+          p.v5-club-msg.err#club-err(hidden=(clubStatus !== 'err')) Sorry, we couldn't add you. Please check your email and the verification, then try again.
           form.v5-club-form#v5-club-form(action="/club", method="post")
             //- Honeypot: hidden from humans, catches naive bots
             .v5-hp(aria-hidden="true")
@@ -169,10 +167,23 @@ html(lang="en")
     include _agegate
 
     script.
-      // Invisible reCAPTCHA callback — fires after the (usually invisible) check passes
+      // Invisible reCAPTCHA callback — fires after the (usually invisible) check passes.
+      // Posts the signup in the background so the page never reloads; we just reveal the note.
       function onClubSubmit(token) {
         var form = document.getElementById('v5-club-form');
-        if (form) form.submit();
+        if (!form) return;
+        var ok = document.getElementById('club-ok');
+        var err = document.getElementById('club-err');
+        var data = new URLSearchParams(new FormData(form));
+        if (token) data.set('g-recaptcha-response', token);
+        fetch('/club', { method: 'POST', headers: { 'X-Requested-With': 'fetch' }, body: data })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (res && res.ok) { ok.hidden = false; err.hidden = true; form.reset(); }
+            else { err.hidden = false; ok.hidden = true; }
+          })
+          .catch(function () { err.hidden = false; ok.hidden = true; })
+          .then(function () { if (window.grecaptcha) grecaptcha.reset(); });
       }
     script.
       (function () {
