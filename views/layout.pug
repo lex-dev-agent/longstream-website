@@ -5,7 +5,8 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     title Longstream Distillery | Homegrown New Zealand Gin
-    link(rel="icon", type="image/png", href="/images/logo.png", media="(prefers-color-scheme: light)")
+    //- Dark logo by default (shows on light tab bars); white logo in dark mode
+    link(rel="icon", type="image/png", href="/images/logo.png")
     link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
     link(rel="stylesheet", href="/styles/main.css")
     link(rel="preconnect", href="https://fonts.googleapis.com")
@@ -40,7 +41,7 @@ html(lang="en")
             button.button.button-primary(type="submit") Subscribe
         .footer-info
           p Crafted with passion in Mangaroa, Upper Hutt.
-          p © #{new Date().getFullYear()} Longstream Distillery. All rights reserved.
+          p © #{new Date().getFullYear()} Longstream Distillery Limited. All rights reserved.
     script.
       (function() {
         function getHeaderOffset() {

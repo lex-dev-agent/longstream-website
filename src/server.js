@@ -150,36 +150,15 @@ const v5Bottles = [
 
 const v5Experimental = [
   {
-    id: 'maymorn-estate-gin',
-    name: 'Maymorn Estate Gin',
-    description: 'Mānuka smoked gin with a whisper of sea salt. Dark, savoury, unforgettable.',
-    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
-    volume: '700mL',
-    abv: '38%',
-    status: 'coming-soon',
-    position: 'left',
-    photo: true,
-    photoAlt: 'The historic Maymorn Estate sawmill',
-    story: [
-      'Maymorn Estate Gin is a homage to the rich history of Maymorn in the Mangaroa Valley near Upper Hutt, where our distillery is located.',
-      'The Maymorn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. It supplied timber and cleared land for pastoral farming.'
-    ],
-    bestServed: [
-      'In a tall glass with a double shot on ice',
-      'With a simple tonic that does not overpower the taste',
-      'Garnished with a slice of lemon'
-    ]
-  },
-  {
     id: 'blonde-lemon-gin',
     name: 'Blonde Lemon Gin',
-    description: 'Our flagship Blonde Gin steeped with lemon peel zest.',
-    serve: 'Best served with a simple tonic and a slice of lemon to garnish.',
+    description: 'Our signature Blonde Gin steeped with lemon peel zest.',
+    serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
-    price: 45,
+    price: 89,
     status: 'available',
-    position: 'middle',
+    position: 'left',
     photo: true,
     photoAlt: 'Lemon peel steeping for Blonde Lemon Gin',
     story: [
@@ -201,11 +180,32 @@ const v5Experimental = [
     volume: '700mL',
     abv: '38%',
     status: 'coming-soon',
-    position: 'right',
+    position: 'middle',
     photo: true,
     photoAlt: 'Blonde Ambition Gin',
     story: ['More info to follow.'],
     bestServed: ['With a simple tonic', 'Sipped neat over ice']
+  },
+  {
+    id: 'maymorn-estate-gin',
+    name: 'Maymorn Estate Gin',
+    description: 'Our signature Blonde Gin rested in charred oak barrels. Spiced and golden.',
+    serve: 'Best served with a simple tonic and a slice of lemon.',
+    volume: '700mL',
+    abv: '38%',
+    status: 'coming-soon',
+    position: 'right',
+    photo: true,
+    photoAlt: 'The historic Maymorn Estate sawmill',
+    story: [
+      'Maymorn Estate Gin is a homage to the rich history of Maymorn in the Mangaroa Valley near Upper Hutt, where our distillery is located.',
+      'The Maymorn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. It supplied timber and cleared land for pastoral farming.'
+    ],
+    bestServed: [
+      'In a tall glass with a double shot on ice',
+      'With a simple tonic that does not overpower the taste',
+      'Garnished with a slice of lemon'
+    ]
   }
 ];
 
