@@ -60,11 +60,7 @@ html(lang="en")
                   td.em-email= row.email
                   td.em-meta= row.created_at
 
-    footer.v5-footer
-      .wrap
-        .v5-foot-brand Longstream Distillery
-        p Crafted with passion in Mangaroa, Upper Hutt.
-        p © #{new Date().getFullYear()} Longstream Distillery Limited. All rights reserved.
+    include _footer
 
     script.
       (function () {

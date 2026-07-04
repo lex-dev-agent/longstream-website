@@ -11,7 +11,6 @@ html(lang="en")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
     link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
     link(rel="stylesheet", href="/styles/v5.css")
-    script(src="https://www.google.com/recaptcha/api.js", async, defer)
 
   body
     //- Spirit card — opens the standardised modal on click. Carries a hidden
@@ -22,7 +21,7 @@ html(lang="en")
           span.v5-badge Sold out
         else if s.status === 'coming-soon'
           span.v5-badge Coming soon
-        img.v5-card-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+        img.v5-card-bottle(src="/images/v3-bottle-new-2.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
         h3= s.name
         p= s.description
         if s.serve
@@ -64,7 +63,7 @@ html(lang="en")
             span.v5-notice-tag Opening soon
             span.v5-notice-text  We're not open for business just yet — join the Longstream Club below to be first to know when our spirits go on sale.
         .v5-hero-glow
-        img.v5-hero-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt="Longstream bottle")
+        img.v5-hero-bottle(src="/images/v3-bottle-new-2.png", onerror="this.src='/images/bottle.webp'", alt="Longstream bottle")
         .wrap
           p.v5-hero-eyebrow Mangaroa Valley Small Batch Spirits
           h1 Spirits born of #[span.gold passion]
@@ -112,38 +111,7 @@ html(lang="en")
             each batch in experimentalBatches
               +spiritCard(batch)
 
-      //- CLUB (updates only — no tastings at this stage)
-      section.v5-club#club
-        .wrap
-          .v5-rule.center
-          p.v5-kicker Members only
-          h2 Join the Longstream Club
-          p.lead We're not open for business just yet. Join the club to get updates and be first to know when our spirits go on sale.
-          p.v5-club-msg.ok#club-ok(hidden=(clubStatus !== 'ok')) Thanks — you're on the list. We'll be in touch when we launch.
-          p.v5-club-msg.err#club-err(hidden=(clubStatus !== 'err')) Sorry, we couldn't add you. Please check your email and the verification, then try again.
-          form.v5-club-form#v5-club-form(action="/club", method="post")
-            //- Honeypot: hidden from humans, catches naive bots
-            .v5-hp(aria-hidden="true")
-              label(for="company") Company
-              input(type="text", id="company", name="company", tabindex="-1", autocomplete="off")
-            .v5-club-row
-              input(type="email", name="email", placeholder="you@example.com", required, aria-label="Email address")
-              //- Invisible reCAPTCHA: the challenge runs on click, then onClubSubmit posts the form
-              button.v5-btn-solid.g-recaptcha(type="submit", data-sitekey=recaptchaSiteKey, data-callback="onClubSubmit", data-size="invisible") Join
-            //- Badge is hidden via CSS, so we show the required reCAPTCHA branding here instead
-            p.v5-recaptcha-note
-              | This site is protected by reCAPTCHA and the Google&nbsp;
-              a(href="https://policies.google.com/privacy", target="_blank", rel="noopener") Privacy Policy
-              |  and&nbsp;
-              a(href="https://policies.google.com/terms", target="_blank", rel="noopener") Terms of Service
-              |  apply.
-
-    footer.v5-footer
-      .wrap
-        .v5-foot-brand Longstream Distillery
-        p Crafted with passion in Mangaroa, Upper Hutt.
-        p.v5-foot-warn Please enjoy responsibly. Not for sale to persons under 18.
-        p © #{new Date().getFullYear()} Longstream Distillery Limited. All rights reserved.
+    include _footer
 
     //- Standardised spirit modal — left: card copy · middle: story · right: best served
     .v5-modal(id="v5-modal", hidden)
@@ -159,25 +127,6 @@ html(lang="en")
     include _navscroll
     include _agegate
 
-    script.
-      // Invisible reCAPTCHA callback — fires after the (usually invisible) check passes.
-      // Posts the signup in the background so the page never reloads; we just reveal the note.
-      function onClubSubmit(token) {
-        var form = document.getElementById('v5-club-form');
-        if (!form) return;
-        var ok = document.getElementById('club-ok');
-        var err = document.getElementById('club-err');
-        var data = new URLSearchParams(new FormData(form));
-        if (token) data.set('g-recaptcha-response', token);
-        fetch('/club', { method: 'POST', headers: { 'X-Requested-With': 'fetch' }, body: data })
-          .then(function (r) { return r.json(); })
-          .then(function (res) {
-            if (res && res.ok) { ok.hidden = false; err.hidden = true; form.reset(); }
-            else { err.hidden = false; ok.hidden = true; }
-          })
-          .catch(function () { err.hidden = false; ok.hidden = true; })
-          .then(function () { if (window.grecaptcha) grecaptcha.reset(); });
-      }
     script.
       (function () {
         var modal = document.getElementById('v5-modal');

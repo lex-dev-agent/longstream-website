@@ -65,6 +65,11 @@ const RECAPTCHA_SITE_KEY =
 const RECAPTCHA_SECRET_KEY =
   process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
 
+// Defaults for the shared club-signup footer partial, so every page can render it.
+// Per-route render() locals (e.g. the homepage's clubStatus from ?club=) override these.
+app.locals.recaptchaSiteKey = RECAPTCHA_SITE_KEY;
+app.locals.clubStatus = null;
+
 async function verifyRecaptcha(token, ip) {
   if (!token) return false;
   try {
