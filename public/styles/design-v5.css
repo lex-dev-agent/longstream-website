@@ -41,9 +41,10 @@
 .design-v5 .bc-label,
 .design-v5 .label-section-label { color: var(--gold); }
 
-/* dark logos (logo.png) sit on dark cards/labels — lighten them */
+/* labels/back-card use the white logo directly (a CSS filter wouldn't survive
+   the html2canvas PNG/PDF export, so the image itself must be light) */
 .design-v5 .bc-back-header .bc-logo,
-.design-v5 .label-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+.design-v5 .label-logo { opacity: 0.95; }
 
 /* ---- business card: front ---- */
 .design-v5 .bc-front { background: linear-gradient(145deg, #1b1f1a 0%, #12150f 55%, #0e100d 100%); color: var(--ink); }
