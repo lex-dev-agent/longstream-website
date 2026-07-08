@@ -329,10 +329,17 @@ app.post('/club', async (req, res) => {
   return done(false);
 });
 
+// New brand-aesthetic design page (password protected)
 app.get('/design', requirePassword(), (req, res) => {
   res.render('design');
 });
 app.post('/design', handlePasswordPost('/design'));
+
+// Previous design page, kept for reference (password protected)
+app.get('/design-old', requirePassword(), (req, res) => {
+  res.render('design-old');
+});
+app.post('/design-old', handlePasswordPost('/design-old'));
 
 // Format a UTC SQLite timestamp ('YYYY-MM-DD HH:MM:SS') as New Zealand local
 // time. Pacific/Auckland handles NZST/NZDT (daylight saving) automatically.

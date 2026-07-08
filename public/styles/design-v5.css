@@ -1,0 +1,99 @@
+/* ============================================================
+   /design page — re-skins the print collateral (business card +
+   bottle labels) into the new Longstream dark/gold brand.
+   Loaded after main.css + v5.css and scoped to body.design-v5,
+   so it only affects the new design page (never /design-old).
+   The print geometry from main.css is preserved; only colours,
+   fonts and accents change, so the PDF/PNG export still works.
+   ============================================================ */
+
+.design-v5 {
+  /* swap the old print fonts for the brand fonts everywhere collateral uses them */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Jost', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+.design-v5 main { background: var(--bg); }
+
+/* ---- hero ---- */
+.design-v5 .design-hero {
+  background: var(--bg-2);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+  padding: 5rem 0 3.5rem;
+}
+.design-v5 .design-hero h1 { font-family: var(--font-head); color: var(--ink); }
+.design-v5 .design-hero .lead { color: var(--muted); opacity: 1; }
+
+/* ---- section framing ---- */
+.design-v5 .bc-page { background: var(--bg); }
+.design-v5 .label-page {
+  background: var(--bg-2);
+  box-shadow: none;
+  border-top: 1px solid var(--line);
+}
+.design-v5 .bc-page-title,
+.design-v5 .label-page-title { font-family: var(--font-head); color: var(--ink); }
+.design-v5 .bc-page-subtitle,
+.design-v5 .label-page-subtitle { color: var(--muted); }
+.design-v5 .bc-label,
+.design-v5 .label-section-label { color: var(--gold); }
+
+/* dark logos (logo.png) sit on dark cards/labels — lighten them */
+.design-v5 .bc-back-header .bc-logo,
+.design-v5 .label-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+
+/* ---- business card: front ---- */
+.design-v5 .bc-front { background: linear-gradient(145deg, #1b1f1a 0%, #12150f 55%, #0e100d 100%); color: var(--ink); }
+.design-v5 .bc-front-accent { background: linear-gradient(90deg, var(--gold), rgba(201, 168, 92, 0.15)); }
+.design-v5 .bc-company { color: var(--gold); opacity: 1; }
+.design-v5 .bc-name { color: var(--ink); }
+.design-v5 .bc-title { color: var(--muted); opacity: 1; }
+.design-v5 .bc-front-tagline { color: var(--gold-2); opacity: 0.65; }
+
+/* ---- business card: back ---- */
+.design-v5 .bc-back { background: linear-gradient(180deg, #1b1f1a, #12150f); }
+.design-v5 .bc-back-header { border-bottom-color: var(--line); }
+.design-v5 .bc-back-brand { color: var(--gold-2); }
+.design-v5 .bc-detail-label { color: var(--gold); }
+.design-v5 .bc-detail-value { color: var(--ink); }
+.design-v5 a.bc-detail-value:hover { color: var(--gold-2); }
+.design-v5 .bc-back-footer { color: var(--muted); }
+
+/* ---- bottle labels (gin / limoncello / vodka) ---- */
+.design-v5 .gin-label,
+.design-v5 .gin-label-back { background: linear-gradient(180deg, #1b1f1a, #14170f); border-color: var(--gold); }
+.design-v5 .gin-label::after { border-color: rgba(201, 168, 92, 0.4); }
+.design-v5 .gin-label--print::before { border-color: var(--gold); }
+.design-v5 .label-distillery,
+.design-v5 .label-back-distillery { color: var(--ink); }
+.design-v5 .label-brand { color: var(--gold-2); }
+.design-v5 .label-type { color: var(--ink); }
+.design-v5 .label-origin { color: var(--muted); }
+.design-v5 .label-tasting,
+.design-v5 .label-back-description { color: var(--gold-2); }
+.design-v5 .label-footer-specs { color: var(--gold); }
+.design-v5 .label-back-detail-value { color: var(--ink); }
+.design-v5 .label-back-warning { color: var(--muted); }
+/* gold rules & botanical dividers are already brand-gold, leave them */
+
+/* ---- download buttons ---- */
+.design-v5 .button-primary {
+  background: var(--gold); color: var(--bg); border: 1px solid var(--gold);
+  border-radius: 1px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+}
+.design-v5 .button-primary:hover,
+.design-v5 .button-primary:focus { background: transparent; color: var(--gold-2); }
+.design-v5 .button-secondary,
+.design-v5 .bc-btn-png,
+.design-v5 .label-btn-png {
+  background: transparent; border: 1px solid var(--line); color: var(--ink) !important;
+  border-radius: 1px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.design-v5 .button-secondary:hover,
+.design-v5 .bc-btn-png:hover,
+.design-v5 .label-btn-png:hover { border-color: var(--gold); color: var(--gold-2) !important; background: transparent; }
+.design-v5 .bc-download-note,
+.design-v5 .label-download-note { color: var(--muted); }
