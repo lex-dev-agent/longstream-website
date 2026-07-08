@@ -17,9 +17,10 @@
   --px-gold: var(--gold);
   --px-gold-2: var(--gold-2);
   --px-line: var(--line);
-  --px-head: 'Fraunces', Georgia, serif;
-  --px-body: 'Archivo', system-ui, sans-serif;
-  --px-mono: 'Spline Sans Mono', ui-monospace, monospace;
+  /* reuse the site typefaces (Playfair Display + Jost) */
+  --px-head: var(--font-head);
+  --px-body: var(--font-body);
+  --px-mono: var(--font-body);
   background: var(--px-bg);
   color: var(--px-ink);
   font-family: var(--px-body);
