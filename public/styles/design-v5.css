@@ -109,7 +109,7 @@
 .design-v5 .gl-band .gin-label-inner { justify-content: space-between; align-items: center; text-align: center; padding: 1.9rem 0; }
 .design-v5 .gl-band .gin-label-inner > *:not(.glb-band):not(.glb-origin):not(.glb-logo) { padding-left: 1.1rem; padding-right: 1.1rem; }
 .design-v5 .glb-logo { width: 42px; height: 42px; opacity: 0.95; flex-shrink: 0; }
-.design-v5 .glb-distillery { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0.45rem 0 0; }
+.design-v5 .glb-distillery { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0; }
 .design-v5 .glb-band { align-self: stretch; margin-left: -16px; margin-right: -16px; background: linear-gradient(90deg, var(--gold), var(--gold-2)); padding: 0.55rem 0; }
 .design-v5 .glb-brand { font-family: var(--font-head); font-size: 2.9rem; font-weight: 600; color: #14170f; margin: 0; letter-spacing: 0.08em; line-height: 1; }
 .design-v5 .glb-type { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink); margin: 0; }
@@ -123,7 +123,7 @@
 .design-v5 .gl-frame::after { inset: 9px; border: 1px solid rgba(201, 168, 92, 0.55); }
 .design-v5 .gl-frame .gin-label-inner { justify-content: space-between; align-items: center; text-align: center; padding: 2.1rem 1.2rem; }
 .design-v5 .gl-frame .label-logo { opacity: 0.95; }
-.design-v5 .glf-distillery { font-family: var(--font-body); font-size: 0.54rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0.4rem 0 0; }
+.design-v5 .glf-distillery { font-family: var(--font-body); font-size: 0.54rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0; }
 .design-v5 .glf-icon { color: var(--gold); font-size: 0.7rem; line-height: 1; }
 .design-v5 .glf-brand { font-family: var(--font-head); font-style: italic; font-size: 3.1rem; font-weight: 500; color: var(--gold-2); margin: 0; line-height: 1; }
 .design-v5 .glf-type { font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink); margin: 0.3rem 0 0; }
