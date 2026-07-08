@@ -90,23 +90,25 @@
 .design-v5 .gl-modern .gin-label-inner {
   justify-content: space-between; align-items: flex-start; text-align: left; padding: 2.1rem 1.7rem;
 }
+.design-v5 .glm-head { display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem; }
 .design-v5 .glm-eyebrow { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin: 0; }
 .design-v5 .glm-main { display: flex; flex-direction: column; }
 .design-v5 .glm-brand { font-family: var(--font-head); font-size: 3.6rem; font-weight: 500; color: var(--ink); margin: 0; line-height: 0.92; }
 .design-v5 .glm-type { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-2); margin: 0.55rem 0 0; }
 .design-v5 .glm-rule { display: block; width: 44px; height: 2px; background: var(--gold); margin-top: 1.1rem; }
 .design-v5 .glm-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; }
-.design-v5 .glm-logo { margin-bottom: 0.5rem; opacity: 0.95; }
-.design-v5 .glm-tasting { font-family: var(--font-head); font-style: italic; font-size: 0.74rem; color: var(--muted); margin: 0; }
+.design-v5 .glm-logo { width: auto; height: 30px; opacity: 0.95; }
+.design-v5 .glm-tasting { font-family: var(--font-head); font-style: italic; font-size: 0.7rem; color: var(--muted); margin: 0; }
 .design-v5 .glm-specs { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0; }
 
 /* ---- Variation 3 · Gold Band (brand reversed out of gold) ---- */
 .design-v5 .gl-band { border-color: var(--gold); }
+.design-v5 .gl-band::after { display: none; }
 .design-v5 .gl-band .gin-label-inner { justify-content: space-between; align-items: center; text-align: center; padding: 1.9rem 0; }
-.design-v5 .gl-band .gin-label-inner > *:not(.glb-band) { padding-left: 1.1rem; padding-right: 1.1rem; }
-.design-v5 .glb-logo { opacity: 0.95; }
+.design-v5 .gl-band .gin-label-inner > *:not(.glb-band):not(.glb-origin) { padding-left: 1.1rem; padding-right: 1.1rem; }
+.design-v5 .glb-logo { width: auto; height: 44px; opacity: 0.95; }
 .design-v5 .glb-distillery { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0.45rem 0 0; }
-.design-v5 .glb-band { width: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-2)); padding: 0.55rem 0; }
+.design-v5 .glb-band { align-self: stretch; margin-left: -16px; margin-right: -16px; background: linear-gradient(90deg, var(--gold), var(--gold-2)); padding: 0.55rem 0; }
 .design-v5 .glb-brand { font-family: var(--font-head); font-size: 2.9rem; font-weight: 600; color: #14170f; margin: 0; letter-spacing: 0.08em; line-height: 1; }
 .design-v5 .glb-type { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink); margin: 0; }
 .design-v5 .glb-tasting { font-family: var(--font-head); font-style: italic; font-size: 0.74rem; color: var(--gold-2); margin: 0; }

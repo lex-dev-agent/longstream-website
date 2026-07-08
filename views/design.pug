@@ -75,15 +75,18 @@ mixin ginBackLabelContent
 mixin ginModernFront
   .gin-label-inner
     .glm-head
+      img.glm-logo(src="/images/logo-white.png" alt="Longstream Distillery" width="30" height="30")
       p.glm-eyebrow Longstream Distillery
     .glm-main
       h2.glm-brand Blonde
       p.glm-type London Dry Gin
       span.glm-rule
     .glm-foot
-      img.glm-logo(src="/images/logo-white.png" alt="Longstream Distillery" width="28" height="28")
       p.glm-tasting Crisp Pine · Warm Spice · Citrus Finish
-      p.glm-specs 700 ml · 38% ABV · Mangaroa, Upper Hutt
+      p.glm-specs
+        | 700 ml · 38% ABV
+        br
+        | Mangaroa, Upper Hutt
 
 mixin ginBandFront
   .gin-label-inner
