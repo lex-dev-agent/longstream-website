@@ -134,7 +134,7 @@
 
 /* ---- Variation 5 · Classic v2 (stacked wordmark + crest slot) ---- */
 /* top branding on one line: LONGSTREAM [logo] DISTILLERY */
-.design-v5 .clv2-brandlogo { height: 1.4em; width: auto; vertical-align: middle; margin: 0 0.4em; opacity: 0.95; display: inline-block; }
+.design-v5 .clv2-brandlogo { height: 1.8em; width: 1.8em; vertical-align: middle; opacity: 0.95; display: inline-block; }
 /* reserved space for a crest/illustration to be dropped in later */
 .design-v5 .clv2-imgslot { min-height: 72px; }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
