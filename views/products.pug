@@ -9,133 +9,103 @@ html(lang="en")
     link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
     link(rel="preconnect", href="https://fonts.googleapis.com")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
-    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    //- Shared brand fonts (header/footer) + the catalogue's own faces
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap", rel="stylesheet")
     link(rel="stylesheet", href="/styles/v5.css")
     link(rel="stylesheet", href="/styles/products.css")
 
   body
     include _nav
 
-    //- Shared modal payload (story + best served), reused from the homepage.
-    mixin cardData(s)
-      template.v5-card-data
-        .v5-modal-story-content
-          h2= s.name
-          if s.story
-            each para in s.story
-              p= para
-        .v5-modal-aside-content
-          if s.bestServed && s.bestServed.length
-            p.v5-kicker Best served
-            ul.v5-served
-              each item in s.bestServed
-                li= item
-          if s.photo
-            figure.v5-detail-photo
-              img(src=`/images/v5-${s.id}.jpg`, alt=s.photoAlt, onerror="this.style.display='none'; this.parentNode.classList.add('is-empty')")
-              figcaption Photo coming soon
+    //- ---- reusable pieces --------------------------------------------------
+    mixin storyDetails(s)
+      - var hasStory = s.story && s.story.length && ['More info to follow.', 'More to follow.'].indexOf(s.story[0]) === -1
+      - var hasServed = s.bestServed && s.bestServed.length
+      if hasStory || hasServed
+        details.px-story
+          summary The story
+          .px-story-body
+            if hasStory
+              each para in s.story
+                p= para
+            if hasServed
+              p.px-served-label Best served
+              ul.px-served
+                each item in s.bestServed
+                  li= item
 
-    //- SIGNATURE — a fixed trinity, presented as three stations on the stream
-    mixin flight(s, i)
+    //- Signature spirit = a large "specimen" entry (alternating sides)
+    mixin specimen(s, i)
       - var available = s.status === 'available'
-      - var roman = ['I', 'II', 'III', 'IV', 'V', 'VI'][i] || String(i + 1)
-      .pr-flight
-        .pr-rail
-          span.pr-rail-num= roman
-          span.pr-rail-node
-          span.pr-rail-line
-        .pr-flight-body
-          .v5-card.pr-plate(role="button", tabindex="0", data-spirit=s.id, data-status=s.status, class={"v5-card-out": !available})
-            if s.status === 'coming-soon'
-              span.v5-badge Coming soon
-            else if s.status === 'soldout'
-              span.v5-badge Sold out
-            img.v5-card-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
-            h3.pr-plate-name= s.name
-            p.pr-plate-meta #{s.volume} · #{s.abv}
-            +cardData(s)
-          .pr-flight-detail
-            p.pr-desc= s.description
-            p.pr-serve= s.serve
-            .pr-flight-foot
-              if available
-                span.pr-price NZ$#{s.price}
-              else
-                span.pr-soon Coming soon
-              .pr-actions
-                if available
-                  a.v5-btn-solid(href="/order") Order
-                else
-                  a.pr-notify(href="#club") Get notified →
-                button.pr-storybtn(type="button", onclick="this.closest('.pr-flight').querySelector('.v5-card').click()") The story →
+      - var cat = /gin/i.test(s.name) ? 'Gin' : /limoncello/i.test(s.name) ? 'Limoncello' : /vodka/i.test(s.name) ? 'Vodka' : 'Spirit'
+      article.px-spec(class={"px-spec--flip": i % 2 === 1, "px-spec--out": !available})
+        .px-spec-media
+          img.px-spec-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+        .px-spec-body
+          p.px-spec-cat= cat
+          h3.px-spec-name= s.name
+          p.px-spec-specs
+            if available
+              | #{s.volume} · #{s.abv} · NZ$#{s.price}
+            else
+              | #{s.volume} · #{s.abv} · Coming soon
+          p.px-spec-desc= s.description
+          p.px-spec-serve= s.serve
+          .px-actions
+            if available
+              a.px-btn(href="/order") Order
+            else
+              a.px-link(href="#club") Get notified →
+          +storyDetails(s)
 
-    //- EXPERIMENTAL — a ledger of limited batches; one row per batch, scales to any number
-    mixin batch(s)
+    //- Experimental batch = one numbered row in the index
+    mixin batchRow(s, i)
       - var available = s.status === 'available'
-      .v5-card.pr-batch(role="button", tabindex="0", data-spirit=s.id, data-status=s.status, class={"v5-card-out": !available})
-        .pr-batch-thumb
-          img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
-        .pr-batch-info
-          h3.pr-batch-name= s.name
-          p.pr-batch-meta #{s.volume} · #{s.abv}
-          p.pr-batch-desc= s.description
-        //- .shop-foot so the shared modal strips this action block from the clone
-        .pr-batch-action.shop-foot
+      - var no = String(i + 1).padStart(2, '0')
+      .px-batch(class={"px-batch--out": !available})
+        .px-batch-no BATCH #{no}
+        .px-batch-main
+          h3.px-batch-name= s.name
+          p.px-batch-specs
+            if available
+              | #{s.volume} · #{s.abv} · NZ$#{s.price}
+            else
+              | #{s.volume} · #{s.abv} · Coming soon
+          p.px-batch-desc= s.description
+          +storyDetails(s)
+        .px-batch-action
           if available
-            span.pr-price.pr-price--sm NZ$#{s.price}
-            a.v5-btn-solid.pr-batch-order(href="/order", onclick="event.stopPropagation()") Order
+            a.px-btn(href="/order") Order
           else
-            span.pr-soon Coming soon
-            a.pr-notify(href="#club", onclick="event.stopPropagation()") Get notified →
-        +cardData(s)
+            span.px-soon Coming soon
+            a.px-link(href="#club") Get notified →
 
-    main
-      //- Masthead: the through-line is that everything comes from one process
-      section.pr-hero
+    //- ---- page ------------------------------------------------------------
+    main.px
+      section.px-hero
         .wrap
-          p.pr-eyebrow The Longstream Range
-          h1.pr-title Three spirits, #[em one long process.]
-          p.pr-lead Every bottle begins the same way — fermented and distilled on site, in small batches. The vodka stops at step three, the gin runs the full four, and the limoncello takes that vodka and our local lemons.
-          .pr-hero-meta
-            .pr-stat
-              span.pr-stat-num 03
-              span.pr-stat-label Signature spirits
-            .pr-stat
-              span.pr-stat-num= String(experimentalBatches.length).padStart(2, '0')
-              span.pr-stat-label Limited batches
+          p.px-eyebrow Mangaroa Valley · Aotearoa
+          h1.px-hero-title Everything we make begins on #[em the same still.]
+          p.px-hero-lead Fermented and distilled by hand in small batches. The vodka stops at step three, the gin runs the full four, and the limoncello borrows both. Three we make always — and a shelf of limited batches that grows when a good idea turns up.
 
-      //- SIGNATURE RANGE — always three
-      section.pr-signature#range
+      section.px-specs#range
         .wrap
-          .pr-section-head
-            p.v5-kicker The core three
-            h2.pr-h2 Signature Range
-            p.pr-section-lead Always three. Made from scratch on a 25-litre still and refined over years.
-          .pr-flights
-            each bottle, i in bottles
-              +flight(bottle, i)
+          .px-section-head
+            h2 Signature Range
+            span.px-section-count Always three
+          each bottle, i in bottles
+            +specimen(bottle, i)
 
-      //- EXPERIMENTAL RANGE — the growing ledger
       if experimentalBatches && experimentalBatches.length
-        section.pr-experimental#experimental
+        section.px-index#experimental
           .wrap
-            .pr-section-head
-              p.v5-kicker Limited &amp; seasonal
-              h2.pr-h2 Experimental Range
-              p.pr-section-lead One-off and seasonal distillations from the back of the shed. The list grows with every batch — club members are first in line when they release.
-            .pr-ledger
-              each item in experimentalBatches
-                +batch(item)
+            .px-section-head
+              h2 Experimental Range
+              span.px-section-count #{experimentalBatches.length} #{experimentalBatches.length === 1 ? 'batch' : 'batches'}
+            .px-batches
+              each item, i in experimentalBatches
+                +batchRow(item, i)
 
     include _footer
-    include _spiritmodal
     include _navscroll
     include _agegate
-
-    //- keyboard support for the role="button" cards (Enter / Space open the modal)
-    script.
-      document.querySelectorAll('.pr-plate, .pr-batch').forEach(function (el) {
-        el.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
-        });
-      });
