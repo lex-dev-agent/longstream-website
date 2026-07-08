@@ -45,6 +45,8 @@
    the html2canvas PNG/PDF export, so the image itself must be light) */
 .design-v5 .bc-back-header .bc-logo,
 .design-v5 .label-logo { opacity: 0.95; }
+/* all front label logos at a consistent 42px (backs stay 32px) */
+.design-v5 .gin-label-inner > .label-logo { width: 42px; height: 42px; }
 
 /* ---- business card: front ---- */
 .design-v5 .bc-front { background: linear-gradient(145deg, #1b1f1a 0%, #12150f 55%, #0e100d 100%); color: var(--ink); }
@@ -97,7 +99,7 @@
 .design-v5 .glm-type { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-2); margin: 0.55rem 0 0; }
 .design-v5 .glm-rule { display: block; width: 44px; height: 2px; background: var(--gold); margin-top: 1.1rem; }
 .design-v5 .glm-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; }
-.design-v5 .glm-logo { width: 40px; height: 40px; opacity: 0.95; flex-shrink: 0; }
+.design-v5 .glm-logo { width: 42px; height: 42px; opacity: 0.95; flex-shrink: 0; }
 .design-v5 .glm-tasting { font-family: var(--font-head); font-style: italic; font-size: 0.7rem; color: var(--muted); margin: 0; }
 .design-v5 .glm-specs { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0; }
 
@@ -106,7 +108,7 @@
 .design-v5 .gl-band::after { display: none; }
 .design-v5 .gl-band .gin-label-inner { justify-content: space-between; align-items: center; text-align: center; padding: 1.9rem 0; }
 .design-v5 .gl-band .gin-label-inner > *:not(.glb-band):not(.glb-origin):not(.glb-logo) { padding-left: 1.1rem; padding-right: 1.1rem; }
-.design-v5 .glb-logo { width: 40px; height: 40px; opacity: 0.95; flex-shrink: 0; }
+.design-v5 .glb-logo { width: 42px; height: 42px; opacity: 0.95; flex-shrink: 0; }
 .design-v5 .glb-distillery { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0.45rem 0 0; }
 .design-v5 .glb-band { align-self: stretch; margin-left: -16px; margin-right: -16px; background: linear-gradient(90deg, var(--gold), var(--gold-2)); padding: 0.55rem 0; }
 .design-v5 .glb-brand { font-family: var(--font-head); font-size: 2.9rem; font-weight: 600; color: #14170f; margin: 0; letter-spacing: 0.08em; line-height: 1; }
