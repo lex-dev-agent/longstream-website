@@ -105,7 +105,7 @@
 .design-v5 .gl-band { border-color: var(--gold); }
 .design-v5 .gl-band::after { display: none; }
 .design-v5 .gl-band .gin-label-inner { justify-content: space-between; align-items: center; text-align: center; padding: 1.9rem 0; }
-.design-v5 .gl-band .gin-label-inner > *:not(.glb-band):not(.glb-origin) { padding-left: 1.1rem; padding-right: 1.1rem; }
+.design-v5 .gl-band .gin-label-inner > *:not(.glb-band):not(.glb-origin):not(.glb-logo) { padding-left: 1.1rem; padding-right: 1.1rem; }
 .design-v5 .glb-logo { width: 40px; height: 40px; opacity: 0.95; flex-shrink: 0; }
 .design-v5 .glb-distillery { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0.45rem 0 0; }
 .design-v5 .glb-band { align-self: stretch; margin-left: -16px; margin-right: -16px; background: linear-gradient(90deg, var(--gold), var(--gold-2)); padding: 0.55rem 0; }
