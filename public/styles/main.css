@@ -1224,7 +1224,7 @@ a.bc-detail-value:hover {
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  padding: 1.5rem 1.25rem;
+  padding: 1.5rem 0;
 }
 
 .label-logo {
