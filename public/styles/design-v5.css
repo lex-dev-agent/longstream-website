@@ -140,7 +140,7 @@
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
   font-family: var(--font-heading); color: var(--gold-2); font-weight: 600;
-  font-size: 2.2rem; letter-spacing: 0.14em; line-height: 1; margin: 0;
+  font-size: 1.8rem; letter-spacing: 0.14em; line-height: 1; margin: 0;
 }
 /* DRY GIN centred in the horizontal divider */
 .design-v5 .clv2-drygin {
@@ -148,6 +148,9 @@
   letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink);
   margin: 0; padding-left: 0.4em; white-space: nowrap;
 }
+/* Classic v2: all label text in gold-2 */
+.design-v5 .gl-classic2 .gin-label-inner,
+.design-v5 .gl-classic2 .gin-label-inner * { color: var(--gold-2); }
 
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
