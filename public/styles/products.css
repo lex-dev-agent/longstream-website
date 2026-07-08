@@ -77,7 +77,7 @@
 .px-link:hover { color: var(--px-gold-2); }
 .px-soon { font-family: var(--px-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--px-muted); border: 1px solid var(--px-line); padding: 0.45rem 0.85rem; }
 /* "Read more" is a <button> styled like .px-link — strip the native chrome */
-.px-more { background: none; border: 0; padding: 0; }
+.px-more { background: none; border: 0; padding: 0; cursor: pointer; }
 
 /* ---- experimental: the batch index ---- */
 .px-index { padding: 3.5rem 0 4rem; background: var(--px-bg-2); border-top: 1px solid var(--px-line); }

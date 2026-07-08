@@ -53,14 +53,13 @@ html(lang="en")
             if available
               | #{s.volume} · #{s.abv} · NZ$#{s.price}
             else
-              | #{s.volume} · #{s.abv} · Coming soon
+              | #{s.volume} · Coming soon
           p.px-batch-desc= s.description
         .px-batch-action
           if available
             a.px-btn(href="/order") Order
           else
             span.px-soon Coming soon
-            a.px-link(href="#club") Get notified →
           button.px-link.px-more(type="button", onclick=`document.getElementById('card-${s.id}').click()`) Read more →
 
     //- Hidden pool of standard spirit cards — each "Read more" button clicks
