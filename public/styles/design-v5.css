@@ -132,6 +132,17 @@
 .design-v5 .glf-tasting { font-family: var(--font-head); font-style: italic; font-size: 0.76rem; color: var(--gold-2); margin: 0; }
 .design-v5 .glf-specs { font-family: var(--font-body); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0; }
 
+/* ---- Variation 5 · Classic v2 (stacked wordmark + crest slot) ---- */
+/* top branding on one line: LONGSTREAM ◆ DISTILLERY */
+.design-v5 .clv2-brandicon { color: var(--gold); margin: 0 0.45em; font-size: 0.85em; }
+/* reserved space for a crest/illustration to be dropped in later */
+.design-v5 .clv2-imgslot { min-height: 72px; }
+/* CLASSIC: slightly smaller than BLONDE, same colour */
+.design-v5 .clv2-classic {
+  font-family: var(--font-heading); color: var(--gold-2); font-weight: 600;
+  font-size: 2.2rem; letter-spacing: 0.14em; line-height: 1; margin: 0;
+}
+
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
   background: var(--gold); color: var(--bg); border: 1px solid var(--gold);
