@@ -42,7 +42,7 @@
 /* ---- signature specimens ---- */
 .px-specs { padding: 2rem 0 4rem; }
 .px-spec {
-  display: grid; grid-template-columns: 0.75fr 1fr; gap: clamp(1.5rem, 4vw, 3.25rem);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.25rem);
   align-items: center; padding: clamp(2rem, 3.5vw, 3rem) 0; border-bottom: 1px solid var(--px-line);
 }
 .px-spec:last-child { border-bottom: 0; }
