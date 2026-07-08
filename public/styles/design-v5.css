@@ -99,7 +99,7 @@
 .design-v5 .glm-type { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-2); margin: 0.55rem 0 0; }
 .design-v5 .glm-rule { display: block; width: 44px; height: 2px; background: var(--gold); margin-top: 1.1rem; }
 .design-v5 .glm-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; }
-.design-v5 .glm-logo { width: 42px; height: 42px; opacity: 0.95; flex-shrink: 0; }
+.design-v5 .glm-logo { width: 38px; height: 38px; opacity: 0.95; flex-shrink: 0; }
 .design-v5 .glm-tasting { font-family: var(--font-head); font-style: italic; font-size: 0.7rem; color: var(--muted); margin: 0; }
 .design-v5 .glm-specs { font-family: var(--font-body); font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0; }
 
@@ -123,6 +123,7 @@
 .design-v5 .gl-frame::after { inset: 9px; border: 1px solid rgba(201, 168, 92, 0.55); }
 .design-v5 .gl-frame .gin-label-inner { justify-content: space-between; align-items: center; text-align: center; padding: 2.1rem 1.2rem; }
 .design-v5 .gl-frame .label-logo { opacity: 0.95; }
+.design-v5 .gl-frame .gin-label-inner > .label-logo { width: 38px; height: 38px; }
 .design-v5 .glf-distillery { font-family: var(--font-body); font-size: 0.54rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin: 0; }
 .design-v5 .glf-icon { color: var(--gold); font-size: 0.7rem; line-height: 1; }
 .design-v5 .glf-brand { font-family: var(--font-head); font-style: italic; font-size: 3.1rem; font-weight: 500; color: var(--gold-2); margin: 0; line-height: 1; }
