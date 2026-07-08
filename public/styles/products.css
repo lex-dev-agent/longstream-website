@@ -80,24 +80,8 @@
 }
 .px-link:hover { color: var(--px-gold-2); }
 .px-soon { font-family: var(--px-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--px-muted); border: 1px solid var(--px-line); padding: 0.45rem 0.85rem; }
-
-/* ---- inline story (native <details>) ---- */
-.px-story { margin-top: 1.35rem; border-top: 1px solid var(--px-line); }
-.px-story > summary {
-  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; padding: 0.85rem 0 0;
-  font-family: var(--px-mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--px-gold);
-}
-.px-story > summary::-webkit-details-marker { display: none; }
-.px-story > summary::after { content: '+'; margin-left: auto; font-size: 1rem; line-height: 1; }
-.px-story[open] > summary::after { content: '\2013'; }
-.px-story > summary:hover { color: var(--px-gold-2); }
-.px-story-body { padding-top: 0.85rem; }
-.px-story-body p { color: var(--px-muted); font-size: 0.92rem; margin: 0 0 0.75rem; max-width: 64ch; line-height: 1.65; }
-.px-story-body p:last-child { margin-bottom: 0; }
-.px-served-label { font-family: var(--px-mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--px-gold); margin: 1.1rem 0 0.5rem; }
-.px-served { list-style: none; margin: 0; padding: 0; }
-.px-served li { position: relative; padding-left: 1.2rem; margin: 0 0 0.4rem; font-size: 0.92rem; color: var(--px-ink); }
-.px-served li::before { content: '\2014'; position: absolute; left: 0; color: var(--px-gold); }
+/* "Read more" is a <button> styled like .px-link — strip the native chrome */
+.px-more { background: none; border: 0; padding: 0; }
 
 /* ---- experimental: the batch index ---- */
 .px-index { padding: 3.5rem 0 4rem; background: var(--px-bg-2); border-top: 1px solid var(--px-line); }

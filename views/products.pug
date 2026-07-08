@@ -9,7 +9,7 @@ html(lang="en")
     link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
     link(rel="preconnect", href="https://fonts.googleapis.com")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
-    //- Shared brand fonts (header/footer) + the catalogue's own faces
+    //- Shared brand fonts (header/footer/modal) + the catalogue's own faces
     link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap", rel="stylesheet")
     link(rel="stylesheet", href="/styles/v5.css")
     link(rel="stylesheet", href="/styles/products.css")
@@ -17,23 +17,7 @@ html(lang="en")
   body
     include _nav
 
-    //- ---- reusable pieces --------------------------------------------------
-    mixin storyDetails(s)
-      - var hasStory = s.story && s.story.length && ['More info to follow.', 'More to follow.'].indexOf(s.story[0]) === -1
-      - var hasServed = s.bestServed && s.bestServed.length
-      if hasStory || hasServed
-        details.px-story
-          summary The story
-          .px-story-body
-            if hasStory
-              each para in s.story
-                p= para
-            if hasServed
-              p.px-served-label Best served
-              ul.px-served
-                each item in s.bestServed
-                  li= item
-
+    //- ---- mixins ----------------------------------------------------------
     //- Signature spirit = a large "specimen" entry (alternating sides)
     mixin specimen(s, i)
       - var available = s.status === 'available'
@@ -56,7 +40,7 @@ html(lang="en")
               a.px-btn(href="/order") Order
             else
               a.px-link(href="#club") Get notified →
-          +storyDetails(s)
+            button.px-link.px-more(type="button", onclick=`document.getElementById('card-${s.id}').click()`) Read more →
 
     //- Experimental batch = one numbered row in the index
     mixin batchRow(s, i)
@@ -72,13 +56,38 @@ html(lang="en")
             else
               | #{s.volume} · #{s.abv} · Coming soon
           p.px-batch-desc= s.description
-          +storyDetails(s)
         .px-batch-action
           if available
             a.px-btn(href="/order") Order
           else
             span.px-soon Coming soon
             a.px-link(href="#club") Get notified →
+          button.px-link.px-more(type="button", onclick=`document.getElementById('card-${s.id}').click()`) Read more →
+
+    //- Hidden pool of standard spirit cards — each "Read more" button clicks
+    //- its matching card to open the shared landing-page modal. The card is
+    //- what the modal clones into its left column, plus the story payload.
+    mixin modalCard(s)
+      .v5-card(id=`card-${s.id}`, data-spirit=s.id, data-status=s.status)
+        img.v5-card-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+        h3= s.name
+        p.v5-card-meta #{s.volume} · #{s.abv}
+        template.v5-card-data
+          .v5-modal-story-content
+            h2= s.name
+            if s.story
+              each para in s.story
+                p= para
+          .v5-modal-aside-content
+            if s.bestServed && s.bestServed.length
+              p.v5-kicker Best served
+              ul.v5-served
+                each item in s.bestServed
+                  li= item
+            if s.photo
+              figure.v5-detail-photo
+                img(src=`/images/v5-${s.id}.jpg`, alt=s.photoAlt, onerror="this.style.display='none'; this.parentNode.classList.add('is-empty')")
+                figcaption Photo coming soon
 
     //- ---- page ------------------------------------------------------------
     main.px
@@ -106,6 +115,15 @@ html(lang="en")
               each item, i in experimentalBatches
                 +batchRow(item, i)
 
+    //- offscreen source cards for the modal
+    .px-modal-cards(hidden)
+      each s in bottles
+        +modalCard(s)
+      if experimentalBatches && experimentalBatches.length
+        each s in experimentalBatches
+          +modalCard(s)
+
     include _footer
+    include _spiritmodal
     include _navscroll
     include _agegate
