@@ -41,12 +41,12 @@ html(lang="en")
               a.px-link(href="#club") Get notified →
             button.px-link.px-more(type="button", onclick=`document.getElementById('card-${s.id}').click()`) Read more →
 
-    //- Experimental batch = one numbered row in the index
-    mixin batchRow(s, i)
+    //- Experimental batch = one row in the index
+    mixin batchRow(s)
       - var available = s.status === 'available'
-      - var no = String(i + 1).padStart(2, '0')
       .px-batch(class={"px-batch--out": !available})
-        .px-batch-no BATCH #{no}
+        .px-batch-media
+          img.px-batch-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
         .px-batch-main
           h3.px-batch-name= s.name
           p.px-batch-specs
@@ -105,8 +105,8 @@ html(lang="en")
         section.px-index#experimental
           .wrap
             .px-batches
-              each item, i in experimentalBatches
-                +batchRow(item, i)
+              each item in experimentalBatches
+                +batchRow(item)
 
     //- offscreen source cards for the modal
     .px-modal-cards(hidden)
