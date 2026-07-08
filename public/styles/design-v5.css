@@ -148,9 +148,13 @@
   letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink);
   margin: 0; padding-left: 0.4em; white-space: nowrap;
 }
-/* Classic v2: all label text in gold-2 */
-.design-v5 .gl-classic2 .gin-label-inner,
-.design-v5 .gl-classic2 .gin-label-inner * { color: var(--gold-2); }
+/* Classic v2: unify the gold pieces to the same gold (gold-2), leaving
+   the ink/muted text (distillery, DRY GIN, origin) as they were */
+.design-v5 .gl-classic2 .label-footer-specs,
+.design-v5 .gl-classic2 .label-footer-specs span { color: var(--gold-2); }
+.design-v5 .gl-classic2 .label-gold-rule { background: linear-gradient(90deg, transparent, var(--gold-2) 20%, var(--gold-2) 80%, transparent); }
+.design-v5 .gl-classic2 .label-botanical-divider::before,
+.design-v5 .gl-classic2 .label-botanical-divider::after { background: var(--gold-2); }
 
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
