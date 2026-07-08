@@ -83,12 +83,12 @@
 .px-index { padding: 3.5rem 0 4rem; background: var(--px-bg-2); border-top: 1px solid var(--px-line); }
 .px-batches { display: flex; flex-direction: column; }
 .px-batch {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(1rem, 2.5vw, 2.25rem);
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.8vw;
   align-items: center; padding: 1.5rem 0; border-top: 1px solid var(--px-line);
 }
 .px-batch:first-child { border-top: 0; }
 .px-batch-media { width: 52px; display: flex; justify-content: center; }
-.px-batch-bottle { width: 52px; height: auto; filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5)); }
+.px-batch-bottle { width: 52px; height: auto; transform: scale(1.3); filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5)); }
 .px-batch--out .px-batch-bottle { filter: grayscale(0.6) brightness(0.7); opacity: 0.6; }
 .px-batch-name { font-family: var(--px-head); font-weight: 500; font-size: clamp(1.15rem, 2vw, 1.45rem); letter-spacing: -0.01em; margin: 0 0 0.3rem; }
 .px-batch-specs { font-family: var(--px-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--px-muted); margin: 0 0 0.5rem; }
