@@ -136,7 +136,7 @@
 /* top branding on one line: LONGSTREAM [logo] DISTILLERY */
 .design-v5 .clv2-brandlogo { height: 1.8em; width: 1.8em; vertical-align: middle; opacity: 0.95; display: inline-block; }
 /* reserved space for a crest/illustration to be dropped in later */
-.design-v5 .clv2-imgslot { min-height: 150px; }
+.design-v5 .clv2-imgslot { min-height: 140px; }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
   font-family: var(--font-heading); color: var(--gold-2); font-weight: 600;
