@@ -98,17 +98,12 @@ html(lang="en")
 
       section.px-specs#range
         .wrap
-          .px-section-head
-            h2 Signature Range
           each bottle, i in bottles
             +specimen(bottle, i)
 
       if experimentalBatches && experimentalBatches.length
         section.px-index#experimental
           .wrap
-            .px-section-head
-              h2 Experimental Range
-              span.px-section-count #{experimentalBatches.length} #{experimentalBatches.length === 1 ? 'batch' : 'batches'}
             .px-batches
               each item, i in experimentalBatches
                 +batchRow(item, i)
