@@ -118,6 +118,9 @@ html(lang="en")
       if experimentalBatches && experimentalBatches.length
         section.px-index#experimental
           .wrap
+            .px-index-head
+              p.px-eyebrow Limited batches
+              p.px-index-lead One-off and seasonal distillations from the back of the shed, made in small limited runs. Club members are first in line when they release.
             .px-batches
               each item in experimentalBatches
                 +batchRow(item)

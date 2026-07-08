@@ -81,6 +81,8 @@
 
 /* ---- experimental: the batch index ---- */
 .px-index { padding: 3.5rem 0 4rem; background: var(--px-bg-2); border-top: 1px solid var(--px-line); }
+.px-index-head { margin: 0 0 1.5rem; }
+.px-index-lead { color: var(--px-muted); font-size: 0.98rem; max-width: 46rem; margin: 0; }
 .px-batches { display: flex; flex-direction: column; }
 .px-batch {
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.8vw;
