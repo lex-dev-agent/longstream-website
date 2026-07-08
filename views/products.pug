@@ -11,60 +11,131 @@ html(lang="en")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
     link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
     link(rel="stylesheet", href="/styles/v5.css")
-    style.
-      .prod-hero { text-align: center; padding: 5rem 0 1.5rem; background: var(--bg-2); }
-      .prod-hero h1 { font-family: var(--font-head); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; margin: 0.5rem 0 1rem; }
-      .prod-lead { color: var(--muted); max-width: 38rem; margin: 0 auto; }
-      /* Both ranges share one continuous bg-2, no dividing line */
-      .v5-range, .v5-experimental { background: var(--bg-2); border-top: none; }
-      /* tighter product grid */
-      .v5-cards { gap: 1.25rem; }
-      /* shopping-style product cards */
-      .shop-card { cursor: pointer; padding: 2.25rem 1.25rem 1.75rem; }
-      .shop-card .v5-card-bottle { width: 92px; margin-bottom: 1.1rem; }
-      .shop-card h3 { font-size: 1.3rem; margin: 0 0 0.4rem; }
-      .shop-card .shop-meta { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin: 0; }
-      .shop-card .shop-foot { margin-top: auto; padding-top: 1.25rem; }
-      .shop-card .shop-price { font-family: var(--font-head); font-size: 1.5rem; color: var(--gold-2); margin: 0 0 0.9rem; }
-      .shop-card .shop-order { display: block; width: 100%; }
-      .shop-card .shop-order-out { display: inline-block; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 0.65rem 1rem; border-radius: 1px; }
+    link(rel="stylesheet", href="/styles/products.css")
 
   body
-    include _shopcard
     include _nav
 
+    //- Shared modal payload (story + best served), reused from the homepage.
+    mixin cardData(s)
+      template.v5-card-data
+        .v5-modal-story-content
+          h2= s.name
+          if s.story
+            each para in s.story
+              p= para
+        .v5-modal-aside-content
+          if s.bestServed && s.bestServed.length
+            p.v5-kicker Best served
+            ul.v5-served
+              each item in s.bestServed
+                li= item
+          if s.photo
+            figure.v5-detail-photo
+              img(src=`/images/v5-${s.id}.jpg`, alt=s.photoAlt, onerror="this.style.display='none'; this.parentNode.classList.add('is-empty')")
+              figcaption Photo coming soon
+
+    //- SIGNATURE — a fixed trinity, presented as three stations on the stream
+    mixin flight(s, i)
+      - var available = s.status === 'available'
+      - var roman = ['I', 'II', 'III', 'IV', 'V', 'VI'][i] || String(i + 1)
+      .pr-flight
+        .pr-rail
+          span.pr-rail-num= roman
+          span.pr-rail-node
+          span.pr-rail-line
+        .pr-flight-body
+          .v5-card.pr-plate(role="button", tabindex="0", data-spirit=s.id, data-status=s.status, class={"v5-card-out": !available})
+            if s.status === 'coming-soon'
+              span.v5-badge Coming soon
+            else if s.status === 'soldout'
+              span.v5-badge Sold out
+            img.v5-card-bottle(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+            h3.pr-plate-name= s.name
+            p.pr-plate-meta #{s.volume} · #{s.abv}
+            +cardData(s)
+          .pr-flight-detail
+            p.pr-desc= s.description
+            p.pr-serve= s.serve
+            .pr-flight-foot
+              if available
+                span.pr-price NZ$#{s.price}
+              else
+                span.pr-soon Coming soon
+              .pr-actions
+                if available
+                  a.v5-btn-solid(href="/order") Order
+                else
+                  a.pr-notify(href="#club") Get notified →
+                button.pr-storybtn(type="button", onclick="this.closest('.pr-flight').querySelector('.v5-card').click()") The story →
+
+    //- EXPERIMENTAL — a ledger of limited batches; one row per batch, scales to any number
+    mixin batch(s)
+      - var available = s.status === 'available'
+      .v5-card.pr-batch(role="button", tabindex="0", data-spirit=s.id, data-status=s.status, class={"v5-card-out": !available})
+        .pr-batch-thumb
+          img(src="/images/v3-bottle-new.png", onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+        .pr-batch-info
+          h3.pr-batch-name= s.name
+          p.pr-batch-meta #{s.volume} · #{s.abv}
+          p.pr-batch-desc= s.description
+        //- .shop-foot so the shared modal strips this action block from the clone
+        .pr-batch-action.shop-foot
+          if available
+            span.pr-price.pr-price--sm NZ$#{s.price}
+            a.v5-btn-solid.pr-batch-order(href="/order", onclick="event.stopPropagation()") Order
+          else
+            span.pr-soon Coming soon
+            a.pr-notify(href="#club", onclick="event.stopPropagation()") Get notified →
+        +cardData(s)
+
     main
-      //- Page intro
-      section.prod-hero
+      //- Masthead: the through-line is that everything comes from one process
+      section.pr-hero
         .wrap
-          .v5-rule.center
-          p.v5-kicker Mangaroa Valley Small Batch Spirits
-          h1 Our Products
-          p.prod-lead Small-batch gin, limoncello and vodka — each hand-produced on site through our signature four-step process. Tap any bottle to read its story and how it's best served.
+          p.pr-eyebrow The Longstream Range
+          h1.pr-title Three spirits, #[em one long process.]
+          p.pr-lead Every bottle begins the same way — fermented and distilled on site, in small batches. The vodka stops at step three, the gin runs the full four, and the limoncello takes that vodka and our local lemons.
+          .pr-hero-meta
+            .pr-stat
+              span.pr-stat-num 03
+              span.pr-stat-label Signature spirits
+            .pr-stat
+              span.pr-stat-num= String(experimentalBatches.length).padStart(2, '0')
+              span.pr-stat-label Limited batches
 
-      //- SIGNATURE RANGE
-      section.v5-range#range
+      //- SIGNATURE RANGE — always three
+      section.pr-signature#range
         .wrap
-          .v5-range-head
-            p.v5-kicker The range
-            h2 Signature Range
-            p Our core collection of small-batch spirits, made from scratch and perfected over years.
-          .v5-cards
-            each bottle in bottles
-              +shopCard(bottle)
+          .pr-section-head
+            p.v5-kicker The core three
+            h2.pr-h2 Signature Range
+            p.pr-section-lead Always three. Made from scratch on a 25-litre still and refined over years.
+          .pr-flights
+            each bottle, i in bottles
+              +flight(bottle, i)
 
-      //- EXPERIMENTAL / LIMITED BATCHES
-      section.v5-experimental#experimental
-        .wrap
-          .v5-range-head
-            p.v5-kicker Limited batches
-            h2 Experimental Range
-            p One-off and seasonal distillations from the back of the shed. Our club members are the first in line when released.
-          .v5-cards
-            each batch in experimentalBatches
-              +shopCard(batch)
+      //- EXPERIMENTAL RANGE — the growing ledger
+      if experimentalBatches && experimentalBatches.length
+        section.pr-experimental#experimental
+          .wrap
+            .pr-section-head
+              p.v5-kicker Limited &amp; seasonal
+              h2.pr-h2 Experimental Range
+              p.pr-section-lead One-off and seasonal distillations from the back of the shed. The list grows with every batch — club members are first in line when they release.
+            .pr-ledger
+              each item in experimentalBatches
+                +batch(item)
 
     include _footer
     include _spiritmodal
     include _navscroll
     include _agegate
+
+    //- keyboard support for the role="button" cards (Enter / Space open the modal)
+    script.
+      document.querySelectorAll('.pr-plate, .pr-batch').forEach(function (el) {
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+        });
+      });
