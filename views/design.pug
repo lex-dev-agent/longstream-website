@@ -47,7 +47,7 @@ mixin ginLabelContent
       span 38% ABV
 
 mixin ginClassicV2Front(word, tasting, gintype, brand)
-  - word = word || 'CLASSIC'
+  - if (word === undefined) word = 'CLASSIC'
   - tasting = tasting || 'Crisp and Warm Spice · Lime Finish'
   - brand = brand || 'BLONDE'
   - if (gintype === undefined) gintype = 'DRY GIN'
@@ -55,7 +55,8 @@ mixin ginClassicV2Front(word, tasting, gintype, brand)
     p.label-distillery.clv2-brandline LONGSTREAM #[img.clv2-brandlogo(src="/images/logo-white.png" alt="Longstream Distillery")] DISTILLERY
     .clv2-imgslot(aria-hidden="true")
     .label-name-block
-      p.clv2-classic= word
+      if word
+        p.clv2-classic= word
       h2.label-brand= brand
       if gintype
         .label-botanical-divider
@@ -478,7 +479,7 @@ block content
         .label-card-wrapper
           h3.label-section-label Front
           .gin-label.gl-classic2.gl-classic4#glv10-front
-            +ginClassicV2Front('SEEKING', null, false, 'VODKA')
+            +ginClassicV2Front(false, null, 'VODKA', 'SEEKING')
         .label-card-wrapper
           h3.label-section-label Back
           .gin-label.gin-label-back#glv10-back
@@ -495,7 +496,7 @@ block content
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-classic4.gin-label--print#glv10-print-front
-      +ginClassicV2Front('SEEKING', null, false, 'VODKA')
+      +ginClassicV2Front(false, null, 'VODKA', 'SEEKING')
     .gin-label.gin-label-back.gin-label--print#glv10-print-back
       +ginBackLabelContent
 
