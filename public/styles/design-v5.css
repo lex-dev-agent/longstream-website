@@ -175,6 +175,12 @@
 /* ---- Variation 7 · Classic v4 (base gold instead of gold-2) ---- */
 .design-v5 .gl-classic4 { --gold-2: var(--gold); }
 
+/* ---- Blushing / Zesty · tint the variant word + gin-type divider ---- */
+.design-v5 .gl-blushing .clv2-classic,
+.design-v5 .gl-blushing .clv2-drygin { color: #cf94aa; }
+.design-v5 .gl-zesty .clv2-classic,
+.design-v5 .gl-zesty .clv2-drygin { color: #e6d67c; }
+
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
   background: var(--gold); color: var(--bg); border: 1px solid var(--gold);
