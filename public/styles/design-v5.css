@@ -150,6 +150,8 @@
 }
 /* fixed-height name block, contents vertically centred */
 .design-v5 .label-name-block { height: 105px; justify-content: center; }
+/* wider divider with a tighter gap on the v2-family variants */
+.design-v5 .gl-classic2 .label-botanical-divider { gap: 0.4rem; width: 80%; }
 /* DRY GIN centred in the horizontal divider */
 .design-v5 .clv2-drygin {
   font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
