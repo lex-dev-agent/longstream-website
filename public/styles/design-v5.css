@@ -142,9 +142,16 @@
    html2canvas PNG/PDF export (applies to both Classic v2 and v3) */
 .design-v5 .gin-label.gl-classic2 {
   background-image: url('/images/label-texture.jpg');
-  background-size: 200%;
+  background-size: 250%;
   background-position: center;
   background-repeat: no-repeat;
+}
+/* BLONDE embossed/stamped into the leather (exports via html2canvas) */
+.design-v5 .gl-classic2 .label-brand {
+  text-shadow:
+    0 -1px 0 rgba(255, 255, 255, 0.16),
+    0 1px 1px rgba(0, 0, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.4);
 }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
