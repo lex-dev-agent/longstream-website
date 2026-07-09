@@ -136,15 +136,13 @@
 /* top branding on one line: LONGSTREAM [logo] DISTILLERY */
 .design-v5 .clv2-brandlogo { height: 1.8em; width: 1.8em; vertical-align: middle; opacity: 0.95; display: inline-block; }
 /* crest/illustration slot — min-height removed for now (collapses) */
-/* leather texture temporarily removed — re-enable the rule below to restore */
-/*
+/* leather background photo (applies to both Classic v2 and its variants) */
 .design-v5 .gin-label.gl-classic2 {
-  background-image: url('/images/label-texture.jpg');
-  background-size: 250%;
+  background-image: url('/images/leather-background.png');
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-*/
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
   font-family: var(--font-heading); color: var(--ink); font-weight: 600;
