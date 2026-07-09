@@ -46,17 +46,19 @@ mixin ginLabelContent
       span.label-dot ·
       span 38% ABV
 
-mixin ginClassicV2Front
+mixin ginClassicV2Front(word, tasting)
+  - word = word || 'CLASSIC'
+  - tasting = tasting || 'Crisp and Warm Spice · Lime Finish'
   .gin-label-inner
     p.label-distillery.clv2-brandline LONGSTREAM #[img.clv2-brandlogo(src="/images/logo-white.png" alt="Longstream Distillery")] DISTILLERY
     .clv2-imgslot(aria-hidden="true")
     .label-name-block
-      p.clv2-classic CLASSIC
+      p.clv2-classic= word
       h2.label-brand BLONDE
     .label-botanical-divider
       span.clv2-drygin DRY GIN
     p.label-origin Mangaroa · Upper Hutt<br>New Zealand
-    p.label-tasting Crisp and Warm Spice · Lime Finish
+    p.label-tasting= tasting
     .label-gold-rule
     .label-footer-specs
       span 700 ml
@@ -406,6 +408,66 @@ block content
 
   section.label-page
     div.container
+      h2.label-page-title Blonde Gin — Blushing
+      p.label-page-subtitle Classic v2 variant · BLUSHING · Berry Finish.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.gl-classic2#glv8-front
+            +ginClassicV2Front('BLUSHING', 'Berry Finish')
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back#glv8-back
+            +ginBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary#glv8-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png#glv8-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.gl-classic2.gin-label--print#glv8-print-front
+      +ginClassicV2Front('BLUSHING', 'Berry Finish')
+    .gin-label.gin-label-back.gin-label--print#glv8-print-back
+      +ginBackLabelContent
+
+  section.label-page
+    div.container
+      h2.label-page-title Blonde Gin — Zesty
+      p.label-page-subtitle Classic v2 variant · ZESTY · Lemon Finish.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.gl-classic2#glv9-front
+            +ginClassicV2Front('ZESTY', 'Lemon Finish')
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back#glv9-back
+            +ginBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary#glv9-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png#glv9-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.gl-classic2.gin-label--print#glv9-print-front
+      +ginClassicV2Front('ZESTY', 'Lemon Finish')
+    .gin-label.gin-label-back.gin-label--print#glv9-print-back
+      +ginBackLabelContent
+
+  section.label-page
+    div.container
       h2.label-page-title Blonde Gin — Modern
       p.label-page-subtitle Variation 2 · minimal, left-aligned, generous negative space.
 
@@ -561,4 +623,6 @@ block content
       init('glv5', 'blonde-gin-classic-v2');
       init('glv6', 'blonde-gin-classic-v3');
       init('glv7', 'blonde-gin-classic-v4');
+      init('glv8', 'blonde-gin-blushing');
+      init('glv9', 'blonde-gin-zesty');
     })();
