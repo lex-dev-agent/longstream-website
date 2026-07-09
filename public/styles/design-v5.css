@@ -146,12 +146,24 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-/* BLONDE embossed/stamped into the leather (exports via html2canvas) */
+/* BLONDE as metallic gold — light top face + stacked darker-gold extrude for
+   a polished-metal bevel (all text-shadow/color, so it exports via html2canvas) */
 .design-v5 .gl-classic2 .label-brand {
+  color: #f3e2ad;
   text-shadow:
-    0 -1px 0 rgba(255, 255, 255, 0.16),
-    0 1px 1px rgba(0, 0, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.4);
+    0 1px 0 #cbaa5e,
+    0 2px 0 #b1923f,
+    0 3px 0 #8f7532,
+    0 4px 5px rgba(0, 0, 0, 0.55);
+}
+/* v3: copper metal */
+.design-v5 .gl-classic3 .label-brand {
+  color: #f2c9a1;
+  text-shadow:
+    0 1px 0 #c9814c,
+    0 2px 0 #a9663a,
+    0 3px 0 #854e2c,
+    0 4px 5px rgba(0, 0, 0, 0.55);
 }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
