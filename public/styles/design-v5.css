@@ -172,6 +172,31 @@
 /* ---- Variation 7 · Classic v4 (base gold instead of gold-2) ---- */
 .design-v5 .gl-classic4 { --gold-2: var(--gold); }
 
+/* ---- BLONDE metallic gold foil (gradient clipped to the text) ----
+   NOTE: background-clip:text may not survive the html2canvas PNG/PDF export;
+   `color` is the solid-gold fallback for that case. */
+.design-v5 .gl-classic2 .label-brand {
+  color: #dcb254;
+  background: linear-gradient(180deg,
+    #fbeaa6 0%, #e7c168 20%, #c1923b 42%,
+    #f6e49c 52%, #b98c37 64%, #9a6f27 86%, #e2be63 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+}
+/* v3: copper foil */
+.design-v5 .gl-classic3 .label-brand {
+  color: #cf8a54;
+  background: linear-gradient(180deg,
+    #f0c79b 0%, #d59a63 20%, #b06a3c 42%,
+    #edc199 52%, #a15c31 64%, #814825 86%, #cf8a54 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+}
+
 /* ---- Blushing / Zesty · tint the variant word + gin-type divider ---- */
 .design-v5 .gl-blushing .clv2-classic,
 .design-v5 .gl-blushing .clv2-drygin { color: #cf94aa; }
