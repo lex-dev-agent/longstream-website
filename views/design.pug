@@ -533,6 +533,36 @@ block content
 
   section.label-page
     div.container
+      h2.label-page-title Maymorn Estate — Oak-Rested Gin
+      p.label-page-subtitle Classic v4 (base gold) as Maymorn Estate.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.gl-classic2.gl-classic4#glv12-front
+            +ginClassicV2Front('MAYMORN', 'Oak and Warm Spice · Golden Finish', 'OAK-RESTED GIN', 'ESTATE')
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back#glv12-back
+            +ginBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary#glv12-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png#glv12-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.gl-classic2.gl-classic4.gin-label--print#glv12-print-front
+      +ginClassicV2Front('MAYMORN', 'Oak and Warm Spice · Golden Finish', 'OAK-RESTED GIN', 'ESTATE')
+    .gin-label.gin-label-back.gin-label--print#glv12-print-back
+      +ginBackLabelContent
+
+  section.label-page
+    div.container
       h2.label-page-title Blonde Gin — Modern
       p.label-page-subtitle Variation 2 · minimal, left-aligned, generous negative space.
 
@@ -692,4 +722,5 @@ block content
       init('glv9', 'blonde-gin-zesty');
       init('glv10', 'seeking-vodka');
       init('glv11', 'louies-limoncello');
+      init('glv12', 'maymorn-estate-gin');
     })();
