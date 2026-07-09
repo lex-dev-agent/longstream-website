@@ -178,6 +178,10 @@
 .design-v5 .gl-seeking { --gold: #d6e0ee; --gold-2: #d6e0ee; }
 .design-v5 .gl-seeking.gin-label::after { border-color: rgba(214, 224, 238, 0.38); }
 
+/* ---- Louie's Limoncello · full Zesty-yellow accent instead of gold ---- */
+.design-v5 .gl-louie { --gold: #e6d67c; --gold-2: #e6d67c; }
+.design-v5 .gl-louie.gin-label::after { border-color: rgba(230, 214, 124, 0.4); }
+
 /* ---- Blushing / Zesty · tint the variant word + gin-type divider ---- */
 /* use the base gold (like v4) for their gold pieces */
 .design-v5 .gl-blushing,
