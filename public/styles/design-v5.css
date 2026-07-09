@@ -181,8 +181,8 @@
 .design-v5 .gl-seeking.gin-label::after { border-color: rgba(214, 224, 238, 0.38); }
 
 /* ---- Louie's Limoncello · full Zesty-yellow accent instead of gold ---- */
-.design-v5 .gl-louie { --gold: #e6d67c; --gold-2: #e6d67c; }
-.design-v5 .gl-louie.gin-label::after { border-color: rgba(230, 214, 124, 0.4); }
+.design-v5 .gl-louie { --gold: #ecdc63; --gold-2: #ecdc63; }
+.design-v5 .gl-louie.gin-label::after { border-color: rgba(236, 220, 99, 0.4); }
 
 /* ---- Blushing / Zesty · tint the variant word + gin-type divider ---- */
 /* use the base gold (like v4) for their gold pieces */
@@ -193,9 +193,9 @@
 .design-v5 .gl-blushing .label-botanical-divider::before,
 .design-v5 .gl-blushing .label-botanical-divider::after { background: #cf94aa; }
 .design-v5 .gl-zesty .clv2-classic,
-.design-v5 .gl-zesty .clv2-drygin { color: #e6d67c; }
+.design-v5 .gl-zesty .clv2-drygin { color: #ecdc63; }
 .design-v5 .gl-zesty .label-botanical-divider::before,
-.design-v5 .gl-zesty .label-botanical-divider::after { background: #e6d67c; }
+.design-v5 .gl-zesty .label-botanical-divider::after { background: #ecdc63; }
 
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
