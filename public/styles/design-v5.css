@@ -143,8 +143,8 @@
    background can't take an opacity directly) */
 .design-v5 .gin-label.gl-classic2 {
   background-image: linear-gradient(rgba(23, 26, 19, 0.25), rgba(23, 26, 19, 0.25)), url('/images/woman-background5.png');
-  background-size: cover;
-  background-position: center;
+  background-size: 112%;
+  background-position: bottom;
   background-repeat: no-repeat;
 }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
