@@ -136,7 +136,8 @@
 /* top branding on one line: LONGSTREAM [logo] DISTILLERY */
 .design-v5 .clv2-brandlogo { height: 1.8em; width: 1.8em; vertical-align: middle; opacity: 0.95; display: inline-block; }
 /* crest/illustration slot — reserved space */
-.design-v5 .clv2-imgslot { min-height: 140px; }
+.design-v5 .clv2-imgslot { min-height: 140px; display: flex; align-items: center; justify-content: center; }
+.design-v5 .clv2-img { max-height: 140px; width: auto; opacity: 0.8; }
 /* leather background photo (applies to both Classic v2 and its variants) */
 .design-v5 .gin-label.gl-classic2 {
   background-image: url('/images/leather-background-tinted.jpg');
