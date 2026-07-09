@@ -376,6 +376,36 @@ block content
 
   section.label-page
     div.container
+      h2.label-page-title Blonde Gin — Classic v4
+      p.label-page-subtitle Variation 7 · Classic v2 using the base gold (--gold) instead of --gold-2.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.gl-classic2.gl-classic4#glv7-front
+            +ginClassicV2Front
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back#glv7-back
+            +ginBackLabelContent
+
+      .label-download
+        .label-download-actions
+          button.button.button-primary#glv7-pdf(type="button") Download Print-Ready PDF
+          button.button.button-secondary.label-btn-png#glv7-png(type="button") Download PNG
+        p.label-download-note
+          | PDF includes bleed &amp; crop marks at 300 DPI.
+          br
+          | PNG downloads the label as shown above.
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.gl-classic2.gl-classic4.gin-label--print#glv7-print-front
+      +ginClassicV2Front
+    .gin-label.gin-label-back.gin-label--print#glv7-print-back
+      +ginBackLabelContent
+
+  section.label-page
+    div.container
       h2.label-page-title Blonde Gin — Modern
       p.label-page-subtitle Variation 2 · minimal, left-aligned, generous negative space.
 
@@ -530,4 +560,5 @@ block content
       init('glv4', 'blonde-gin-frame');
       init('glv5', 'blonde-gin-classic-v2');
       init('glv6', 'blonde-gin-classic-v3');
+      init('glv7', 'blonde-gin-classic-v4');
     })();

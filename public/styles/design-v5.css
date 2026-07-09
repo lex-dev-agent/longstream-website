@@ -172,6 +172,9 @@
 /* the inner ornamental border uses a literal gold in the base rule — tint it copper */
 .design-v5 .gl-classic3.gin-label::after { border-color: rgba(181, 112, 63, 0.45); }
 
+/* ---- Variation 7 · Classic v4 (base gold instead of gold-2) ---- */
+.design-v5 .gl-classic4 { --gold-2: var(--gold); }
+
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
   background: var(--gold); color: var(--bg); border: 1px solid var(--gold);
