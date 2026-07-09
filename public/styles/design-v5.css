@@ -142,7 +142,7 @@
 /* full-label background as a real <img> so html2canvas exports it at full
    resolution (it renders CSS background-images at low res). It fills inside
    the border (padding box), so the gold frame stays on top. */
-.design-v5 .gl-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+.design-v5 .gl-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
   font-family: var(--font-heading); color: var(--ink); font-weight: 600;
