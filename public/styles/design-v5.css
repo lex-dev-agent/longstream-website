@@ -168,6 +168,24 @@
 .design-v5 .gl-classic2 .label-botanical-divider::before,
 .design-v5 .gl-classic2 .label-botanical-divider::after { background: var(--gold-2); }
 
+/* ---- Variation 6 · Classic v3 (copper / rust palette) ---- */
+/* remap the gold accents to copper for everything the v2 rules colour
+   (brand, tasting, footer specs, gold rules, dividers, borders) */
+.design-v5 .gl-classic3 { --gold: #b5703f; --gold-2: #d98f5a; }
+/* warmer, rustier leather texture */
+.design-v5 .gl-classic3.gin-label {
+  background-color: #1a130d;
+  background-image:
+    radial-gradient(ellipse at 22% 18%, rgba(216, 143, 90, 0.07), transparent 45%),
+    radial-gradient(ellipse at 78% 68%, rgba(0, 0, 0, 0.34), transparent 52%),
+    radial-gradient(ellipse at 62% 12%, rgba(0, 0, 0, 0.24), transparent 42%),
+    repeating-linear-gradient(115deg, rgba(255, 224, 196, 0.02) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(28deg, rgba(0, 0, 0, 0.04) 0 1px, transparent 1px 5px),
+    linear-gradient(180deg, #241a12, #18110b);
+}
+/* the inner ornamental border uses a literal gold in the base rule — tint it copper */
+.design-v5 .gl-classic3.gin-label::after { border-color: rgba(181, 112, 63, 0.45); }
+
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
   background: var(--gold); color: var(--bg); border: 1px solid var(--gold);
