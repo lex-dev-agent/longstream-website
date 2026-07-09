@@ -139,12 +139,10 @@
 .design-v5 .clv2-imgslot { min-height: 140px; display: flex; align-items: center; justify-content: center; }
 .design-v5 .clv2-img { max-height: 140px; width: auto; opacity: 0.75; }
 /* leather background photo (applies to both Classic v2 and its variants) */
-.design-v5 .gin-label.gl-classic2 {
-  background-image: url('/images/woman-background.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+/* full-label background as a real <img> so html2canvas exports it at full
+   resolution (it renders CSS background-images at low res). It fills inside
+   the border (padding box), so the gold frame stays on top. */
+.design-v5 .gl-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
   font-family: var(--font-heading); color: var(--ink); font-weight: 600;
