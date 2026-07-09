@@ -173,6 +173,9 @@
 .design-v5 .gl-classic4 { --gold-2: var(--gold); }
 
 /* ---- Blushing / Zesty · tint the variant word + gin-type divider ---- */
+/* use the base gold (like v4) for their gold pieces */
+.design-v5 .gl-blushing,
+.design-v5 .gl-zesty { --gold-2: var(--gold); }
 .design-v5 .gl-blushing .clv2-classic,
 .design-v5 .gl-blushing .clv2-drygin { color: #cf94aa; }
 .design-v5 .gl-blushing .label-botanical-divider::before,
