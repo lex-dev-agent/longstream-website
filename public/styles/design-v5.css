@@ -150,7 +150,7 @@
 }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
-  font-family: var(--font-heading); color: var(--gold-2); font-weight: 600;
+  font-family: var(--font-heading); color: var(--ink); font-weight: 600;
   font-size: 1.8rem; letter-spacing: 0.14em; line-height: 1; margin: 0;
 }
 /* DRY GIN centred in the horizontal divider */
