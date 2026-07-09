@@ -178,8 +178,12 @@
 /* ---- Blushing / Zesty · tint the variant word + gin-type divider ---- */
 .design-v5 .gl-blushing .clv2-classic,
 .design-v5 .gl-blushing .clv2-drygin { color: #cf94aa; }
+.design-v5 .gl-blushing .label-botanical-divider::before,
+.design-v5 .gl-blushing .label-botanical-divider::after { background: #cf94aa; }
 .design-v5 .gl-zesty .clv2-classic,
 .design-v5 .gl-zesty .clv2-drygin { color: #e6d67c; }
+.design-v5 .gl-zesty .label-botanical-divider::before,
+.design-v5 .gl-zesty .label-botanical-divider::after { background: #e6d67c; }
 
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
