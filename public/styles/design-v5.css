@@ -139,13 +139,13 @@
 .design-v5 .clv2-imgslot { min-height: 140px; display: flex; align-items: center; justify-content: center; }
 .design-v5 .clv2-img { max-height: 140px; width: auto; opacity: 0.75; }
 /* leather background photo (applies to both Classic v2 and its variants) */
-/* full-label background image; ~0.75 opacity via a dark overlay (a CSS
-   background can't take an opacity directly) */
-.design-v5 .gin-label.gl-classic2 {
-  background-image: linear-gradient(rgba(23, 26, 19, 0.25), rgba(23, 26, 19, 0.25)), url('/images/woman-background5.png');
-  background-size: 112%;
-  background-position: bottom;
-  background-repeat: no-repeat;
+/* full-label background as a real <img> so html2canvas exports it at full
+   resolution (CSS background-images export low-res). Sized to 112% width and
+   pinned to the bottom, with the excess clipped by the label. */
+.design-v5 .gin-label.gl-classic2 { overflow: hidden; }
+.design-v5 .gl-bg {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 112%; height: auto; opacity: 0.75;
 }
 /* CLASSIC: slightly smaller than BLONDE, same colour */
 .design-v5 .clv2-classic {
