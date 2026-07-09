@@ -138,7 +138,7 @@
 /* crest/illustration slot — min-height removed for now (collapses) */
 /* leather background photo (applies to both Classic v2 and its variants) */
 .design-v5 .gin-label.gl-classic2 {
-  background-image: url('/images/leather-background.png');
+  background-image: url('/images/leather-background-tinted.jpg');
   background-size: 180%;
   background-position: center;
   background-repeat: no-repeat;
