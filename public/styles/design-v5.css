@@ -200,6 +200,12 @@
 .design-v5 .gl-zesty .clv2-drygin { color: #ecdc63; }
 .design-v5 .gl-zesty .label-botanical-divider::before,
 .design-v5 .gl-zesty .label-botanical-divider::after { background: #ecdc63; }
+/* Salted · soft sea-salt blue-grey accent */
+.design-v5 .gl-salt { --gold-2: var(--gold); }
+.design-v5 .gl-salt .clv2-classic,
+.design-v5 .gl-salt .clv2-drygin { color: #aec5cd; }
+.design-v5 .gl-salt .label-botanical-divider::before,
+.design-v5 .gl-salt .label-botanical-divider::after { background: #aec5cd; }
 
 /* ---- download buttons ---- */
 .design-v5 .button-primary {
