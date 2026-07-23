@@ -230,3 +230,22 @@
 .design-v5 .label-btn-png:hover { border-color: var(--gold); color: var(--gold-2) !important; background: transparent; }
 .design-v5 .bc-download-note,
 .design-v5 .label-download-note { color: var(--muted); }
+
+/* ---- print labels: white bleed ----
+   The bleed ring is drawn as a white border, which also shrinks the padding
+   box to exactly the trim area — so the artwork (label background + the .gl-bg
+   image, which are positioned against the padding box) is confined to the trim
+   and the bleed stays clean white. The insets below keep the trim border, inner
+   frame and content in exactly the same place as before. */
+.design-v5 .gin-label--print {
+  border: var(--label-bleed) solid #fff;
+  background-clip: padding-box;
+}
+.design-v5 .gin-label--print::before { inset: 0; }
+.design-v5 .gin-label--print::after { inset: 10px; }
+.design-v5 .gin-label--print .gin-label-inner,
+.design-v5 .gin-label--print .gin-label-back-inner { inset: 19px; }
+/* keep the background image behind the trim border and inner frame
+   (as a positioned sibling it would otherwise paint over ::before) */
+.design-v5 .gin-label { isolation: isolate; }
+.design-v5 .gl-bg { z-index: -1; }
