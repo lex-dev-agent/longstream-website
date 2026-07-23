@@ -238,7 +238,8 @@
    and the bleed stays clean white. The insets below keep the trim border, inner
    frame and content in exactly the same place as before. */
 .design-v5 .gin-label--print {
-  border: var(--label-bleed) solid #fff;
+  /* bleed matches the label's outer border colour (per-variant via --gold) */
+  border: var(--label-bleed) solid var(--gold);
   background-clip: padding-box;
 }
 .design-v5 .gin-label--print::before { inset: 0; }

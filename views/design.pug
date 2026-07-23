@@ -46,6 +46,19 @@ mixin ginLabelContent
       span.label-dot ·
       span 38% ABV
 
+//- Per-label downloads: front and back are separate buttons for both PDF and PNG
+mixin labelDownloads(id)
+  .label-download
+    .label-download-actions
+      button.button.button-primary(id=`${id}-pdf-front`, type="button") Front PDF
+      button.button.button-primary(id=`${id}-pdf-back`, type="button") Back PDF
+      button.button.button-secondary.label-btn-png(id=`${id}-png-front`, type="button") Front PNG
+      button.button.button-secondary.label-btn-png(id=`${id}-png-back`, type="button") Back PNG
+    p.label-download-note
+      | PDF includes bleed &amp; crop marks at 300 DPI.
+      br
+      | PNG downloads the label as shown above.
+
 mixin ginClassicV2Front(word, tasting, gintype, brand, abv)
   - if (word === undefined) word = 'CLASSIC'
   - tasting = tasting || 'Crisp and Warm Spice · Lime Finish'
@@ -307,14 +320,7 @@ block content
           .gin-label.gin-label-back#glv1-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv1-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv1-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv1')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gin-label--print#glv1-print-front
@@ -337,14 +343,7 @@ block content
           .gin-label.gin-label-back#glv5-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv5-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv5-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv5')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gin-label--print#glv5-print-front
@@ -367,14 +366,7 @@ block content
           .gin-label.gin-label-back#glv6-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv6-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv6-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv6')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-classic3.gin-label--print#glv6-print-front
@@ -397,14 +389,7 @@ block content
           .gin-label.gin-label-back#glv7-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv7-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv7-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv7')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-classic4.gin-label--print#glv7-print-front
@@ -427,14 +412,7 @@ block content
           .gin-label.gin-label-back#glv8-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv8-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv8-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv8')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-blushing.gin-label--print#glv8-print-front
@@ -457,14 +435,7 @@ block content
           .gin-label.gin-label-back#glv9-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv9-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv9-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv9')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-zesty.gin-label--print#glv9-print-front
@@ -487,14 +458,7 @@ block content
           .gin-label.gin-label-back#glv13-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv13-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv13-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv13')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-salt.gin-label--print#glv13-print-front
@@ -517,14 +481,7 @@ block content
           .gin-label.gin-label-back#glv10-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv10-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv10-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv10')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-classic4.gl-seeking.gin-label--print#glv10-print-front
@@ -547,14 +504,7 @@ block content
           .gin-label.gin-label-back#glv11-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv11-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv11-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv11')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-louie.gin-label--print#glv11-print-front
@@ -577,14 +527,7 @@ block content
           .gin-label.gin-label-back#glv12-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv12-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv12-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv12')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-classic3.gin-label--print#glv12-print-front
@@ -607,14 +550,7 @@ block content
           .gin-label.gin-label-back.gl-modern#glv2-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv2-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv2-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv2')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gin-label--print.gl-modern#glv2-print-front
@@ -637,14 +573,7 @@ block content
           .gin-label.gin-label-back.gl-band#glv3-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv3-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv3-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv3')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gin-label--print.gl-band#glv3-print-front
@@ -667,14 +596,7 @@ block content
           .gin-label.gin-label-back.gl-frame#glv4-back
             +ginBackLabelContent
 
-      .label-download
-        .label-download-actions
-          button.button.button-primary#glv4-pdf(type="button") Download Print-Ready PDF
-          button.button.button-secondary.label-btn-png#glv4-png(type="button") Download PNG
-        p.label-download-note
-          | PDF includes bleed &amp; crop marks at 300 DPI.
-          br
-          | PNG downloads the label as shown above.
+      +labelDownloads('glv4')
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gin-label--print.gl-frame#glv4-print-front
@@ -710,36 +632,28 @@ block content
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
       }
       function init(id, file) {
-        var pdfBtn = document.getElementById(id + '-pdf');
-        var pngBtn = document.getElementById(id + '-png');
-        if (!pdfBtn || !pngBtn) return;
-        pdfBtn.addEventListener('click', function () {
-          loading(pdfBtn, true);
-          Promise.all([
-            capture(document.getElementById(id + '-print-front'), PAGE_W * DPI, PAGE_H * DPI),
-            capture(document.getElementById(id + '-print-back'), PAGE_W * DPI, PAGE_H * DPI)
-          ]).then(function (cv) {
-            var jsPDF = window.jspdf.jsPDF;
-            var pdf = new jsPDF({ orientation: 'portrait', unit: 'in', format: [PAGE_W, PAGE_H] });
-            cv.forEach(function (c, i) {
-              if (i > 0) pdf.addPage([PAGE_W, PAGE_H], 'portrait');
-              pdf.addImage(c.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
-              marks(pdf);
-            });
-            pdf.save(file + '.pdf');
-          }).catch(function (e) { console.error(e); alert('Something went wrong generating the PDF. Please try again.'); })
-            .finally(function () { loading(pdfBtn, false); });
-        });
-        pngBtn.addEventListener('click', function () {
-          loading(pngBtn, true);
-          Promise.all([
-            capture(document.getElementById(id + '-front'), TRIM_W * DPI, TRIM_H * DPI),
-            capture(document.getElementById(id + '-back'), TRIM_W * DPI, TRIM_H * DPI)
-          ]).then(function (cv) {
-            dl(cv[0].toDataURL('image/png'), file + '-front.png');
-            setTimeout(function () { dl(cv[1].toDataURL('image/png'), file + '-back.png'); }, 300);
-          }).catch(function (e) { console.error(e); alert('Something went wrong generating the PNG. Please try again.'); })
-            .finally(function () { loading(pngBtn, false); });
+        ['front', 'back'].forEach(function (side) {
+          var pdfBtn = document.getElementById(id + '-pdf-' + side);
+          var pngBtn = document.getElementById(id + '-png-' + side);
+          if (pdfBtn) pdfBtn.addEventListener('click', function () {
+            loading(pdfBtn, true);
+            capture(document.getElementById(id + '-print-' + side), PAGE_W * DPI, PAGE_H * DPI)
+              .then(function (c) {
+                var jsPDF = window.jspdf.jsPDF;
+                var pdf = new jsPDF({ orientation: 'portrait', unit: 'in', format: [PAGE_W, PAGE_H] });
+                pdf.addImage(c.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
+                marks(pdf);
+                pdf.save(file + '-' + side + '.pdf');
+              }).catch(function (e) { console.error(e); alert('Something went wrong generating the PDF. Please try again.'); })
+              .finally(function () { loading(pdfBtn, false); });
+          });
+          if (pngBtn) pngBtn.addEventListener('click', function () {
+            loading(pngBtn, true);
+            capture(document.getElementById(id + '-' + side), TRIM_W * DPI, TRIM_H * DPI)
+              .then(function (c) { dl(c.toDataURL('image/png'), file + '-' + side + '.png'); })
+              .catch(function (e) { console.error(e); alert('Something went wrong generating the PNG. Please try again.'); })
+              .finally(function () { loading(pngBtn, false); });
+          });
         });
       }
       init('glv1', 'blonde-gin-classic');
