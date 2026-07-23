@@ -42,12 +42,18 @@ a { color: inherit; }
 }
 .v5-header .wrap { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.75rem; }
 .v5-brand {
-  display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--ink);
+  display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: var(--ink);
   /* matches the label branding line: Jost, bold, uppercase, wide tracking */
   font-family: var(--font-body); font-size: 1.1rem; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
 }
-.v5-brand img { width: 34px; height: 34px; filter: drop-shadow(0 0 6px rgba(201,168,92,0.5)); }
+.v5-brand img {
+  width: 28px;
+  height: 28px;
+  /* filter: drop-shadow(0 0 6px rgba(201, 168, 92, 0.5)); */
+  position: relative;
+  bottom: 2px;
+}
 .v5-nav { display: flex; align-items: center; gap: 1.8rem; }
 .v5-nav a {
   text-decoration: none; font-size: 0.76rem; letter-spacing: 0.2em; text-transform: uppercase;
