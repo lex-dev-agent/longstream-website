@@ -94,7 +94,7 @@ async function verifyRecaptcha(token, ip) {
 const v5Bottles = [
   {
     id: 'blonde-gin',
-    name: 'Blonde Gin',
+    name: 'Classic Blonde Gin',
     description: 'A classic dry gin with Juniper, Cardamom and Lime botanicals.',
     serve: 'Best served with a simple tonic and a slice of lime.',
     volume: '700mL',
@@ -103,13 +103,13 @@ const v5Bottles = [
     status: 'available',
     position: 'left',
     photo: true,
-    photoAlt: 'Blonde Gin',
+    photoAlt: 'Classic Blonde Gin',
     story: [
       'This was my first success story in gin.',
       'It took over two years to refine the process, the recipe and even the prime level of alcohol (an ABV — Alcohol by Volume — of 38%).',
       'It was born of a discussion in 2020 at Flatpoint Beach on the east coast of the Wairarapa, whilst tasting various gins from around New Zealand and the world. I foolishly said I could make a gin of similar quality … and so the dare was made.',
       'Many books were read and many mistakes were made on my trusty 25-litre hobby still, until by accident I made a very smooth gin. It took another six months of trial and error to repeat it.',
-      'I have been making Blonde Gin — named after my wife — ever since, and giving it to friends and family.'
+      'I have been making Classic Blonde Gin — named after my wife — ever since, and giving it to friends and family.'
     ],
     bestServed: [
       'In a tall glass with a double shot on ice',
@@ -157,7 +157,7 @@ const v5Experimental = [
   {
     id: 'blonde-lemon-gin',
     name: 'Blonde Lemon Gin',
-    description: 'Our signature Blonde Gin steeped with lemon peel zest.',
+    description: 'Our signature Classic Blonde Gin steeped with lemon peel zest.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
@@ -167,9 +167,9 @@ const v5Experimental = [
     photo: true,
     photoAlt: 'Lemon peel steeping for Blonde Lemon Gin',
     story: [
-      'This uses the same recipe as our flagship Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
+      'This uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
       'The gin is produced using our four-step method for dry gin. The very outside layer of lemon peel is then steeped in the gin for a minimum of two weeks.',
-      'The result is a clear gin, lightly coloured yellow in the bottle. It has the classic base of Blonde Gin with an extra hint of lemon.'
+      'The result is a clear gin, lightly coloured yellow in the bottle. It has the classic base of Classic Blonde Gin with an extra hint of lemon.'
     ],
     bestServed: [
       'In a tall glass with a double shot on ice',
@@ -194,7 +194,7 @@ const v5Experimental = [
   {
     id: 'maymorn-estate-gin',
     name: 'Maymorn Estate Gin',
-    description: 'Our signature Blonde Gin rested in charred oak barrels. Spiced and golden.',
+    description: 'Our signature Classic Blonde Gin rested in charred oak barrels. Spiced and golden.',
     serve: 'Best served with a simple tonic and a slice of lemon.',
     volume: '700mL',
     abv: '38%',
