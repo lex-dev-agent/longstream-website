@@ -421,18 +421,23 @@ app.get('/order', (req, res) => {
   });
 });
 
-// Products — the full range + experimental batches (cards open the shared modal).
-app.get('/products', (req, res) => {
-  res.render('products', {
-    bottles: v5Bottles,
-    experimentalBatches: v5Experimental
-  });
-});
-
 // Placeholder pages (linked from the standard navbar) — content to come.
 const comingSoon = (pageTitle) => (req, res) => res.render('coming-soon', { pageTitle });
 app.get('/our-story', comingSoon('Our Story'));
 app.get('/contact', comingSoon('Contact'));
+
+// Products — TEMPORARILY a "coming soon" placeholder. To restore the real page,
+// delete the line below and uncomment the handler that follows it.
+// The products.pug template and products.css are untouched and ready to go.
+app.get('/products', comingSoon('Products'));
+
+// Products — the full range + experimental batches (cards open the shared modal).
+// app.get('/products', (req, res) => {
+//   res.render('products', {
+//     bottles: v5Bottles,
+//     experimentalBatches: v5Experimental
+//   });
+// });
 
 app.use((req, res) => {
   res.status(404).render('404');
