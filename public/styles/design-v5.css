@@ -185,6 +185,10 @@
 /* ---- Variation 7 · Classic v4 (base gold instead of gold-2) ---- */
 .design-v5 .gl-classic4 { --gold-2: var(--gold); }
 
+/* ---- Maymorn Estate · Classic v4 gold, own background framing ---- */
+/* the sawmill artwork sits lower and slightly narrower than the Classic photo */
+.design-v5 .gl-maymorn .gl-bg { width: 110%; bottom: -8%; }
+
 /* ---- Seeking Vodka · blue-tinted white accent instead of gold ---- */
 .design-v5 .gl-seeking { --gold: #d6e0ee; --gold-2: #d6e0ee; }
 .design-v5 .gl-seeking.gin-label::after { border-color: rgba(214, 224, 238, 0.38); }

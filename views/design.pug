@@ -522,8 +522,8 @@ block content
       .label-showcase
         .label-card-wrapper
           h3.label-section-label Front
-          .gin-label.gl-classic2.gl-classic3#glv12-front
-            +ginClassicV2Front('MAYMORN', 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'ESTATE', '38% ABV', '/images/maymorn-background.png')
+          .gin-label.gl-classic2.gl-classic4.gl-maymorn#glv12-front
+            +ginClassicV2Front(false, 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'MAYMORN', '38% ABV', '/images/maymorn-background.png')
         .label-card-wrapper
           h3.label-section-label Back
           .gin-label.gin-label-back#glv12-back
@@ -532,8 +532,8 @@ block content
       +labelDownloads('glv12')
 
   .label-print-offscreen(aria-hidden="true")
-    .gin-label.gl-classic2.gl-classic3.gin-label--print#glv12-print-front
-      +ginClassicV2Front('MAYMORN', 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'ESTATE', '38% ABV', '/images/maymorn-background.png')
+    .gin-label.gl-classic2.gl-classic4.gl-maymorn.gin-label--print#glv12-print-front
+      +ginClassicV2Front(false, 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'MAYMORN', '38% ABV', '/images/maymorn-background.png')
     .gin-label.gin-label-back.gin-label--print#glv12-print-back
       +ginBackLabelContent
 
