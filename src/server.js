@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const crypto = require('crypto');
 const express = require('express');
 // marked is ESM-only; load it lazily via dynamic import (only used for /brief pages)
 let markedPromise = null;
@@ -30,9 +31,44 @@ app.use(express.urlencoded({ extended: false }));
 
 const PRIVATE_PASSWORD = 'spaties23';
 
+// --- Gated-page sessions ---------------------------------------------------
+// The cookie holds a signed "expires at" stamp instead of the password itself,
+// so the server can reject a stale session. A browser-side maxAge alone isn't
+// an expiry: the old cookie value was the password, so replaying it worked
+// forever. Expiry is absolute — it is not extended by activity, so a session
+// always ends SESSION_TTL_MS after sign-in.
+// Override with AUTH_TTL_MS (session length) / AUTH_SECRET (signing key).
+const SESSION_TTL_MS = Number(process.env.AUTH_TTL_MS) || 7 * 24 * 60 * 60 * 1000;
+const AUTH_SECRET =
+  process.env.AUTH_SECRET ||
+  crypto.createHash('sha256').update('longstream-session:' + PRIVATE_PASSWORD).digest('hex');
+
+function signExpiry(expiresAt) {
+  return crypto.createHmac('sha256', AUTH_SECRET).update(String(expiresAt)).digest('hex');
+}
+
+function issueSession(req, res) {
+  const expiresAt = Date.now() + SESSION_TTL_MS;
+  res.cookie('design_auth', expiresAt + '.' + signExpiry(expiresAt), {
+    httpOnly: true,
+    sameSite: 'lax',
+    // Behind nginx the app itself sees http, so trust the forwarded proto.
+    secure: req.secure || req.get('x-forwarded-proto') === 'https',
+    maxAge: SESSION_TTL_MS
+  });
+}
+
+function validSession(req) {
+  const [expiresAt, sig] = String(req.cookies.design_auth || '').split('.');
+  if (!/^\d+$/.test(expiresAt || '') || Date.now() > Number(expiresAt)) return false;
+  const expected = Buffer.from(signExpiry(expiresAt), 'hex');
+  const given = Buffer.from(sig || '', 'hex');
+  return given.length === expected.length && crypto.timingSafeEqual(given, expected);
+}
+
 function requirePassword() {
   return (req, res, next) => {
-    if (req.cookies.design_auth === PRIVATE_PASSWORD) return next();
+    if (validSession(req)) return next();
     const postTo = req.path;
     const error = req.query.error ? 'Incorrect password' : null;
     res.send(`<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Password Required</title>
@@ -49,7 +85,7 @@ button{padding:10px 24px;border-radius:6px;border:none;background:#5e6ad2;color:
 function handlePasswordPost(route) {
   return (req, res) => {
     if (req.body.password === PRIVATE_PASSWORD) {
-      res.cookie('design_auth', PRIVATE_PASSWORD, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+      issueSession(req, res);
       return res.redirect(route);
     }
     res.redirect(route + '?error=1');
@@ -404,13 +440,9 @@ app.get('/brief/:slug', requirePassword(), async (req, res) => {
   res.render('briefs', { docs, activeSlug: active.slug, activeContent: active.html });
 });
 app.post('/brief', handlePasswordPost('/brief'));
-app.post('/brief/:slug', (req, res) => {
-  if (req.body.password === PRIVATE_PASSWORD) {
-    res.cookie('design_auth', PRIVATE_PASSWORD, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
-    return res.redirect('/brief/' + req.params.slug);
-  }
-  res.redirect('/brief/' + req.params.slug + '?error=1');
-});
+app.post('/brief/:slug', (req, res) =>
+  handlePasswordPost('/brief/' + req.params.slug)(req, res)
+);
 
 app.get('/order', (req, res) => {
   // Show both ranges; the template greys out coming-soon / sold-out spirits and
