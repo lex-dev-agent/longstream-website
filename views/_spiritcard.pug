@@ -24,6 +24,9 @@ mixin spiritCard(s)
           |  · Sold out
         else if s.status === 'coming-soon'
           |  · Coming soon
+      //- Affordance only — the whole card is the modal trigger, so this is a
+      //- span (an anchor can't nest inside the card's anchor).
+      span.v5-card-more Read more →
     template.v5-card-data
       .v5-modal-story-content
         h2= s.name
