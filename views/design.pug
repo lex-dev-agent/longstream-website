@@ -59,13 +59,15 @@ mixin labelDownloads(id)
       br
       | PNG downloads the label as shown above.
 
-mixin ginClassicV2Front(word, tasting, gintype, brand, abv)
+mixin ginClassicV2Front(word, tasting, gintype, brand, abv, bg)
   - if (word === undefined) word = 'CLASSIC'
   - tasting = tasting || 'Crisp and Warm Spice · Lime Finish'
   - brand = brand || 'BLONDE'
   - if (gintype === undefined) gintype = 'DRY GIN'
   - abv = abv || '38% ABV'
-  img.gl-bg(src="/images/woman-background5.png", alt="", aria-hidden="true")
+  //- Optional per-label background art; defaults to the shared Classic photo.
+  - bg = bg || '/images/woman-background5.png'
+  img.gl-bg(src=bg, alt="", aria-hidden="true")
   .gin-label-inner
     p.label-distillery.clv2-brandline LONGSTREAM #[img.clv2-brandlogo(src="/images/logo-white.png" alt="Longstream Distillery")] DISTILLERY
     .clv2-imgslot(aria-hidden="true")
@@ -521,7 +523,7 @@ block content
         .label-card-wrapper
           h3.label-section-label Front
           .gin-label.gl-classic2.gl-classic3#glv12-front
-            +ginClassicV2Front('MAYMORN', 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'ESTATE')
+            +ginClassicV2Front('MAYMORN', 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'ESTATE', '38% ABV', '/images/maymorn-background.png')
         .label-card-wrapper
           h3.label-section-label Back
           .gin-label.gin-label-back#glv12-back
@@ -531,7 +533,7 @@ block content
 
   .label-print-offscreen(aria-hidden="true")
     .gin-label.gl-classic2.gl-classic3.gin-label--print#glv12-print-front
-      +ginClassicV2Front('MAYMORN', 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'ESTATE')
+      +ginClassicV2Front('MAYMORN', 'Charred Oak Rested · Golden Finish', 'OAK GIN', 'ESTATE', '38% ABV', '/images/maymorn-background.png')
     .gin-label.gin-label-back.gin-label--print#glv12-print-back
       +ginBackLabelContent
 
