@@ -192,6 +192,10 @@
    the shared 3rem / 0.1em, so pull it in to clear the inner ornamental border */
 .design-v5 .gl-maymorn .label-brand { font-size: 2.5rem; letter-spacing: 0.06em; }
 
+/* ---- Louie's Limoncello · lemon artwork, dropped slightly ---- */
+/* width stays at the shared 112%; only the vertical anchor is nudged */
+.design-v5 .gl-lemon .gl-bg { bottom: -6%; }
+
 /* ---- Seeking Vodka · blue-tinted white accent instead of gold ---- */
 .design-v5 .gl-seeking { --gold: #d6e0ee; --gold-2: #d6e0ee; }
 .design-v5 .gl-seeking.gin-label::after { border-color: rgba(214, 224, 238, 0.38); }
