@@ -1,8 +1,10 @@
 /*
- * Generate web-optimized .webp versions of the images in public/images.
- * Originals are left untouched (kept as source / fallback).
+ * Generate web-optimized .webp versions of the images in public/images,
+ * including subdirectories. Originals are left untouched (kept as source and
+ * as the <img> onerror fallback).
  *
- *   npm run images
+ *   npm run images                 # everything
+ *   npm run images -- new-bottles  # just one subdirectory
  *
  * Sizing is based on how large each image is actually displayed (with some
  * headroom for high-DPI screens). Quality 80 is a good size/quality balance.
@@ -29,7 +31,33 @@ const MAX_EDGE = {
   'logo-white.png': 400,
   // Legal label graphic — small, keep crisp.
   'pregnancy-warning.png': 600,
+  // Per-product bottle shots. Largest render anywhere is .v5-card-bottle at
+  // 220px on the range cards, so 660px is a full 3x for high-DPI screens.
+  'new-bottles': 660,
 };
+
+// Longest-edge cap for a file, by exact relative path, then by its directory,
+// then by bare filename, then the default.
+function maxEdgeFor(rel) {
+  const dir = path.dirname(rel);
+  return (
+    MAX_EDGE[rel.split(path.sep).join('/')] ??
+    MAX_EDGE[dir.split(path.sep).join('/')] ??
+    MAX_EDGE[path.basename(rel)] ??
+    DEFAULT_MAX_EDGE
+  );
+}
+
+// All raster files under dir, as paths relative to IMG_DIR.
+function walk(dir, rel = '') {
+  const out = [];
+  for (const entry of fs.readdirSync(path.join(dir, rel), { withFileTypes: true })) {
+    const r = path.join(rel, entry.name);
+    if (entry.isDirectory()) out.push(...walk(dir, r));
+    else if (RASTER.test(entry.name) && !SKIP.has(entry.name)) out.push(r);
+  }
+  return out;
+}
 
 const RASTER = /\.(png|jpe?g)$/i;
 
@@ -37,7 +65,9 @@ const RASTER = /\.(png|jpe?g)$/i;
 const SKIP = new Set(['logo.png', 'logo-white.png']);
 
 async function run() {
-  const files = fs.readdirSync(IMG_DIR).filter((f) => RASTER.test(f) && !SKIP.has(f));
+  // Optional argument limits the run to one subdirectory.
+  const only = process.argv[2] || '';
+  const files = walk(IMG_DIR, only);
   let beforeTotal = 0;
   let afterTotal = 0;
   const rows = [];
@@ -45,7 +75,7 @@ async function run() {
   for (const file of files) {
     const input = path.join(IMG_DIR, file);
     const output = path.join(IMG_DIR, file.replace(RASTER, '.webp'));
-    const maxEdge = MAX_EDGE[file] || DEFAULT_MAX_EDGE;
+    const maxEdge = maxEdgeFor(file);
 
     const beforeBytes = fs.statSync(input).size;
     await sharp(input)

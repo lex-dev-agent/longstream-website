@@ -21,10 +21,11 @@ html(lang="en")
     mixin specimen(s, i)
       - var available = s.status === 'available'
       - var cat = /gin/i.test(s.name) ? 'Gin' : /limoncello/i.test(s.name) ? 'Limoncello' : /vodka/i.test(s.name) ? 'Vodka' : 'Spirit'
-      - var bottleImg = s.bottle || '/images/v3-bottle-new.png'
+      - var bottlePng = s.bottle || '/images/v3-bottle-new.png'
+      - var bottleImg = s.bottle ? s.bottle.replace(/\.png$/, '.webp') : bottlePng
       article.px-spec(class={"px-spec--flip": i % 2 === 1, "px-spec--out": !available})
         .px-spec-media
-          img.px-spec-bottle(src=bottleImg, onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+          img.px-spec-bottle(src=bottleImg, onerror=`this.onerror=null;this.src='${bottlePng}'`, alt=`${s.name} bottle`)
         .px-spec-body
           p.px-spec-cat= cat
           h3.px-spec-name= s.name
@@ -45,9 +46,11 @@ html(lang="en")
     //- Experimental batch = one row in the index
     mixin batchRow(s)
       - var available = s.status === 'available'
+      - var bottlePng = s.bottle || '/images/v3-bottle-new.png'
+      - var bottleImg = s.bottle ? s.bottle.replace(/\.png$/, '.webp') : bottlePng
       .px-batch(class={"px-batch--out": !available})
         .px-batch-media
-          img.px-batch-bottle(src=s.bottle || '/images/v3-bottle-new.png', onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+          img.px-batch-bottle(src=bottleImg, onerror=`this.onerror=null;this.src='${bottlePng}'`, alt=`${s.name} bottle`)
         .px-batch-main
           h3.px-batch-name= s.name
           p.px-batch-specs
@@ -67,13 +70,14 @@ html(lang="en")
     //- its matching card to open the shared landing-page modal. The card is
     //- what the modal clones into its left column, plus the story payload.
     mixin modalCard(s)
-      - var bottleImg = s.bottle || '/images/v3-bottle-new.png'
+      - var bottlePng = s.bottle || '/images/v3-bottle-new.png'
+      - var bottleImg = s.bottle ? s.bottle.replace(/\.png$/, '.webp') : bottlePng
       .v5-card(id=`card-${s.id}`, data-spirit=s.id, data-status=s.status, class={"v5-card-out": s.status !== 'available'})
         if s.status === 'soldout'
           span.v5-badge Sold out
         else if s.status === 'coming-soon'
           span.v5-badge Coming soon
-        img.v5-card-bottle(src=bottleImg, onerror="this.src='/images/bottle.webp'", alt=`${s.name} bottle`)
+        img.v5-card-bottle(src=bottleImg, onerror=`this.onerror=null;this.src='${bottlePng}'`, alt=`${s.name} bottle`)
         h3= s.name
         p= s.description
         if s.serve

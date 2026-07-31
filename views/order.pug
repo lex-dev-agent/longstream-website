@@ -20,8 +20,10 @@ html(lang="en")
     //- out spirits are shown greyed out and can't be ordered.
     mixin orderItem(bottle)
       - var available = bottle.status === 'available'
+      - var bottlePng = bottle.bottle || '/images/v3-bottle-new.png'
+      - var bottleImg = bottle.bottle ? bottle.bottle.replace(/\.png$/, '.webp') : bottlePng
       .ord-item(class={"ord-item--out": !available}, data-id=bottle.id, data-name=bottle.name, data-price=bottle.price)
-        img.ord-item-img(src=bottle.bottle || '/images/v3-bottle-new.png', onerror="this.src='/images/bottle.webp'", alt=`${bottle.name} bottle`)
+        img.ord-item-img(src=bottleImg, onerror=`this.onerror=null;this.src='${bottlePng}'`, alt=`${bottle.name} bottle`)
         .ord-item-body
           h3.ord-item-name= bottle.name
           p.ord-item-desc= bottle.description
