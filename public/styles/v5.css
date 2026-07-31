@@ -305,19 +305,25 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
 /* Opens in two stages: the JS unhides the modal, then adds .is-open on the
    next frame so these transitions actually run. On close .is-open comes off
    first and the content is only cleared once the fade has finished. */
+/* The container itself never animates. Fading IT would flatten the whole
+   subtree — dialog, cloned card, shadows — into one texture every frame,
+   which is what made this run at ~12fps. The scrim below and the dialog
+   further down each animate on their own compositor layer instead. */
 .v5-modal {
   position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center;
-  padding: 1.5rem; background: rgba(6, 7, 5, 0.9);
-  -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
-  opacity: 0; transition: opacity 0.2s ease;
-  /* promote to its own compositor layer — fading a full-viewport
-     backdrop-filter on the main layer is what made this stutter */
-  will-change: opacity;
+  padding: 1.5rem;
 }
-.v5-modal.is-open { opacity: 1; }
+/* Scrim as a pseudo-element so its fade is independent of the dialog's.
+   No backdrop-filter: re-blurring the full viewport every frame was the
+   single most expensive thing here, and at 0.9 alpha it was barely visible. */
+.v5-modal::before {
+  content: ''; position: absolute; inset: 0; background: rgba(6, 7, 5, 0.92);
+  opacity: 0; transition: opacity 0.2s ease; will-change: opacity;
+}
+.v5-modal.is-open::before { opacity: 1; }
 .v5-modal[hidden] { display: none; }
 .v5-modal-dialog {
-  position: relative; width: 100%; max-width: 1200px; max-height: 90vh; overflow: auto;
+  position: relative; z-index: 1; width: 100%; max-width: 1200px; max-height: 90vh; overflow: auto;
   background: var(--bg-2); border: 1px solid var(--gold); border-radius: 2px;
   box-shadow: 0 40px 90px rgba(0,0,0,0.7); padding: 2.75rem 2.5rem 2.5rem;
   opacity: 0; transform: translate3d(0, 14px, 0) scale(0.985);
@@ -329,7 +335,7 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
 .v5-modal.is-open .v5-modal-dialog { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
 /* Honour a reduced-motion preference: still fades, but nothing moves. */
 @media (prefers-reduced-motion: reduce) {
-  .v5-modal, .v5-modal-dialog { transition-duration: 0.01ms; }
+  .v5-modal::before, .v5-modal-dialog { transition-duration: 0.01ms; }
   .v5-modal-dialog { transform: none; }
 }
 .v5-modal-close {
