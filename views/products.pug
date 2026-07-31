@@ -33,7 +33,7 @@ html(lang="en")
             if available
               | #{s.volume} · #{s.abv} · NZ$#{s.price}
             else
-              | #{s.volume} · #{s.abv} · Coming soon
+              | #{s.volume} · #{s.abv} · NZ$-
           p.px-spec-desc= s.description
           p.px-spec-serve= s.serve
           .px-actions
@@ -57,7 +57,7 @@ html(lang="en")
             if available
               | #{s.volume} · #{s.abv} · NZ$#{s.price}
             else
-              | #{s.volume} · Coming soon
+              | #{s.volume} · NZ$-
           p.px-batch-desc= s.description
         .px-batch-action
           if available
@@ -90,7 +90,7 @@ html(lang="en")
             else if s.status === 'soldout'
               |  · Sold out
             else if s.status === 'coming-soon'
-              |  · Coming soon
+              |  · NZ$-
         template.v5-card-data
           .v5-modal-story-content
             h2= s.name

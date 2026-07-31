@@ -30,7 +30,7 @@ html(lang="en")
           if available
             p.ord-item-meta #{bottle.volume} · #{bottle.abv} · NZ$#{bottle.price}
           else
-            p.ord-item-meta #{bottle.volume} · #{bottle.abv}
+            p.ord-item-meta #{bottle.volume} · #{bottle.abv} · NZ$-
         if available
           .ord-stepper
             button.ord-step-btn(type="button", data-act="dec", aria-label=`Remove one ${bottle.name}`) −
