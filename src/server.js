@@ -216,7 +216,7 @@ const v5Experimental = [
     photoAlt: 'Coastal Blonde Gin',
     story: [
       'This uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
-      'Manuka and Seaweed is then steeped in the gin for a minimum of two weeks.',
+      'Mānuka and seaweed are then steeped in the gin for a minimum of two weeks.',
       'The result is a clear gin, lightly amber coloured in the bottle. It has the classic base of Blonde Gin with an extra hint of sea and forest.',
       'Depending on the mixer it usually appears clear in its final presentation.'
     ],
