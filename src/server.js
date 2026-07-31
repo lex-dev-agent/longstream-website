@@ -228,7 +228,7 @@ const v5Experimental = [
     id: 'blushing-blonde-gin',
     name: 'Blushing Blonde Gin',
     bottle: '/images/new-bottles/blushing-blonde.png',
-    description: 'Our Classic Blonde Gin with a berry finish. Crisp and warm spice, softly coloured.',
+    description: 'Our Classic Blonde Gin steeped with berries for that summer taste.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
