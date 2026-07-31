@@ -211,7 +211,11 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
   box-shadow: 0 30px 60px rgba(0,0,0,0.5);
 }
 .v5-card-bottle {
-  width: 220px; height: auto; object-fit: contain; margin: 0 auto 1rem; display: block;
+  /* Explicit height reserves the space before the image loads — with
+     height:auto the card collapsed and then jumped once it arrived. The art is
+     square, so 220x220 is its natural size; object-fit letterboxes anything
+     that isn't (e.g. the generic portrait fallback). */
+  width: 220px; height: 220px; object-fit: contain; margin: 0 auto 1rem; display: block;
   filter: drop-shadow(0 14px 24px rgba(0,0,0,0.5));
 }
 /* Coming-soon / sold-out bottles render at full strength like the rest — the
