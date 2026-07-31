@@ -158,7 +158,7 @@ const v5Bottles = [
     id: 'zesty-blonde-gin',
     name: 'Zesty Blonde Gin',
     bottle: '/images/new-bottles/zesty-blonde.png',
-    description: 'Our Classic Blonde Gin steeped with lemon peel zest.',
+    description: 'Our Classic Blonde Gin steeped with lemon peel for a citrus twist.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
