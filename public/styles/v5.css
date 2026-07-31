@@ -223,6 +223,10 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
 .v5-card h3 { font-family: var(--font-head); font-size: 1.5rem; font-weight: 500; margin: 0 0 0.5rem; }
 .v5-card p { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.75rem; }
 .v5-card-serve { font-style: italic; color: var(--gold-2) !important; opacity: 0.85; }
+/* Serve line hidden for now. The copy is untouched — still in the `serve:`
+   field in src/server.js and still in the markup — so deleting this one rule
+   brings it back exactly as it was. */
+.v5-card-serve { display: none; }
 .v5-card-foot { margin-top: auto; }
 .v5-card-meta {
   font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
