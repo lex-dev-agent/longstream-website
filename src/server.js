@@ -174,7 +174,9 @@ const v5Bottles = [
       'Depending on the mixer it usually appears clear in its final presentation.'
     ],
     bestServed: [
-      'As a double shot in a tall glass with a simple tonic and a slice of lemon to complement the botanicals'
+      'As a double shot in a tall glass',
+      'With a simple tonic',
+      'Garnished with a slice of lemon to complement the botanicals'
     ]
   },
   {
@@ -196,7 +198,9 @@ const v5Bottles = [
       'The result is a sweet and smooth limoncello, perfect for sipping to refresh you on a hot summer day or to warm you in the heart of winter.'
     ],
     bestServed: [
-      'Straight from the bottle (Neat) in a tall narrow shot glass for sipping'
+      'Neat, straight from the bottle',
+      'In a tall narrow shot glass',
+      'Sipped slowly'
     ]
   }
 ];
@@ -221,7 +225,9 @@ const v5Experimental = [
       'Depending on the mixer it usually appears clear in its final presentation.'
     ],
     bestServed: [
-      'As a double shot in a tall glass with a simple tonic and a slice of lemon to complement the salt & botanical'
+      'As a double shot in a tall glass',
+      'With a simple tonic',
+      'Garnished with a slice of lemon to complement the salt & botanicals'
     ]
   },
   {
@@ -256,7 +262,9 @@ const v5Experimental = [
       'The May Morn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd at what is now the end of MacLaren Street Maymorn, Upper Hutt. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. Maymorn supplied timber and cleared land for pastoral farming.'
     ],
     bestServed: [
-      'As a double shot in a tall glass with a simple tonic and a slice of lemon to complement the botanicals'
+      'As a double shot in a tall glass',
+      'With a simple tonic',
+      'Garnished with a slice of lemon to complement the botanicals'
     ]
   }
 ];
