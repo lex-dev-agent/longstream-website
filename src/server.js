@@ -206,7 +206,7 @@ const v5Experimental = [
     id: 'coastal-blonde-gin',
     name: 'Coastal Blonde Gin',
     bottle: '/images/new-bottles/coastal-blonde.png',
-    description: 'Our Classic Blonde Gin with a whisper of sea salt. Crisp and warm spice with a saline finish.',
+    description: 'Our Classic Blonde Gin with the addition of salty seaweed botanicals.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
