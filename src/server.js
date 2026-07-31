@@ -243,7 +243,7 @@ const v5Experimental = [
     id: 'maymorn-estate-gin',
     name: 'Maymorn Estate Gin',
     bottle: '/images/new-bottles/maymorn-estate.png',
-    description: 'Our signature Classic Blonde Gin rested in charred oak barrels. Spiced and golden.',
+    description: 'Our Classic Blonde Gin rested in charred oak for nine months. Spiced and golden.',
     serve: 'Best served with a simple tonic and a slice of lemon.',
     volume: '700mL',
     abv: '38%',
