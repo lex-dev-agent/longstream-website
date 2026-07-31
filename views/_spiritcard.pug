@@ -42,6 +42,8 @@ mixin spiritCard(s)
             each item in s.bestServed
               li= item
         if s.photo
-          figure.v5-detail-photo
-            img(src=`/images/v5-${s.id}.jpg`, alt=s.photoAlt, onerror="this.style.display='none'; this.parentNode.classList.add('is-empty')")
+          //- No <img> unless the file exists — see detailPhoto() in server.js.
+          figure.v5-detail-photo(class={"is-empty": !s.photoSrc})
+            if s.photoSrc
+              img(src=s.photoSrc, alt=s.photoAlt)
             figcaption Photo coming soon

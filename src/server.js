@@ -261,6 +261,21 @@ const v5Experimental = [
   }
 ];
 
+// Per-spirit detail photo, resolved once at startup. Emitting an <img> for a
+// file that isn't there costs a 404 round-trip plus an onerror DOM mutation at
+// exactly the moment the modal animates open, which visibly janks it. Drop a
+// file named v5-<id>.(jpg|jpeg|png|webp) into public/images and it appears.
+const IMAGES_DIR = path.join(__dirname, '..', 'public', 'images');
+function detailPhoto(id) {
+  for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+    if (fs.existsSync(path.join(IMAGES_DIR, `v5-${id}.${ext}`))) return `/images/v5-${id}.${ext}`;
+  }
+  return null;
+}
+for (const spirit of v5Bottles.concat(v5Experimental)) {
+  spirit.photoSrc = detailPhoto(spirit.id);
+}
+
 // --- Club signup storage (SQLite) ---
 // Stored outside the (root-owned) app dir so the app user can write to it.
 // Override the location with CLUB_DB_PATH if needed.

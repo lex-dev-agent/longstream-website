@@ -22,6 +22,7 @@ script.
     var ANIM_MS = 240;
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var closeTimer = null;
+    var openToken = 0;
     function open(card) {
       left.innerHTML = ''; mid.innerHTML = ''; right.innerHTML = '';
       // left column = a copy of the clicked card (minus the hidden payload + cue)
@@ -57,14 +58,23 @@ script.
       if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
-      // Force a reflow so the browser has the closed state to animate from,
-      // rather than collapsing both states into one paint.
-      void modal.offsetWidth;
-      modal.classList.add('is-open');
       modal.scrollTop = 0;
+      // Let one whole frame go by so the browser lays out and rasterises the
+      // freshly-built content, then start the transition on the next frame.
+      // Adding .is-open in this same task makes the first animation frame
+      // carry the entire initial paint, which is what made it stutter.
+      var token = ++openToken;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          if (token === openToken && !modal.hidden) modal.classList.add('is-open');
+        });
+      });
     }
     function close() {
-      if (modal.hidden || !modal.classList.contains('is-open')) return;
+      // closeTimer set = already closing. Bumping the token also cancels a
+      // still-pending open frame, so closing mid-open works.
+      if (modal.hidden || closeTimer) return;
+      openToken++;
       modal.classList.remove('is-open');
       document.body.style.overflow = '';
       if (closeTimer) clearTimeout(closeTimer);
