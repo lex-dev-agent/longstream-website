@@ -197,7 +197,8 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
   width: 120px; height: auto; object-fit: contain; margin: 0 auto 1.5rem; display: block;
   filter: drop-shadow(0 14px 24px rgba(0,0,0,0.5));
 }
-.v5-card-out .v5-card-bottle { filter: grayscale(0.7) brightness(0.7); opacity: 0.6; }
+/* Coming-soon / sold-out bottles render at full strength like the rest — the
+   "Coming soon" badge and the footer meta already carry the availability. */
 .v5-card h3 { font-family: var(--font-head); font-size: 1.5rem; font-weight: 500; margin: 0 0 0.5rem; }
 .v5-card p { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.75rem; }
 .v5-card-serve { font-style: italic; color: var(--gold-2) !important; opacity: 0.85; }
