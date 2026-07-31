@@ -280,15 +280,28 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
 }
 
 /* ---- standardised spirit modal ---- */
+/* Opens in two stages: the JS unhides the modal, then adds .is-open on the
+   next frame so these transitions actually run. On close .is-open comes off
+   first and the content is only cleared once the fade has finished. */
 .v5-modal {
   position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center;
   padding: 1.5rem; background: rgba(6, 7, 5, 0.9); backdrop-filter: blur(8px);
+  opacity: 0; transition: opacity 0.22s ease;
 }
+.v5-modal.is-open { opacity: 1; }
 .v5-modal[hidden] { display: none; }
 .v5-modal-dialog {
   position: relative; width: 100%; max-width: 1200px; max-height: 90vh; overflow: auto;
   background: var(--bg-2); border: 1px solid var(--gold); border-radius: 2px;
   box-shadow: 0 40px 90px rgba(0,0,0,0.7); padding: 2.75rem 2.5rem 2.5rem;
+  opacity: 0; transform: translateY(14px) scale(0.985);
+  transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.22, 0.7, 0.3, 1);
+}
+.v5-modal.is-open .v5-modal-dialog { opacity: 1; transform: none; }
+/* Honour a reduced-motion preference: still fades, but nothing moves. */
+@media (prefers-reduced-motion: reduce) {
+  .v5-modal, .v5-modal-dialog { transition-duration: 0.01ms; }
+  .v5-modal-dialog { transform: none; }
 }
 .v5-modal-close {
   position: absolute; top: 0.6rem; right: 0.6rem; z-index: 5;

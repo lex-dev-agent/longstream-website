@@ -18,6 +18,10 @@ script.
     var mid = modal.querySelector('.v5-modal-story');
     var right = modal.querySelector('.v5-modal-aside');
     var cart = modal.querySelector('.v5-modal-cart');
+    // Matches the .v5-modal-dialog transform duration in v5.css.
+    var ANIM_MS = 300;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var closeTimer = null;
     function open(card) {
       left.innerHTML = ''; mid.innerHTML = ''; right.innerHTML = '';
       // left column = a copy of the clicked card (minus the hidden payload + cue)
@@ -48,12 +52,29 @@ script.
           cart.disabled = true; cart.title = 'Not yet on sale';
         }
       }
+      // Re-opening mid-close: cancel the pending teardown so it can't wipe
+      // the content we just built.
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
+      // Force a reflow so the browser has the closed state to animate from,
+      // rather than collapsing both states into one paint.
+      void modal.offsetWidth;
+      modal.classList.add('is-open');
+      modal.scrollTop = 0;
     }
     function close() {
-      modal.hidden = true; document.body.style.overflow = '';
-      left.innerHTML = ''; mid.innerHTML = ''; right.innerHTML = '';
+      if (modal.hidden || !modal.classList.contains('is-open')) return;
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      if (closeTimer) clearTimeout(closeTimer);
+      // Clear the content only once it has faded out, so the modal doesn't
+      // visibly empty itself on the way.
+      closeTimer = setTimeout(function () {
+        modal.hidden = true;
+        left.innerHTML = ''; mid.innerHTML = ''; right.innerHTML = '';
+        closeTimer = null;
+      }, reduced ? 0 : ANIM_MS);
     }
     document.querySelectorAll('.v5-card[data-spirit]').forEach(function (card) {
       card.addEventListener('click', function (e) { e.preventDefault(); open(card); });
