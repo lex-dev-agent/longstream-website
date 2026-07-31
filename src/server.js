@@ -162,7 +162,7 @@ const v5Bottles = [
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
-    price: 89,
+    price: 85,
     status: 'available',
     position: 'middle',
     photo: true,
