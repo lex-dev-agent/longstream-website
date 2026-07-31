@@ -131,6 +131,7 @@ const v5Bottles = [
   {
     id: 'blonde-gin',
     name: 'Classic Blonde Gin',
+    bottle: '/images/new-bottles/classic-blonde.png',
     description: 'A classic dry gin with Juniper, Cardamom and Lime botanicals.',
     serve: 'Best served with a simple tonic and a slice of lime.',
     volume: '700mL',
@@ -154,54 +155,18 @@ const v5Bottles = [
     ]
   },
   {
-    id: 'louies-limoncello',
-    name: "Louie's Limoncello",
-    description: 'A clear, sweet and smooth limoncello made with our Seeking Vodka and fresh local lemons for a refreshing summer drink.',
-    serve: 'Best served neat in a tall narrow glass.',
-    volume: '700mL',
-    abv: '30%',
-    price: 59,
-    status: 'available',
-    position: 'middle',
-    photo: true,
-    photoAlt: "Lemon peel steeping for Louie's Limoncello",
-    story: [
-      'A very pure vodka is produced in the first three steps of our four-step method for dry gin.',
-      'The very outside layer of yellow lemon peel (the zest) is steeped in the vodka for a minimum of two weeks. The solution is then sieved and added to a sugar solution — with the correct proportions and temperature — to produce a yellow but clear, "see-through" limoncello, pleasing to both the eye and the palate.',
-      'The result is a sweet and smooth limoncello, perfect for sipping to refresh you on a hot summer day or to warm you in the heart of winter.'
-    ],
-    bestServed: ['Neat for sipping', 'In a tall narrow shot glass']
-  },
-  {
-    id: 'seeking-vodka',
-    name: 'Seeking Vodka',
-    description: 'A smooth vodka distilled with the first three steps of our signature process for a clean, neutral base.',
-    serve: 'Great for your favourite cocktails.',
-    volume: '700mL',
-    abv: '38%',
-    price: 49,
-    status: 'available',
-    position: 'right',
-    photo: true,
-    photoAlt: 'Seeking Vodka',
-    story: ['More to follow.'],
-    bestServed: ['Neat over ice', 'In your favourite cocktail']
-  }
-];
-
-const v5Experimental = [
-  {
-    id: 'blonde-lemon-gin',
-    name: 'Blonde Lemon Gin',
+    id: 'zesty-blonde-gin',
+    name: 'Zesty Blonde Gin',
+    bottle: '/images/new-bottles/zesty-blonde.png',
     description: 'Our signature Classic Blonde Gin steeped with lemon peel zest.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
     price: 89,
     status: 'available',
-    position: 'left',
+    position: 'middle',
     photo: true,
-    photoAlt: 'Lemon peel steeping for Blonde Lemon Gin',
+    photoAlt: 'Lemon peel steeping for Zesty Blonde Gin',
     story: [
       'This uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
       'The gin is produced using our four-step method for dry gin. The very outside layer of lemon peel is then steeped in the gin for a minimum of two weeks.',
@@ -214,22 +179,62 @@ const v5Experimental = [
     ]
   },
   {
-    id: 'blonde-ambition-gin',
-    name: 'Blonde Ambition Gin',
-    description: 'Mānuka smoked gin with a whisper of sea salt. Dark, savoury, unforgettable.',
+    id: 'louies-limoncello',
+    name: "Louie's Limoncello",
+    bottle: '/images/new-bottles/louies-limoncello.png',
+    description: 'A clear, sweet and smooth limoncello made with our own vodka and fresh local lemons for a refreshing summer drink.',
+    serve: 'Best served neat in a tall narrow glass.',
+    volume: '700mL',
+    abv: '30%',
+    price: 59,
+    status: 'available',
+    position: 'right',
+    photo: true,
+    photoAlt: "Lemon peel steeping for Louie's Limoncello",
+    story: [
+      'A very pure vodka is produced in the first three steps of our four-step method for dry gin.',
+      'The very outside layer of yellow lemon peel (the zest) is steeped in the vodka for a minimum of two weeks. The solution is then sieved and added to a sugar solution — with the correct proportions and temperature — to produce a yellow but clear, "see-through" limoncello, pleasing to both the eye and the palate.',
+      'The result is a sweet and smooth limoncello, perfect for sipping to refresh you on a hot summer day or to warm you in the heart of winter.'
+    ],
+    bestServed: ['Neat for sipping', 'In a tall narrow shot glass']
+  }
+];
+
+const v5Experimental = [
+  {
+    id: 'coastal-blonde-gin',
+    name: 'Coastal Blonde Gin',
+    bottle: '/images/new-bottles/coastal-blonde.png',
+    description: 'Our Classic Blonde Gin with a whisper of sea salt. Crisp and warm spice with a saline finish.',
+    serve: 'Best served with a simple tonic.',
+    volume: '700mL',
+    abv: '38%',
+    status: 'coming-soon',
+    position: 'left',
+    photo: true,
+    photoAlt: 'Coastal Blonde Gin',
+    story: ['More to follow.'],
+    bestServed: ['With a simple tonic', 'Sipped neat over ice']
+  },
+  {
+    id: 'blushing-blonde-gin',
+    name: 'Blushing Blonde Gin',
+    bottle: '/images/new-bottles/blushing-blonde.png',
+    description: 'Our Classic Blonde Gin with a berry finish. Crisp and warm spice, softly coloured.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
     abv: '38%',
     status: 'coming-soon',
     position: 'middle',
     photo: true,
-    photoAlt: 'Blonde Ambition Gin',
-    story: ['More info to follow.'],
-    bestServed: ['With a simple tonic', 'Sipped neat over ice']
+    photoAlt: 'Blushing Blonde Gin',
+    story: ['More to follow.'],
+    bestServed: ['With a simple tonic', 'Garnished with fresh berries']
   },
   {
     id: 'maymorn-estate-gin',
     name: 'Maymorn Estate Gin',
+    bottle: '/images/new-bottles/maymorn-estate.png',
     description: 'Our signature Classic Blonde Gin rested in charred oak barrels. Spiced and golden.',
     serve: 'Best served with a simple tonic and a slice of lemon.',
     volume: '700mL',

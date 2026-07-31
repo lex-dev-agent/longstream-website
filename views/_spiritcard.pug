@@ -2,9 +2,9 @@
 //- payload (story + best served) the modal clones into its middle/right columns.
 //- Include this before using +spiritCard, and include _spiritmodal once on the page.
 mixin spiritCard(s)
-  //- Per-spirit bottle shot where we have one; everything else falls back to
-  //- the generic render. Keep in sync with products.pug.
-  - var bottleImg = s.id === 'blonde-gin' ? '/images/bottles/classic-blonde-gin.png' : '/images/v3-bottle-new.png'
+  //- Per-spirit bottle shot comes from the product data (src/server.js);
+  //- anything without one falls back to the generic render.
+  - var bottleImg = s.bottle || '/images/v3-bottle-new.png'
   a.v5-card(href="#", role="button", data-spirit=s.id, data-status=s.status, class={"v5-card-out": s.status !== 'available'})
     if s.status === 'soldout'
       span.v5-badge Sold out
