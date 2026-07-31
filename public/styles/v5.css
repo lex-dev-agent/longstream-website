@@ -186,6 +186,9 @@ a { color: inherit; }
   border: 1px solid var(--line); padding: 2rem 1.75rem 1.5rem; text-align: center;
   transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
   display: flex; flex-direction: column;
+  /* auto margins keep the card centred in any track wider than this — the
+     range grid, the modal column, and the single-column mobile layout. */
+  max-width: 340px; margin-inline: auto;
 }
 /* cards are anchor triggers on the homepage — open the modal on click */
 a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
@@ -296,11 +299,11 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
 }
 .v5-modal-close:hover { color: var(--gold-2); border-color: var(--gold); }
 /* First column is pinned to the range card's own width so the cloned card
-   wraps its text identically instead of re-flowing taller. A range card is
-   (1160px wrap - 2*1.75rem padding - 2*1.5rem gap) / 3 = 352px; the old
-   1fr here resolved to 304px inside the 1200px dialog. */
+   wraps its text identically instead of re-flowing taller. Cards cap at
+   340px (see .v5-card); the old 1fr here resolved to 304px inside the
+   1200px dialog, which re-wrapped the text and made the card taller. */
 .v5-modal-grid {
-  display: grid; grid-template-columns: minmax(0, 352px) 1.5fr 1fr;
+  display: grid; grid-template-columns: minmax(0, 340px) 1.5fr 1fr;
   gap: 1.75rem; align-items: start;
 }
 .v5-modal-cardclone { pointer-events: none; padding: 1rem 1.75rem; }
