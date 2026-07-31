@@ -174,9 +174,7 @@ const v5Bottles = [
       'Depending on the mixer it usually appears clear in its final presentation.'
     ],
     bestServed: [
-      'In a tall glass with a double shot on ice',
-      'With a simple tonic',
-      'Garnished with slices of lemon to complement the lemon in the recipe'
+      'As a double shot in a tall glass with a simple tonic and a slice of lemon to complement the botanicals'
     ]
   },
   {
@@ -194,10 +192,12 @@ const v5Bottles = [
     photoAlt: "Lemon peel steeping for Louie's Limoncello",
     story: [
       'A very pure vodka is produced in the first three steps of our four-step method for dry gin.',
-      'The very outside layer of yellow lemon peel (the zest) is steeped in the vodka for a minimum of two weeks. The solution is then sieved and added to a sugar solution — with the correct proportions and temperature — to produce a yellow but clear, "see-through" limoncello, pleasing to both the eye and the palate.',
+      'The very outside layer of yellow lemon peel (the zest) is steeped in the vodka for a minimum of two weeks. The solution is then sieved and added to a sugar solution — with the correct proportions and temperature — to produce a yellow but clear limoncello, pleasing to both the eye and the palate.',
       'The result is a sweet and smooth limoncello, perfect for sipping to refresh you on a hot summer day or to warm you in the heart of winter.'
     ],
-    bestServed: ['Neat for sipping', 'In a tall narrow shot glass']
+    bestServed: [
+      'Straight from the bottle (Neat) in a tall narrow shot glass for sipping'
+    ]
   }
 ];
 
