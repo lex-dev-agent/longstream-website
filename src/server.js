@@ -168,9 +168,10 @@ const v5Bottles = [
     photo: true,
     photoAlt: 'Lemon peel steeping for Zesty Blonde Gin',
     story: [
-      'This uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
-      'The gin is produced using our four-step method for dry gin. The very outside layer of lemon peel is then steeped in the gin for a minimum of two weeks.',
-      'The result is a clear gin, lightly coloured yellow in the bottle. It has the classic base of Classic Blonde Gin with an extra hint of lemon.'
+      'Zesty Blonde Gin uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
+      'The gin is produced using our four-step method for Longstream Classic Blonde dry gin. The very outside layer of lemon peel is then steeped in the gin for a minimum of two weeks.',
+      'The result is a clear gin, lightly coloured yellow in the bottle. It has the classic base of Blonde Gin with an extra hint of lemon.',
+      'Depending on the mixer it usually appears clear in its final presentation.'
     ],
     bestServed: [
       'In a tall glass with a double shot on ice',
