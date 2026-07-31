@@ -214,8 +214,15 @@ const v5Experimental = [
     position: 'left',
     photo: true,
     photoAlt: 'Coastal Blonde Gin',
-    story: ['More to follow.'],
-    bestServed: ['With a simple tonic', 'Sipped neat over ice']
+    story: [
+      'This uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
+      'Manuka and Seaweed is then steeped in the gin for a minimum of two weeks.',
+      'The result is a clear gin, lightly amber coloured in the bottle. It has the classic base of Blonde Gin with an extra hint of sea and forest.',
+      'Depending on the mixer it usually appears clear in its final presentation.'
+    ],
+    bestServed: [
+      'As a double shot in a tall glass with a simple tonic and a slice of lemon to complement the salt & botanical'
+    ]
   },
   {
     id: 'blushing-blonde-gin',
@@ -246,12 +253,10 @@ const v5Experimental = [
     photoAlt: 'The historic Maymorn Estate sawmill',
     story: [
       'Maymorn Estate Gin is a homage to the rich history of Maymorn in the Mangaroa Valley near Upper Hutt, where our distillery is located.',
-      'The Maymorn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. It supplied timber and cleared land for pastoral farming.'
+      'The May Morn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd at what is now the end of MacLaren Street Maymorn, Upper Hutt. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. Maymorn supplied timber and cleared land for pastoral farming.'
     ],
     bestServed: [
-      'In a tall glass with a double shot on ice',
-      'With a simple tonic that does not overpower the taste',
-      'Garnished with a slice of lemon'
+      'As a double shot in a tall glass with a simple tonic and a slice of lemon to complement the botanicals'
     ]
   }
 ];
