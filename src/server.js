@@ -242,7 +242,12 @@ const v5Experimental = [
     position: 'middle',
     photo: true,
     photoAlt: 'Blushing Blonde Gin',
-    story: ['More to follow.'],
+    story: [
+      'Blushing Blonde Gin uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
+      'The gin is produced using our four-step method for Longstream Classic Blonde dry gin. Crushed blackberries and raspberries are then steeped in the gin for a minimum of two weeks.',
+      'The result is a clear gin, lightly coloured reddish-pink in the bottle. It has the classic base of Blonde Gin with an extra hint of berries.',
+      'Depending on the mixer it usually appears clear in its final presentation.'
+    ],
     bestServed: [
       'In a tall glass with a double shot on ice.',
       'With a simple tonic that does not overpower the taste.',
