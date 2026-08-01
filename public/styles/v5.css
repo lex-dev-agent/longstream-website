@@ -41,6 +41,11 @@ body {
 a { color: inherit; }
 .wrap { max-width: 1160px; margin: 0 auto; padding: 0 1.75rem; }
 
+/* Anchor targets clear the sticky header. _navscroll.pug only intercepts
+   links starting with "#", so cross-page ones like /#range and /#club are
+   handled natively by the browser and would otherwise land underneath it. */
+section[id] { scroll-margin-top: 5.5rem; }
+
 /* gold hairline helper */
 .v5-rule {
   width: 64px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent);
