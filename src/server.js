@@ -149,9 +149,9 @@ const v5Bottles = [
       'I have been making Classic Blonde Gin — named after my wife — ever since, and giving it to friends and family.'
     ],
     bestServed: [
-      'In a tall glass with a double shot on ice',
-      'With a simple tonic that does not overpower the taste',
-      'Garnished with slices of lime to complement the lime in the recipe'
+      'In a tall glass with a double shot on ice.',
+      'With a simple tonic that does not overpower the taste.',
+      'Garnished with slices of lime to complement the botanicals.'
     ]
   },
   {
@@ -174,9 +174,9 @@ const v5Bottles = [
       'Depending on the mixer it usually appears clear in its final presentation.'
     ],
     bestServed: [
-      'As a double shot in a tall glass',
-      'With a simple tonic',
-      'Garnished with a slice of lemon to complement the botanicals'
+      'In a tall glass with a double shot on ice.',
+      'With a simple tonic that does not overpower the taste.',
+      'Garnished with slices of lemon to complement the botanicals.'
     ]
   },
   {
@@ -225,9 +225,9 @@ const v5Experimental = [
       'Depending on the mixer it usually appears clear in its final presentation.'
     ],
     bestServed: [
-      'As a double shot in a tall glass',
-      'With a simple tonic',
-      'Garnished with a slice of lemon to complement the salt & botanicals'
+      'In a tall glass with a double shot on ice.',
+      'With a simple tonic that does not overpower the taste.',
+      'Garnished with slices of cucumbers to complement the botanicals.'
     ]
   },
   {
@@ -243,7 +243,11 @@ const v5Experimental = [
     photo: true,
     photoAlt: 'Blushing Blonde Gin',
     story: ['More to follow.'],
-    bestServed: ['With a simple tonic', 'Garnished with fresh berries']
+    bestServed: [
+      'In a tall glass with a double shot on ice.',
+      'With a simple tonic that does not overpower the taste.',
+      'Garnished with sliced raspberries and / or blackberries to complement the botanicals.'
+    ]
   },
   {
     id: 'maymorn-estate-gin',
@@ -262,9 +266,9 @@ const v5Experimental = [
       'The May Morn Estate Sawmill was constructed in the early 1910s by May Morn Estates (NZ) Ltd at what is now the end of MacLaren Street Maymorn, Upper Hutt. At its peak it was claimed to be the largest sawmill in New Zealand, boasting a processing capacity of 40,000 feet of timber per day. Maymorn supplied timber and cleared land for pastoral farming.'
     ],
     bestServed: [
-      'As a double shot in a tall glass',
-      'With a simple tonic',
-      'Garnished with a slice of lemon to complement the botanicals'
+      'In a tall glass with a double shot on ice.',
+      'With a simple tonic that does not overpower the taste.',
+      'Garnished with sliced orange (Fresh or Dehydrated) to complement the botanicals.'
     ]
   }
 ];
