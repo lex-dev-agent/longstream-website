@@ -293,6 +293,23 @@ for (const spirit of v5Bottles.concat(v5Experimental)) {
   spirit.photoSrc = detailPhoto(spirit.id);
 }
 
+// Liquor licence PDF, resolved from public/ at startup so the page keeps
+// working if the file is renamed or replaced with the real licence.
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+function findLicencePdf() {
+  try {
+    const match = fs
+      .readdirSync(PUBLIC_DIR)
+      .find((f) => /licen[cs]e/i.test(f) && f.toLowerCase().endsWith('.pdf'));
+    return match ? { href: '/' + encodeURIComponent(match), name: match } : null;
+  } catch (err) {
+    console.error('Could not scan public/ for the licence PDF:', err.message);
+    return null;
+  }
+}
+const LICENCE_PDF = findLicencePdf();
+console.log('Liquor licence PDF:', LICENCE_PDF ? LICENCE_PDF.name : 'none found');
+
 // --- Club signup storage (SQLite) ---
 // Stored outside the (root-owned) app dir so the app user can write to it.
 // Override the location with CLUB_DB_PATH if needed.
@@ -495,6 +512,15 @@ app.get('/order', (req, res) => {
     experimentalBatches: v5Experimental
   });
 });
+
+// Liquor licence. /license redirects so both spellings work.
+app.get('/licence', (req, res) => {
+  res.render('licence', {
+    licencePdf: LICENCE_PDF && LICENCE_PDF.href,
+    isSample: Boolean(LICENCE_PDF && /sample/i.test(LICENCE_PDF.name))
+  });
+});
+app.get('/license', (req, res) => res.redirect('/licence'));
 
 // Placeholder pages (linked from the standard navbar) — content to come.
 const comingSoon = (pageTitle) => (req, res) => res.render('coming-soon', { pageTitle });

@@ -1,0 +1,61 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Liquor Licence — Longstream Distillery
+    //- Dark logo by default (shows on light tab bars); white logo in dark mode
+    link(rel="icon", type="image/png", href="/images/logo.png")
+    link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/v5.css")
+    style.
+      .lic { padding: 4.5rem 0 5rem; background: var(--bg-2); border-top: 1px solid var(--line); }
+      .lic-head { text-align: center; margin-bottom: 2.5rem; }
+      .lic h1 { font-family: var(--font-head); font-weight: 500; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; margin: 0.5rem 0 1rem; }
+      .lic-lead { color: var(--muted); max-width: 42rem; margin: 0 auto; }
+      .lic-note { max-width: 42rem; margin: 1.5rem auto 0; padding: 0.85rem 1.1rem; border: 1px solid var(--line); border-left: 2px solid var(--gold); background: rgba(201,168,92,0.06); color: var(--ink); font-size: 0.9rem; text-align: left; }
+      .lic-frame { max-width: 900px; margin: 0 auto; border: 1px solid var(--line); background: #090a08; }
+      .lic-frame object, .lic-frame iframe { display: block; width: 100%; height: min(78vh, 1000px); border: 0; }
+      .lic-fallback { padding: 2.5rem 1.5rem; text-align: center; color: var(--muted); }
+      .lic-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+      .lic-missing { max-width: 42rem; margin: 0 auto; text-align: center; color: var(--muted); }
+      /* the inline viewer is heavy and unreliable on small screens — link only */
+      @media (max-width: 700px) { .lic-frame { display: none; } }
+
+  body
+    include _nav
+
+    main
+      section.lic
+        .wrap
+          .lic-head
+            .v5-rule.center
+            p.v5-kicker Longstream Distillery
+            h1 Liquor Licence
+            p.lic-lead Longstream Distillery operates under a New Zealand liquor licence. A copy of our licence is reproduced below.
+            if isSample
+              p.lic-note
+                strong Please note:&nbsp;
+                | the document shown here is a sample and is not a current, valid licence. It is in place while our licence documentation is finalised.
+
+          if licencePdf
+            .lic-frame
+              object(data=licencePdf, type="application/pdf", aria-label="Liquor licence document")
+                .lic-fallback
+                  p Your browser can't display the document inline.
+            .lic-actions
+              a.v5-btn-solid(href=licencePdf, target="_blank", rel="noopener") Open the licence (PDF)
+              a.v5-btn-ghost(href="/") Back to home
+          else
+            .lic-missing
+              p Our licence document isn't available online at the moment. Please #[a(href="/contact") get in touch] and we'll provide a copy.
+            .lic-actions
+              a.v5-btn-ghost(href="/") Back to home
+
+    include _footer
+
+    include _navscroll
+    include _agegate
