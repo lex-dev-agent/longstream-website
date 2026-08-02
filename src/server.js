@@ -144,7 +144,7 @@ const v5Bottles = [
     story: [
       'This was my first success story in gin.',
       'It took over two years to refine the process, the recipe and even the prime level of alcohol (an ABV — Alcohol by Volume — of 38%).',
-      'It was born of a discussion in 2018 at Flatpoint Beach on the east coast of the Wairarapa, whilst tasting various gins from around New Zealand and the world. I foolishly said I could make a gin of similar quality … and so the dare was made.',
+      'It was born of a discussion in 2018 at Flatpoint Beach on the east coast of the Wairarapa, whilst tasting various gins from around New Zealand and the world. I foolishly said I could make a gin of similar quality … and so the dare was laid down.',
       'Many books were read and many mistakes were made on my trusty 25-litre hobby still, until by accident I made a very smooth gin. It took another six months of trial and error to repeat it.',
       'I have been making Classic Blonde Gin — named after my wife — ever since, and giving it to friends and family.'
     ],
