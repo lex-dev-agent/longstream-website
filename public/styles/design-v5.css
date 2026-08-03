@@ -74,9 +74,10 @@
 .design-v5 .bc-card--print.bc-back {
   padding: calc(1.25rem + var(--bc-bleed)) calc(2rem + var(--bc-bleed));
 }
+/* header holds only the lockup — the name sits below the rule */
 .design-v5 .bc-back-header {
   flex-direction: column; align-items: flex-start; text-align: left;
-  gap: 0.4rem; padding-bottom: 0.5rem; margin-bottom: 0.35rem;
+  gap: 0; padding-bottom: 0.55rem; margin-bottom: 0.5rem;
 }
 /* icon + wordmark lockup, matching .v5-brand in the site header */
 .design-v5 .bc-back-lockup { display: flex; align-items: center; gap: 0.55rem; }
@@ -87,7 +88,7 @@
 }
 .design-v5 .bc-back-name {
   font-family: var(--font-heading); font-weight: 500; font-size: 1rem;
-  letter-spacing: 0.03em; line-height: 1.1; margin: 0; color: var(--ink);
+  letter-spacing: 0.03em; line-height: 1.1; margin: 0 0 0.5rem; color: var(--ink);
 }
 .design-v5 .bc-back-footer { padding-top: 0.5rem; }
 
