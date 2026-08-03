@@ -87,10 +87,10 @@
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
 }
 /* Name gets the same treatment as BLONDE on the labels: Playfair 600 in the
-   lighter gold. Sized to sit comfortably inside the 380px card. */
+   lighter gold, set at the same 0.95rem as the LONGSTREAM wordmark above. */
 .design-v5 .bc-back-name {
-  font-family: var(--font-heading); font-weight: 600; font-size: 2rem;
-  letter-spacing: 0.04em; line-height: 1; margin: 0 0 0.55rem; color: var(--gold-2);
+  font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem;
+  letter-spacing: 0.04em; line-height: 1.2; margin: 0 0 0.55rem; color: var(--gold-2);
 }
 /* condensed contact rows — tighter labels, smaller type, less leading */
 .design-v5 .bc-back-details { flex: 0 0 auto; gap: 0.1rem; }
