@@ -86,10 +86,11 @@
   font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
 }
-/* Name uses the label BLONDE styling (Playfair 600) in the base gold, set at
-   the same 0.95rem as the LONGSTREAM wordmark above. */
+/* Name uses the label BLONDE styling (Playfair 600) in the base gold. Set a
+   touch above the 0.95rem LONGSTREAM wordmark so it reads as the same size —
+   Playfair's mixed-case x-height is smaller than Jost's caps. */
 .design-v5 .bc-back-name {
-  font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem;
+  font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem;
   letter-spacing: 0.04em; line-height: 1.2; margin: 0 0 0.55rem; color: var(--gold);
 }
 /* condensed contact rows — tighter labels, smaller type, less leading */
