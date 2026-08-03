@@ -86,10 +86,17 @@
   font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
 }
+/* Name gets the same treatment as BLONDE on the labels: Playfair 600 in the
+   lighter gold. Sized to sit comfortably inside the 380px card. */
 .design-v5 .bc-back-name {
-  font-family: var(--font-heading); font-weight: 500; font-size: 1rem;
-  letter-spacing: 0.03em; line-height: 1.1; margin: 0 0 0.5rem; color: var(--ink);
+  font-family: var(--font-heading); font-weight: 600; font-size: 2rem;
+  letter-spacing: 0.04em; line-height: 1; margin: 0 0 0.55rem; color: var(--gold-2);
 }
+/* condensed contact rows — tighter labels, smaller type, less leading */
+.design-v5 .bc-back-details { flex: 0 0 auto; gap: 0.1rem; }
+.design-v5 .bc-detail-row { gap: 0.55rem; }
+.design-v5 .bc-detail-label { min-width: 44px; font-size: 0.6rem; letter-spacing: 0.12em; }
+.design-v5 .bc-detail-value { font-size: 0.78rem; }
 .design-v5 .bc-back-footer { padding-top: 0.5rem; }
 
 /* ---- bottle labels (gin / limoncello / vodka) ---- */
