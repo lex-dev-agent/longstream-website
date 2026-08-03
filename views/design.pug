@@ -12,14 +12,15 @@ mixin cardFrontContent
       p.bc-title Founder &amp; Distiller
     .bc-front-tagline Small-batch gin with Aotearoa spirit
 
-//- Standalone back: the site logo, the name under it, then the contact
-//- details — so the back identifies the card on its own without the front.
-//- width/height match the logo's real 867x564 ratio so it isn't squashed.
+//- Standalone back: the site's icon + LONGSTREAM lockup (same as the header),
+//- the name left-aligned beneath it, then the contact details — so the back
+//- identifies the card on its own without the front.
 mixin cardBackContent
   .bc-back-header
-    img.bc-logo(src="/images/logo-white.png" alt="Longstream Distillery" width="120" height="78")
+    .bc-back-lockup
+      img.bc-logo(src="/images/logo-white.png" alt="Longstream Distillery" width="30" height="30")
+      span.bc-back-wordmark LONGSTREAM
     h4.bc-back-name Ross Remnant
-    span.bc-back-brand Longstream Distillery
   .bc-back-details
     .bc-detail-row
       span.bc-detail-label Phone

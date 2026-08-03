@@ -75,19 +75,19 @@
   padding: calc(1.25rem + var(--bc-bleed)) calc(2rem + var(--bc-bleed));
 }
 .design-v5 .bc-back-header {
-  flex-direction: column; align-items: center; text-align: center;
-  gap: 0.25rem; padding-bottom: 0.5rem; margin-bottom: 0.35rem;
+  flex-direction: column; align-items: flex-start; text-align: left;
+  gap: 0.4rem; padding-bottom: 0.5rem; margin-bottom: 0.35rem;
 }
-/* The logo is landscape (867x564) — width-only sizing keeps its true ratio.
-   main.css forces 26x26 here, which squashed it into a square. */
-.design-v5 .bc-back-header .bc-logo { width: 52px; height: auto; opacity: 0.95; }
+/* icon + wordmark lockup, matching .v5-brand in the site header */
+.design-v5 .bc-back-lockup { display: flex; align-items: center; gap: 0.55rem; }
+.design-v5 .bc-back-header .bc-logo { width: 30px; height: 30px; opacity: 0.95; }
+.design-v5 .bc-back-wordmark {
+  font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink);
+}
 .design-v5 .bc-back-name {
   font-family: var(--font-heading); font-weight: 500; font-size: 1rem;
-  letter-spacing: 0.03em; line-height: 1.1; margin: 0.1rem 0 0; color: var(--ink);
-}
-.design-v5 .bc-back-brand {
-  margin-left: 0; font-family: var(--font-body); font-size: 0.6rem;
-  font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  letter-spacing: 0.03em; line-height: 1.1; margin: 0; color: var(--ink);
 }
 .design-v5 .bc-back-footer { padding-top: 0.5rem; }
 
