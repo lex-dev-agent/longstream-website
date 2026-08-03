@@ -33,6 +33,72 @@ mixin cardBackContent
       a.bc-detail-value(href="mailto:rossremnant5@gmail.com") rossremnant5@gmail.com
   .bc-back-footer Crafted in the Wellington Region with pride
 
+//- ── Single-sided card options ─────────────────────────────────
+//- Three standalone directions. Each carries the mark, the name
+//- and every contact on one face, so the reverse can stay blank.
+
+//- "Label" — the card set as one of our bottle labels: keyline
+//- frame, centred stack, botanical mark, and the name sitting in
+//- the slot BLONDE occupies on the bottle.
+mixin cardOptionLabel
+  .bco-keyline
+  .bco-keyline-inner
+  .bco-label-body
+    img.bco-mark(src="/images/logo-white.png" alt="Longstream Distillery" width="24" height="24")
+    p.bco-label-house Longstream Distillery
+    .bco-label-rule
+    h4.bco-label-name Ross Remnant
+    p.bco-label-role Founder &amp; Distiller
+    .bco-botanical
+      span.bco-botanical-icon ◆
+    p.bco-label-line 021 174 1439 · longstream.nz
+    a.bco-label-line.bco-label-email(href="mailto:rossremnant5@gmail.com") rossremnant5@gmail.com
+
+//- "Spec Panel" — the printed panel from the back of a bottle: a
+//- solid gold spine carrying the wordmark, then label/value rows
+//- ruled and right-aligned like a batch record.
+mixin cardOptionPanel
+  .bco-spine
+    span.bco-spine-word Longstream
+    img.bco-spine-mark(src="/images/logo.png" alt="Longstream Distillery" width="16" height="16")
+  .bco-panel-body
+    h4.bco-panel-name Ross Remnant
+    p.bco-panel-role Founder &amp; Distiller
+    .bco-rows
+      .bco-row
+        span.bco-row-label Phone
+        span.bco-row-value 021 174 1439
+      .bco-row
+        span.bco-row-label Web
+        span.bco-row-value longstream.nz
+      .bco-row
+        span.bco-row-label Email
+        a.bco-row-value(href="mailto:rossremnant5@gmail.com") rossremnant5@gmail.com
+      .bco-row.bco-row-origin
+        span.bco-row-value Est. 2018 · Mangaroa Valley
+
+//- "Stone" — pale uncoated stock with a single gold rule running
+//- edge to edge: the long stream. Everything else sits quietly
+//- beneath it.
+mixin cardOptionStone
+  .bco-stone-head
+    img.bco-stone-mark(src="/images/logo.png" alt="Longstream Distillery" width="22" height="22")
+    span.bco-stone-word Longstream
+    span.bco-stone-origin Mangaroa Valley
+  .bco-stone-body
+    h4.bco-stone-name Ross Remnant
+    p.bco-stone-role Founder &amp; Distiller
+    .bco-stone-contacts
+      span 021 174 1439
+      span longstream.nz
+      a(href="mailto:rossremnant5@gmail.com") rossremnant5@gmail.com
+
+//- Per-option downloads — single-sided, so one PDF page each
+mixin cardOptionDownloads(id)
+  .bco-download
+    button.button.button-primary(id=`${id}-pdf`, type="button") PDF
+    button.button.button-secondary.bc-btn-png(id=`${id}-png`, type="button") PNG
+
 mixin ginLabelContent
   .gin-label-inner
     img.label-logo(src="/images/logo-white.png" alt="Longstream Distillery" width="48" height="48")
@@ -310,6 +376,95 @@ block content
           })
           .finally(function () { setLoading(pngBtn, false); });
       });
+    })();
+
+  section.bco-page
+    div.container
+      h2.bc-page-title Single-Sided Options
+      p.bc-page-subtitle Three standalone directions. Each carries the mark, the name and every contact on one face, so the reverse can stay blank.
+
+      .bco-grid
+        .bco-item
+          h3.bc-label Label
+          .bc-card.bco.bco-label#bco-label
+            +cardOptionLabel
+          p.bco-note Reads as a bottle off the shelf — the same keyline, botanical mark and centred stack as our labels, with the name where BLONDE sits.
+          +cardOptionDownloads('bco-label')
+        .bco-item
+          h3.bc-label Spec Panel
+          .bc-card.bco.bco-panel#bco-panel
+            +cardOptionPanel
+          p.bco-note A gold spine you can pick out of a wallet, and contacts ruled like the batch record on the back of a bottle.
+          +cardOptionDownloads('bco-panel')
+        .bco-item
+          h3.bc-label Stone
+          .bc-card.bco.bco-stone#bco-stone
+            +cardOptionStone
+          p.bco-note Uncoated pale stock, one gold rule edge to edge. The quiet card in a stack of dark ones — and a single foil hit to print.
+          +cardOptionDownloads('bco-stone')
+
+    //- Hidden print-ready copies with bleed + sharp edges for PDF capture
+    .bc-print-offscreen(aria-hidden="true")
+      .bc-card.bc-card--print.bco.bco-label#bco-label-print
+        +cardOptionLabel
+      .bc-card.bc-card--print.bco.bco-panel#bco-panel-print
+        +cardOptionPanel
+      .bc-card.bc-card--print.bco.bco-stone#bco-stone-print
+        +cardOptionStone
+
+  script.
+    (function () {
+      var TRIM_W = 3.5, TRIM_H = 2, BLEED = 0.125;
+      var PAGE_W = TRIM_W + BLEED * 2, PAGE_H = TRIM_H + BLEED * 2, DPI = 300;
+      var MARK_LEN = 0.08, MARK_GAP = 0.02;
+
+      function capture(el, w, h) {
+        var r = el.getBoundingClientRect();
+        var s = Math.max(w / r.width, h / r.height);
+        return html2canvas(el, { scale: s, useCORS: true, backgroundColor: null, width: r.width, height: r.height, windowWidth: document.documentElement.scrollWidth });
+      }
+      function marks(pdf) {
+        pdf.setDrawColor(0); pdf.setLineWidth(0.003);
+        var l = BLEED, t = BLEED, rt = BLEED + TRIM_W, b = BLEED + TRIM_H;
+        [[l, t, -1, -1], [rt, t, 1, -1], [l, b, -1, 1], [rt, b, 1, 1]].forEach(function (c) {
+          pdf.line(c[0] + c[2] * MARK_GAP, c[1], c[0] + c[2] * (MARK_GAP + MARK_LEN), c[1]);
+          pdf.line(c[0], c[1] + c[3] * MARK_GAP, c[0], c[1] + c[3] * (MARK_GAP + MARK_LEN));
+        });
+      }
+      function loading(btn, on) {
+        if (on) { btn.dataset.o = btn.textContent; btn.textContent = 'Generating…'; btn.disabled = true; }
+        else { btn.textContent = btn.dataset.o; btn.disabled = false; }
+      }
+      function dl(url, name) {
+        var a = document.createElement('a'); a.href = url; a.download = name;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      }
+      function init(id, file) {
+        var pdfBtn = document.getElementById(id + '-pdf');
+        var pngBtn = document.getElementById(id + '-png');
+        if (pdfBtn) pdfBtn.addEventListener('click', function () {
+          loading(pdfBtn, true);
+          capture(document.getElementById(id + '-print'), PAGE_W * DPI, PAGE_H * DPI)
+            .then(function (c) {
+              var jsPDF = window.jspdf.jsPDF;
+              var pdf = new jsPDF({ orientation: 'landscape', unit: 'in', format: [PAGE_W, PAGE_H] });
+              pdf.addImage(c.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W, PAGE_H);
+              marks(pdf);
+              pdf.save(file + '.pdf');
+            }).catch(function (e) { console.error(e); alert('Something went wrong generating the PDF. Please try again.'); })
+            .finally(function () { loading(pdfBtn, false); });
+        });
+        if (pngBtn) pngBtn.addEventListener('click', function () {
+          loading(pngBtn, true);
+          capture(document.getElementById(id), TRIM_W * DPI, TRIM_H * DPI)
+            .then(function (c) { dl(c.toDataURL('image/png'), file + '.png'); })
+            .catch(function (e) { console.error(e); alert('Something went wrong generating the PNG. Please try again.'); })
+            .finally(function () { loading(pngBtn, false); });
+        });
+      }
+      init('bco-label', 'ross-remnant-card-label');
+      init('bco-panel', 'ross-remnant-card-spec-panel');
+      init('bco-stone', 'ross-remnant-card-stone');
     })();
 
   section.label-page

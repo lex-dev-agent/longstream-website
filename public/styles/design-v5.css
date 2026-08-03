@@ -100,6 +100,230 @@
 .design-v5 .bc-detail-value { font-size: 0.78rem; }
 .design-v5 .bc-back-footer { padding-top: 0.5rem; }
 
+/* ============================================================
+   Single-sided card options
+   Geometry comes from .bc-card in main.css: 380x218 on screen,
+   and .bc-card--print grows by --bc-bleed on every side. So any
+   decoration that should run off the trimmed edge is positioned
+   absolutely against the card (it covers the bleed for free),
+   and only padded content needs a bleed-aware override.
+   ============================================================ */
+
+.design-v5 .bco-page {
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  padding: 4rem 0 6rem;
+}
+.design-v5 .bco-grid {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  align-items: flex-start; gap: 3.25rem 2.5rem;
+}
+.design-v5 .bco-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.85rem;
+  width: 380px; max-width: 100%;
+}
+.design-v5 .bco-note {
+  margin: 0; text-align: center;
+  font-size: 0.82rem; line-height: 1.55; color: var(--muted);
+}
+.design-v5 .bco-download { display: flex; gap: 0.6rem; }
+.design-v5 .bco-download .button { padding: 0.5rem 1.5rem; font-size: 0.78rem; }
+
+.design-v5 .bco { display: flex; font-family: var(--font-body); }
+
+/* ---- option: Label ---- */
+/* the bottle label's own frame — a bright keyline with a quiet
+   one just inside it, so the card reads as product, not stationery */
+.design-v5 .bco-label {
+  background: linear-gradient(180deg, #1b1f1a 0%, #14170f 100%);
+  color: var(--ink);
+}
+.design-v5 .bco-keyline,
+.design-v5 .bco-keyline-inner { position: absolute; pointer-events: none; }
+.design-v5 .bco-keyline { inset: 11px; border: 1px solid rgba(201, 168, 92, 0.55); }
+.design-v5 .bco-keyline-inner { inset: 15px; border: 1px solid rgba(201, 168, 92, 0.18); }
+.design-v5 .bc-card--print.bco-label .bco-keyline { inset: calc(11px + var(--bc-bleed)); }
+.design-v5 .bc-card--print.bco-label .bco-keyline-inner { inset: calc(15px + var(--bc-bleed)); }
+
+.design-v5 .bco-label-body {
+  position: relative; flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 1.1rem 2.2rem;
+}
+.design-v5 .bc-card--print.bco-label .bco-label-body {
+  padding: calc(1.1rem + var(--bc-bleed)) calc(2.2rem + var(--bc-bleed));
+}
+.design-v5 .bco-mark { width: 24px; height: 24px; opacity: 0.95; }
+/* padding-left equal to the tracking cancels the trailing letter-space,
+   so wide-tracked caps sit optically centred rather than a nudge left */
+.design-v5 .bco-label-house {
+  margin: 0.35rem 0 0; font-size: 0.5rem; font-weight: 600; line-height: 1.2;
+  letter-spacing: 0.3em; padding-left: 0.3em; text-transform: uppercase;
+  color: var(--gold-2);
+}
+.design-v5 .bco-label-rule {
+  width: 46px; height: 1px; margin: 0.5rem 0 0.55rem;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+/* the name takes the BLONDE slot: Playfair 600, gold, set large */
+.design-v5 .bco-label-name {
+  margin: 0; font-family: var(--font-heading); font-weight: 600;
+  font-size: 1.85rem; line-height: 1.05; letter-spacing: 0.015em; color: var(--gold);
+}
+.design-v5 .bco-label-role {
+  margin: 0.3rem 0 0; font-size: 0.52rem; font-weight: 500; line-height: 1.2;
+  letter-spacing: 0.32em; padding-left: 0.32em; text-transform: uppercase;
+  color: rgba(236, 233, 223, 0.72);
+}
+.design-v5 .bco-botanical {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin: 0.55rem 0 0.5rem; color: var(--gold);
+}
+.design-v5 .bco-botanical::before,
+.design-v5 .bco-botanical::after {
+  content: ''; width: 34px; height: 1px; background: rgba(201, 168, 92, 0.45);
+}
+.design-v5 .bco-botanical-icon { font-size: 0.52rem; line-height: 1; }
+/* contacts sit where the 700 ml · 38% ABV spec line sits */
+.design-v5 .bco-label-line {
+  display: block; margin: 0; font-size: 0.62rem; line-height: 1.5;
+  letter-spacing: 0.07em; color: rgba(236, 233, 223, 0.88); text-decoration: none;
+}
+.design-v5 .bco-label-email { color: var(--gold-2); }
+
+/* ---- option: Spec Panel ---- */
+.design-v5 .bco-panel {
+  background: linear-gradient(180deg, #1b1f1a 0%, #12150f 100%);
+  color: var(--ink);
+}
+/* solid gold spine, full-bleed top to bottom */
+.design-v5 .bco-spine {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 46px;
+  background: linear-gradient(180deg, #d8ba71 0%, var(--gold) 45%, #a8863c 100%);
+}
+/* rotated in place: the wordmark keeps a wide unrotated box, so it is
+   centred by transform rather than by flow (flow would clip it) */
+/* centred in the band below the mark, not in the band as a whole (124px of
+   218), so the two do not read as top-heavy */
+.design-v5 .bco-spine-word {
+  position: absolute; left: 50%; top: 124px;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  white-space: nowrap; padding-left: 0.34em; line-height: 1;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.34em;
+  text-transform: uppercase; color: #12150f;
+}
+/* the dark mark, the one place it reads better than the white one. It sits at
+   the top of the band where the gold is lightest — at the foot the gradient
+   darkens to #a8863c and the mark turns to mud. */
+.design-v5 .bco-spine-mark {
+  position: absolute; left: 50%; top: 13px; transform: translateX(-50%);
+  width: 17px; height: 17px;
+}
+/* the spine bleeds off the left, so on the print copy both the band and
+   its contents shift right by half the bleed to stay centred on the trim */
+.design-v5 .bc-card--print.bco-panel .bco-spine { width: calc(46px + var(--bc-bleed)); }
+.design-v5 .bc-card--print.bco-panel .bco-spine-word,
+.design-v5 .bc-card--print.bco-panel .bco-spine-mark { left: calc(50% + var(--bc-bleed) / 2); }
+.design-v5 .bc-card--print.bco-panel .bco-spine-mark { top: calc(13px + var(--bc-bleed)); }
+.design-v5 .bc-card--print.bco-panel .bco-spine-word { top: calc(124px + var(--bc-bleed)); }
+
+.design-v5 .bco-panel-body {
+  position: relative; flex: 1; margin-left: 46px;
+  display: flex; flex-direction: column; padding: 1.15rem 1.6rem 1.05rem;
+}
+.design-v5 .bc-card--print.bco-panel .bco-panel-body {
+  margin-left: calc(46px + var(--bc-bleed));
+  padding: calc(1.15rem + var(--bc-bleed)) calc(1.6rem + var(--bc-bleed))
+           calc(1.05rem + var(--bc-bleed)) 1.6rem;
+}
+.design-v5 .bco-panel-name {
+  margin: 0; font-family: var(--font-heading); font-weight: 600;
+  font-size: 1.55rem; line-height: 1.15; letter-spacing: 0.01em; color: var(--ink);
+}
+.design-v5 .bco-panel-role {
+  margin: 0.18rem 0 0; font-size: 0.53rem; font-weight: 500; line-height: 1.2;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+}
+/* rows sit on the baseline of the card; values share a right edge so the
+   panel reads as a table rather than a list */
+.design-v5 .bco-rows { margin-top: auto; }
+.design-v5 .bco-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  border-top: 1px solid rgba(201, 168, 92, 0.16); padding: 0.42rem 0;
+}
+.design-v5 .bco-row-label {
+  font-size: 0.55rem; font-weight: 600; line-height: 1.2;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+}
+.design-v5 .bco-row-value {
+  font-size: 0.76rem; line-height: 1.2; letter-spacing: 0.02em;
+  color: var(--ink); text-align: right; text-decoration: none;
+}
+.design-v5 .bco-row-origin { border-top-color: rgba(201, 168, 92, 0.3); justify-content: flex-end; }
+.design-v5 .bco-row-origin .bco-row-value {
+  font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+
+/* ---- option: Stone ---- */
+/* pale, cool stock rather than cream — the valley, not parchment */
+/* one accent for the whole card — deeper than the screen gold, which is how
+   gold foil actually sits on uncoated stock, and it holds at caption size */
+.design-v5 .bco-stone {
+  --bco-stone-gold: #8c6f27;
+  background: linear-gradient(180deg, #e3e6df 0%, #d6dbd2 100%);
+  color: #141a15; flex-direction: column; padding: 1.35rem 1.75rem 1.2rem;
+}
+.design-v5 .bc-card--print.bco-stone {
+  padding: calc(1.35rem + var(--bc-bleed)) calc(1.75rem + var(--bc-bleed))
+           calc(1.2rem + var(--bc-bleed));
+}
+/* the one graphic element: a gold rule running clean off both edges.
+   Negative margins equal to the card padding are what make it full-bleed. */
+.design-v5 .bco-stone-head {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin: 0 -1.75rem; padding: 0 1.75rem 0.75rem;
+  border-bottom: 1px solid var(--bco-stone-gold);
+}
+.design-v5 .bc-card--print.bco-stone .bco-stone-head {
+  margin: 0 calc(-1.75rem - var(--bc-bleed));
+  padding: 0 calc(1.75rem + var(--bc-bleed)) 0.75rem;
+}
+.design-v5 .bco-stone-mark { width: 22px; height: 22px; }
+.design-v5 .bco-stone-word {
+  font-size: 0.8rem; font-weight: 700; line-height: 1;
+  letter-spacing: 0.24em; text-transform: uppercase; color: #141a15;
+}
+/* the block floats in the space under the rule, air above and below */
+.design-v5 .bco-stone-body { margin: auto 0; }
+.design-v5 .bco-stone-name {
+  margin: 0; font-family: var(--font-heading); font-weight: 600;
+  font-size: 1.55rem; line-height: 1.15; color: #141a15;
+}
+.design-v5 .bco-stone-role {
+  margin: 0.2rem 0 0; font-size: 0.55rem; font-weight: 500; line-height: 1.2;
+  letter-spacing: 0.26em; text-transform: uppercase; color: var(--bco-stone-gold);
+}
+/* no labels — a phone number, a domain and an address say what they are */
+.design-v5 .bco-stone-contacts {
+  display: flex; flex-direction: column; margin-top: 0.75rem;
+}
+.design-v5 .bco-stone-contacts span,
+.design-v5 .bco-stone-contacts a {
+  font-size: 0.74rem; line-height: 1.45; letter-spacing: 0.02em;
+  color: rgba(20, 26, 21, 0.82); text-decoration: none;
+}
+/* sits opposite the wordmark on the rule — a header datum, not a footer,
+   which keeps it from reading as a fourth line of contact detail */
+.design-v5 .bco-stone-origin {
+  margin: 0 0 0 auto; font-size: 0.52rem; font-weight: 500; line-height: 1.2;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--bco-stone-gold);
+}
+
+@media (max-width: 768px) {
+  .design-v5 .bco-page { padding: 3rem 0 4rem; }
+  .design-v5 .bco-grid { gap: 2.5rem 2rem; }
+}
+
 /* ---- bottle labels (gin / limoncello / vodka) ---- */
 .design-v5 .gin-label,
 .design-v5 .gin-label-back { background: linear-gradient(180deg, #1b1f1a, #14170f); border-color: var(--gold); }
