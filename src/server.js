@@ -131,7 +131,7 @@ const v5Bottles = [
   {
     id: 'blonde-gin',
     name: 'Classic Blonde Gin',
-    bottle: '/images/new-bottles/classic-blonde.png',
+    bottle: '/images/ross-bottles/classic-blonde.png',
     description: 'A classic dry gin with Juniper, Cardamom and Lime botanicals.',
     serve: 'Best served with a simple tonic and a slice of lime.',
     volume: '700mL',
@@ -157,7 +157,7 @@ const v5Bottles = [
   {
     id: 'zesty-blonde-gin',
     name: 'Zesty Blonde Gin',
-    bottle: '/images/new-bottles/zesty-blonde.png',
+    bottle: '/images/ross-bottles/zesty-blonde.png',
     description: 'Our Classic Blonde Gin steeped with lemon peel for a citrus twist.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
@@ -182,7 +182,7 @@ const v5Bottles = [
   {
     id: 'louies-limoncello',
     name: "Louie's Limoncello",
-    bottle: '/images/new-bottles/louies-limoncello.png',
+    bottle: '/images/ross-bottles/louies-limoncello.png',
     description: 'A clear, sweet and smooth limoncello made with fresh lemons and sugar.',
     serve: 'Best sipped neat and served in a tall narrow shot glass.',
     volume: '700mL',
@@ -209,7 +209,7 @@ const v5Experimental = [
   {
     id: 'coastal-blonde-gin',
     name: 'Coastal Blonde Gin',
-    bottle: '/images/new-bottles/coastal-blonde.png',
+    bottle: '/images/ross-bottles/coastal-blonde.png',
     description: 'Our Classic Blonde Gin with the addition of salty seaweed botanicals.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
@@ -233,7 +233,7 @@ const v5Experimental = [
   {
     id: 'blushing-blonde-gin',
     name: 'Blushing Blonde Gin',
-    bottle: '/images/new-bottles/blushing-blonde.png',
+    bottle: '/images/ross-bottles/blushing-blonde.png',
     description: 'Our Classic Blonde Gin steeped with berries for that summer taste.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',
@@ -257,7 +257,7 @@ const v5Experimental = [
   {
     id: 'maymorn-estate-gin',
     name: 'Maymorn Estate Gin',
-    bottle: '/images/new-bottles/maymorn-estate.png',
+    bottle: '/images/ross-bottles/maymorn-estate.png',
     description: 'Our Classic Blonde Gin rested in charred oak for nine months. Spiced and golden.',
     serve: 'Best served with a simple tonic.',
     volume: '700mL',

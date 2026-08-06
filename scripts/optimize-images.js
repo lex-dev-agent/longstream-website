@@ -4,7 +4,7 @@
  * as the <img> onerror fallback).
  *
  *   npm run images                 # everything
- *   npm run images -- new-bottles  # just one subdirectory
+ *   npm run images -- ross-bottles  # just one subdirectory
  *
  * Sizing is based on how large each image is actually displayed (with some
  * headroom for high-DPI screens). Quality 80 is a good size/quality balance.
@@ -34,6 +34,7 @@ const MAX_EDGE = {
   // Per-product bottle shots. Largest render anywhere is .v5-card-bottle at
   // 220px on the range cards, so 660px is a full 3x for high-DPI screens.
   'new-bottles': 660,
+  'ross-bottles': 660,
 };
 
 // Longest-edge cap for a file, by exact relative path, then by its directory,
