@@ -35,6 +35,10 @@ const MAX_EDGE = {
   // 220px on the range cards, so 660px is a full 3x for high-DPI screens.
   'new-bottles': 660,
   'ross-bottles': 660,
+  // Label-story portraits on /blonde. The sources are only ~368px wide, and
+  // withoutEnlargement means nothing here is ever upscaled — this cap just
+  // records that they're never shown larger than ~340px.
+  'blonde-girl': 760,
 };
 
 // Longest-edge cap for a file, by exact relative path, then by its directory,

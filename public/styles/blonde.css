@@ -1,0 +1,234 @@
+/* ============================================================
+   /blonde — "Behind the name"
+   The story of the Blonde name and the label portrait. Layered on
+   top of v5.css, so it only defines what that file doesn't already
+   give us (tokens, buttons, .v5-kicker, .v5-rule, nav, footer).
+   ============================================================ */
+
+/* ---- masthead ------------------------------------------------
+   The label portrait sits behind the title, blurred right down to a
+   texture: the page opens on the very face it goes on to explain,
+   without competing with the words. It is decorative only (the real
+   image appears at full strength further down), so it is aria-hidden. */
+.bl-head {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 4.5rem;
+  text-align: center;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+}
+.bl-head-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* fades the texture out well before the section edges, top and bottom */
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 42%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 60% 70% at 50% 42%, #000 0%, transparent 72%);
+}
+.bl-head-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  opacity: 0.3;
+  /* the source is only ~368px wide — blurring it this hard is what lets it
+     scale to full-bleed without reading as a low-resolution image */
+  filter: blur(26px) saturate(0.7);
+  transform: scale(1.12);
+}
+.bl-head .wrap { position: relative; z-index: 1; }
+
+.bl-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
+  line-height: 1.14;
+  margin: 0.5rem auto 1.5rem;
+  max-width: 22em;
+  text-wrap: balance;
+}
+.bl-title-line {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-2);
+}
+.bl-lead {
+  max-width: 38rem;
+  margin: 0 auto;
+  color: var(--ink);
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  text-wrap: balance;
+}
+
+/* ---- chapters ---- */
+.bl-chapter { padding: 4.5rem 0; }
+/* The middle chapter is a single sentence. Banded and left-aligned like the
+   others it just reads as a thin gap, so it is set as a centred interlude
+   instead — the nickname is the whole point of the page's first half. */
+.bl-chapter-alt {
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.bl-chapter-alt .bl-prose { max-width: 36rem; }
+.bl-chapter-alt .bl-prose p:not(.v5-kicker) {
+  color: var(--ink);
+  font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+  line-height: 1.55;
+  text-wrap: balance;
+}
+.bl-prose {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+.bl-prose p { color: var(--muted); margin: 0 0 1.15rem; }
+.bl-prose p:last-child { margin-bottom: 0; }
+.bl-prose .v5-kicker { color: var(--gold); }
+
+/* opening paragraph — gold drop cap, and set a shade brighter than the rest */
+.bl-drop { color: var(--ink) !important; }
+.bl-drop::first-letter {
+  float: left;
+  font-family: var(--font-head);
+  font-size: 3.6em;
+  line-height: 0.8;
+  padding: 0.04em 0.12em 0 0;
+  color: var(--gold);
+}
+
+/* "The challenge was on." — the turn of the story, so it gets its own beat */
+.bl-beat {
+  clear: both;
+  font-family: var(--font-head);
+  font-style: italic;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.3;
+  color: var(--gold-2) !important;
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25rem;
+  margin: 2.25rem 0 0 !important;
+}
+
+.bl-nickname {
+  font-family: var(--font-head);
+  font-style: italic;
+  font-size: 1.15em;
+  color: var(--gold-2);
+}
+
+/* ---- the fusion: two sources, one result ----------------------
+   5 tracks — figure, operator, figure, operator, figure. The operators
+   are the argument the section is making, so they survive the mobile
+   stack too, sitting between the cards. */
+.bl-fusion {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: start;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 3.5rem auto;
+}
+.bl-fig { margin: 0; }
+.bl-fig-frame {
+  position: relative;
+  aspect-ratio: 8 / 7;
+  border: 1px solid var(--line);
+  /* the sources are cut out on black, so a black bed makes `contain`
+     letterboxing invisible — the portraits appear to float */
+  background: #000;
+  overflow: hidden;
+}
+.bl-fig-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+/* the third frame is the one that ended up on the bottle — mark it */
+.bl-fig-final .bl-fig-frame {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px rgba(201, 168, 92, 0.14), 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+.bl-fig figcaption {
+  display: block;
+  text-align: center;
+  margin-top: 0.9rem;
+}
+.bl-fig-num {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  /* letter-spacing trails the last glyph; pad the same amount back on to
+     keep the word optically centred */
+  padding-left: 0.32em;
+  margin-bottom: 0.25rem;
+}
+.bl-fig-cap {
+  display: block;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.bl-fig-final .bl-fig-cap { color: var(--ink); }
+
+.bl-op {
+  align-self: center;
+  /* pull up by roughly half the caption block so the operator centres on the
+     frames, not on frame + caption */
+  margin-top: -2.6rem;
+  font-family: var(--font-head);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+/* closing homage */
+.bl-close {
+  border-top: 1px solid var(--line);
+  padding-top: 1.75rem;
+  color: var(--ink) !important;
+  font-size: 1.05rem;
+}
+
+/* ---- outro ---- */
+.bl-outro {
+  padding: 0 0 5.5rem;
+  text-align: center;
+}
+.bl-outro-sign {
+  font-family: var(--font-head);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin: 0 0 2rem;
+}
+.bl-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---- mobile ---- */
+@media (max-width: 860px) {
+  .bl-head { padding: 4rem 0 3.25rem; }
+  .bl-chapter { padding: 3.25rem 0; }
+  .bl-fusion {
+    grid-template-columns: minmax(0, 340px);
+    justify-content: center;
+    gap: 1rem;
+    margin: 2.75rem auto;
+  }
+  /* Upright, not rotated a quarter turn: a rotated "=" reads as "‖". */
+  .bl-op {
+    margin: 0;
+    text-align: center;
+  }
+  .bl-beat { font-size: 1.3rem; }
+}

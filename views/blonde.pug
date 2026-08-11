@@ -1,0 +1,94 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Behind the name — Longstream Distillery
+    meta(name="description", content="How Longstream's Blonde Gin got its name, and the story behind the woman on the label.")
+    //- Dark logo by default (shows on light tab bars); white logo in dark mode
+    link(rel="icon", type="image/png", href="/images/logo.png")
+    link(rel="icon", type="image/png", href="/images/logo-white.png", media="(prefers-color-scheme: dark)")
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin="crossorigin")
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/styles/v5.css")
+    link(rel="stylesheet", href="/styles/blonde.css")
+
+  body
+    include _nav
+
+    main
+      //- MASTHEAD — the label image sits behind the title, heavily faded, so the
+      //- page opens on the very face it goes on to explain.
+      section.bl-head
+        .bl-head-art
+          img(src="/images/blonde-girl/label.webp", onerror="this.onerror=null;this.src='/images/blonde-girl/label.jpg'", alt="", aria-hidden="true")
+        .wrap
+          .v5-rule.center
+          p.v5-kicker Behind the label
+          h1.bl-title
+            | Behind the name Blonde Gin
+            span.bl-title-line and the image on the bottles
+          p.bl-lead Every bottle label has a story, but ours started with a sunset and a bit of overconfidence.
+
+      //- THE DARE
+      section.bl-chapter
+        .wrap
+          .bl-prose
+            p.bl-drop While sitting on our deck at Flatpoint, South Wairarapa, my wife Nikke and I were enjoying a bottle of gin. I foolishly — or maybe bravely — boasted that I could make a gin just as good as the commercial giant we were sipping.
+            p.bl-beat The challenge was on.
+
+      //- THE NAME
+      section.bl-chapter.bl-chapter-alt
+        .wrap
+          .bl-prose
+            p.v5-kicker The name
+            p From the day we met, my nickname for Nikke was #[span.bl-nickname “Blondie”]. So Blonde Gin made sense as the name on the label.
+
+      //- THE IMAGE
+      section.bl-chapter
+        .wrap
+          .bl-prose
+            p.v5-kicker The image
+            p When it came to designing the imagery on the label, I paired an early image of Nikke with another image that stuck with me… A blonde woman in an advert, smiling with her eyes closed, utterly consumed by a moment of bliss.
+            p I imagined her taking that first, perfect sip of gin and being overtaken by pure, unfettered joy.
+
+          //- Two sources, one result. The + and = carry the whole idea, so they
+          //- stay in place on mobile too, between the stacked cards.
+          .bl-fusion
+            figure.bl-fig
+              .bl-fig-frame
+                img(src="/images/blonde-girl/nikke.webp", onerror="this.onerror=null;this.src='/images/blonde-girl/nikke.jpg'", alt="An early image of Nikke", width="363", height="324", loading="lazy")
+              figcaption
+                span.bl-fig-num One
+                span.bl-fig-cap An early image of Nikke
+            .bl-op(aria-hidden="true") +
+            figure.bl-fig
+              .bl-fig-frame
+                img(src="/images/blonde-girl/inspiration.webp", onerror="this.onerror=null;this.src='/images/blonde-girl/inspiration.jpg'", alt="The blonde woman from the advert, smiling with her eyes closed", width="368", height="294", loading="lazy")
+              figcaption
+                span.bl-fig-num Two
+                span.bl-fig-cap The woman in the advert
+            .bl-op(aria-hidden="true") =
+            figure.bl-fig.bl-fig-final
+              .bl-fig-frame
+                img(src="/images/blonde-girl/label.webp", onerror="this.onerror=null;this.src='/images/blonde-girl/label.jpg'", alt="The fused portrait used on every Blonde bottle label", width="368", height="343", loading="lazy")
+              figcaption
+                span.bl-fig-num Three
+                span.bl-fig-cap The image on every Blonde bottle
+
+          .bl-prose
+            p.bl-close The final image is a creative fusion of both. It isn’t a direct portrait, but a heartfelt homage to Nikke, a kept promise, and the feeling of pure happiness.
+
+      //- WHERE TO NEXT
+      section.bl-outro
+        .wrap
+          p.bl-outro-sign Ross Remnant, Founder &amp; Distiller
+          .bl-actions
+            a.v5-btn-solid(href="/#range") See the Blonde range
+            a.v5-btn-ghost(href="/") Back to home
+
+    include _footer
+
+    include _navscroll
+    include _agegate

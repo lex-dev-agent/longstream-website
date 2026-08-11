@@ -35,6 +35,17 @@ mixin spiritCard(s)
         if s.story
           each para in s.story
             p= para
+        //- Blonde-named spirits all carry the same label portrait, so they all
+        //- link out to the story behind it. Safe to nest an anchor here: the
+        //- parser puts <template> content in its own fragment, outside the
+        //- card's own anchor.
+        if s.blondeStory
+          a.v5-story-link(href="/blonde")
+            img.v5-story-link-thumb(src="/images/blonde-girl/label.webp", onerror="this.onerror=null;this.src='/images/blonde-girl/label.jpg'", alt="", width="368", height="343", loading="lazy")
+            span.v5-story-link-text
+              span.v5-story-link-kicker Behind the label
+              span.v5-story-link-title Where the name Blonde came from, and who is on the bottle
+            span.v5-story-link-arrow →
       .v5-modal-aside-content
         if s.bestServed && s.bestServed.length
           p.v5-kicker Best served

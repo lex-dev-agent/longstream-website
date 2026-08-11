@@ -141,6 +141,9 @@ const v5Bottles = [
     position: 'left',
     photo: true,
     photoAlt: 'Classic Blonde Gin',
+    // Every Blonde-named spirit shares the same label portrait, so each one's
+    // detail modal links out to /blonde for the story behind it.
+    blondeStory: true,
     story: [
       'This was my first success story in gin.',
       'It took over two years to refine the process, the recipe and even the prime level of alcohol (an ABV — Alcohol by Volume — of 38%).',
@@ -167,6 +170,7 @@ const v5Bottles = [
     position: 'middle',
     photo: true,
     photoAlt: 'Lemon peel steeping for Zesty Blonde Gin',
+    blondeStory: true,
     story: [
       'Zesty Blonde Gin uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
       'The gin is produced using our four-step method for Longstream Classic Blonde dry gin. The very outside layer of lemon peel is then steeped in the gin for a minimum of two weeks.',
@@ -218,6 +222,7 @@ const v5Experimental = [
     position: 'left',
     photo: true,
     photoAlt: 'Coastal Blonde Gin',
+    blondeStory: true,
     story: [
       'This uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
       'Mānuka and seaweed are then steeped in the gin for a minimum of two weeks.',
@@ -242,6 +247,7 @@ const v5Experimental = [
     position: 'middle',
     photo: true,
     photoAlt: 'Blushing Blonde Gin',
+    blondeStory: true,
     story: [
       'Blushing Blonde Gin uses the same recipe as our flagship Classic Blonde Gin, but with a different mix of cuts (heads, hearts and tails).',
       'The gin is produced using our four-step method for Longstream Classic Blonde dry gin. Crushed blackberries and raspberries are then steeped in the gin for a minimum of two weeks.',
@@ -511,6 +517,12 @@ app.get('/order', (req, res) => {
     bottles: v5Bottles,
     experimentalBatches: v5Experimental
   });
+});
+
+// The story behind the Blonde name and the label portrait. Linked from the
+// detail modal of every spirit flagged blondeStory.
+app.get('/blonde', (req, res) => {
+  res.render('blonde');
 });
 
 // Liquor licence. /license redirects so both spellings work.

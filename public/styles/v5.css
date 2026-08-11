@@ -380,6 +380,29 @@ a.v5-card { text-decoration: none; color: inherit; cursor: pointer; }
 .v5-modal-story-content p:last-child { margin-bottom: 0; }
 .v5-modal-aside-content .v5-kicker { margin-bottom: 0.9rem; }
 
+/* "Behind the label" cross-link, appended to the story column of every
+   Blonde-named spirit. The label portrait itself is the thumbnail, so the
+   link shows you what it is about before you read it. */
+.v5-story-link {
+  display: flex; align-items: center; gap: 1rem; margin-top: 1.75rem;
+  padding: 0.85rem 1rem; text-decoration: none;
+  border: 1px solid var(--line); background: rgba(201, 168, 92, 0.04);
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.v5-story-link:hover { border-color: var(--gold); background: rgba(201, 168, 92, 0.09); }
+.v5-story-link-thumb {
+  flex: none; width: 56px; height: 56px; object-fit: cover; object-position: 50% 30%;
+  border: 1px solid var(--line); background: #000;
+}
+.v5-story-link-text { display: block; flex: 1; min-width: 0; }
+.v5-story-link-kicker {
+  display: block; font-size: 0.64rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.2rem;
+}
+.v5-story-link-title { display: block; font-size: 0.9rem; line-height: 1.4; color: var(--ink); }
+.v5-story-link-arrow { flex: none; color: var(--gold); font-size: 1.1rem; line-height: 1; }
+.v5-story-link:hover .v5-story-link-arrow { color: var(--gold-2); }
+
 /* club / newsletter */
 .v5-club { padding: 6.5rem 0; text-align: center; border-top: 1px solid var(--line); }
 .v5-club .lead { color: var(--muted); max-width: 36rem; margin: 0 auto 2rem; }
