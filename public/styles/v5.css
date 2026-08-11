@@ -98,6 +98,10 @@ section[id] { scroll-margin-top: 5.5rem; }
   transition: all 0.3s ease;
 }
 .v5-btn:hover { background: var(--gold); color: var(--bg) !important; }
+/* Secondary nav button (Club) — same shape as Order, but a neutral hairline so
+   the two sit together without competing. Order stays the gold one. */
+.v5-btn-alt { border-color: var(--line); color: var(--ink) !important; }
+.v5-btn-alt:hover { background: transparent; border-color: var(--gold); color: var(--gold-2) !important; }
 
 /* pre-launch notice bar — pinned to the top of the hero, overlaying it */
 .v5-notice {

@@ -12,6 +12,10 @@ header.v5-header
       a(href="/#range") Products
       a(href="/#story") Our Story
       a(href="/contact") Contact
+      //- The club signup only exists on the landing page, so this is always a
+      //- cross-page link. From the landing page itself it is a fragment-only
+      //- change, so the browser scrolls rather than reloading.
+      a.v5-btn.v5-btn-alt(href="/#club") Club
       a.v5-btn(href="/order") Order
 
 script.

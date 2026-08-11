@@ -157,17 +157,6 @@
   text-align: center;
   margin-top: 0.9rem;
 }
-.bl-fig-num {
-  display: block;
-  font-size: 0.66rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--gold);
-  /* letter-spacing trails the last glyph; pad the same amount back on to
-     keep the word optically centred */
-  padding-left: 0.32em;
-  margin-bottom: 0.25rem;
-}
 .bl-fig-cap {
   display: block;
   font-size: 0.88rem;
@@ -178,9 +167,9 @@
 
 .bl-op {
   align-self: center;
-  /* pull up by roughly half the caption block so the operator centres on the
-     frames, not on frame + caption */
-  margin-top: -2.6rem;
+  /* align-self centres this on frame + caption; pull it back up by roughly
+     half the (single-line) caption so it centres on the frames themselves */
+  margin-top: -1.6rem;
   font-family: var(--font-head);
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   line-height: 1;
