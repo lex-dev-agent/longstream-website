@@ -492,54 +492,8 @@ block content
 
   section.label-page
     div.container
-      h2.label-page-title Blonde Gin — Classic v2
-      p.label-page-subtitle Variation 5 · Classic reworked — stacked wordmark with a crest slot for artwork.
-
-      .label-showcase
-        .label-card-wrapper
-          h3.label-section-label Front
-          .gin-label.gl-classic2#glv5-front
-            +ginClassicV2Front
-        .label-card-wrapper
-          h3.label-section-label Back
-          .gin-label.gin-label-back#glv5-back
-            +ginBackLabelContent
-
-      +labelDownloads('glv5')
-
-  .label-print-offscreen(aria-hidden="true")
-    .gin-label.gl-classic2.gin-label--print#glv5-print-front
-      +ginClassicV2Front
-    .gin-label.gin-label-back.gin-label--print#glv5-print-back
-      +ginBackLabelContent
-
-  section.label-page
-    div.container
-      h2.label-page-title Blonde Gin — Classic v3
-      p.label-page-subtitle Variation 6 · Classic v2 in a copper &amp; rust palette.
-
-      .label-showcase
-        .label-card-wrapper
-          h3.label-section-label Front
-          .gin-label.gl-classic2.gl-classic3#glv6-front
-            +ginClassicV2Front
-        .label-card-wrapper
-          h3.label-section-label Back
-          .gin-label.gin-label-back#glv6-back
-            +ginBackLabelContent
-
-      +labelDownloads('glv6')
-
-  .label-print-offscreen(aria-hidden="true")
-    .gin-label.gl-classic2.gl-classic3.gin-label--print#glv6-print-front
-      +ginClassicV2Front
-    .gin-label.gin-label-back.gin-label--print#glv6-print-back
-      +ginBackLabelContent
-
-  section.label-page
-    div.container
       h2.label-page-title Blonde Gin — Classic v4
-      p.label-page-subtitle Variation 7 · Classic v2 using the base gold (--gold) instead of --gold-2.
+      p.label-page-subtitle Variation 7 · Stacked wordmark over the ghosted portrait, in the base gold.
 
       .label-showcase
         .label-card-wrapper
@@ -559,10 +513,38 @@ block content
     .gin-label.gin-label-back.gin-label--print#glv7-print-back
       +ginBackLabelContent
 
+  //- Classic v5 = Classic v4 with the copper portrait. Only the artwork
+  //- changes, so every word is left to the mixin's defaults — the trailing
+  //- argument is the background plate (see .gl-copper in design-v5.css).
+  - var copperBg = '/images/woman-background-copper-label.jpg'
+
+  section.label-page
+    div.container
+      h2.label-page-title Blonde Gin — Classic v5
+      p.label-page-subtitle Variation 8 · Classic v4 with the copper portrait, set top-centre on black.
+
+      .label-showcase
+        .label-card-wrapper
+          h3.label-section-label Front
+          .gin-label.gl-classic2.gl-classic4.gl-copper#glv14-front
+            +ginClassicV2Front(undefined, undefined, undefined, undefined, undefined, copperBg)
+        .label-card-wrapper
+          h3.label-section-label Back
+          .gin-label.gin-label-back#glv14-back
+            +ginBackLabelContent
+
+      +labelDownloads('glv14')
+
+  .label-print-offscreen(aria-hidden="true")
+    .gin-label.gl-classic2.gl-classic4.gl-copper.gin-label--print#glv14-print-front
+      +ginClassicV2Front(undefined, undefined, undefined, undefined, undefined, copperBg)
+    .gin-label.gin-label-back.gin-label--print#glv14-print-back
+      +ginBackLabelContent
+
   section.label-page
     div.container
       h2.label-page-title Blonde Gin — Blushing
-      p.label-page-subtitle Classic v2 variant · BLUSHING · Berry Finish.
+      p.label-page-subtitle Classic variant · BLUSHING · Berry Finish.
 
       .label-showcase
         .label-card-wrapper
@@ -585,7 +567,7 @@ block content
   section.label-page
     div.container
       h2.label-page-title Blonde Gin — Zesty
-      p.label-page-subtitle Classic v2 variant · ZESTY · Lemon Finish.
+      p.label-page-subtitle Classic variant · ZESTY · Lemon Finish.
 
       .label-showcase
         .label-card-wrapper
@@ -608,7 +590,7 @@ block content
   section.label-page
     div.container
       h2.label-page-title Blonde Gin — Coastal
-      p.label-page-subtitle Classic v2 variant · COASTAL · Salted Gin.
+      p.label-page-subtitle Classic variant · COASTAL · Salted Gin.
 
       .label-showcase
         .label-card-wrapper
@@ -822,9 +804,8 @@ block content
       init('glv2', 'blonde-gin-modern');
       init('glv3', 'blonde-gin-band');
       init('glv4', 'blonde-gin-frame');
-      init('glv5', 'blonde-gin-classic-v2');
-      init('glv6', 'blonde-gin-classic-v3');
       init('glv7', 'blonde-gin-classic-v4');
+      init('glv14', 'blonde-gin-classic-v5');
       init('glv8', 'blonde-gin-blushing');
       init('glv9', 'blonde-gin-zesty');
       init('glv13', 'blonde-gin-coastal');

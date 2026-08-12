@@ -434,15 +434,14 @@
 .design-v5 .gl-classic2 .label-botanical-divider::before,
 .design-v5 .gl-classic2 .label-botanical-divider::after { background: var(--gold-2); }
 
-/* ---- Variation 6 · Classic v3 (copper / rust palette) ---- */
-/* remap the gold accents to copper for everything the v2 rules colour
-   (brand, tasting, footer specs, gold rules, dividers, borders) */
-.design-v5 .gl-classic3 { --gold: #b5703f; --gold-2: #d98f5a; }
-/* the inner ornamental border uses a literal gold in the base rule — tint it copper */
-.design-v5 .gl-classic3.gin-label::after { border-color: rgba(181, 112, 63, 0.45); }
-
 /* ---- Variation 7 · Classic v4 (base gold instead of gold-2) ---- */
 .design-v5 .gl-classic4 { --gold-2: var(--gold); }
+
+/* ---- Variation 8 · Classic v5 (Classic v4 + the copper portrait) ---- */
+/* The plate (woman-background-copper-label.jpg) is built on pure black, so the
+   label bed is black too — the shared #1b1f1a→#14170f gradient would otherwise
+   show through .gl-bg's 75% and green-tint the portrait's surround. */
+.design-v5 .gl-copper { background: #000; }
 
 /* ---- Maymorn Estate · Classic v4 gold, own background framing ---- */
 /* the sawmill artwork sits lower and slightly narrower than the Classic photo */
