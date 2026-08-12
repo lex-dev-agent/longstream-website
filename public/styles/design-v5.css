@@ -438,10 +438,13 @@
 .design-v5 .gl-classic4 { --gold-2: var(--gold); }
 
 /* ---- Variation 8 · Classic v5 (Classic v4 + the copper portrait) ---- */
-/* The plate (woman-background-copper-label.jpg) is built on pure black, so the
-   label bed is black too — the shared #1b1f1a→#14170f gradient would otherwise
-   show through .gl-bg's 75% and green-tint the portrait's surround. */
+/* The plate (woman-background-copper-label.jpg) is built on black, so the label
+   bed is black too — the shared #1b1f1a→#14170f gradient would otherwise
+   green-tint the portrait's surround. */
 .design-v5 .gl-copper { background: #000; }
+/* Own framing: nearly full-bleed and at full strength, rather than the shared
+   112%/bottom:0/0.75 the ghosted plates use. */
+.design-v5 .gl-copper .gl-bg { bottom: -2%; width: 105%; opacity: 1; }
 
 /* ---- Maymorn Estate · Classic v4 gold, own background framing ---- */
 /* the sawmill artwork sits lower and slightly narrower than the Classic photo */
