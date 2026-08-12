@@ -444,7 +444,7 @@
 .design-v5 .gl-copper { background: #000; }
 /* Own framing: nearly full-bleed and at full strength, rather than the shared
    112%/bottom:0/0.75 the ghosted plates use. */
-.design-v5 .gl-copper .gl-bg { bottom: -2%; width: 105%; opacity: 1; }
+.design-v5 .gl-copper .gl-bg { bottom: -10%; width: 117%; opacity: 1; }
 
 /* ---- Maymorn Estate · Classic v4 gold, own background framing ---- */
 /* the sawmill artwork sits lower and slightly narrower than the Classic photo */
