@@ -445,6 +445,23 @@
 /* Own framing: nearly full-bleed and at full strength, rather than the shared
    112%/bottom:0/0.75 the ghosted plates use. */
 .design-v5 .gl-copper .gl-bg { bottom: -10%; width: 117%; opacity: 1; }
+/* Bottom fade — the two numbers to tune, as percentages down the label:
+   the portrait is untouched above --copper-fade-start and fully black by
+   --copper-fade-end. The plate's own artwork ends at about 62% down, and it
+   carries a short soft edge of its own there, so pushing --copper-fade-end
+   past ~62% just leaves the picture ending on its own. */
+.design-v5 .gl-copper {
+  --copper-fade-start: 40%;
+  --copper-fade-end: 62%;
+}
+.design-v5 .gl-fade { position: absolute; inset: 0; pointer-events: none; }
+.design-v5 .gl-copper .gl-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent var(--copper-fade-start),
+    #000 var(--copper-fade-end)
+  );
+}
 
 /* ---- Maymorn Estate · Classic v4 gold, own background framing ---- */
 /* the sawmill artwork sits lower and slightly narrower than the Classic photo */

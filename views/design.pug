@@ -139,6 +139,13 @@ mixin ginClassicV2Front(word, tasting, gintype, brand, abv, bg)
   //- Optional per-label background art; defaults to the shared Classic photo.
   - bg = bg || '/images/woman-background5.png'
   img.gl-bg(src=bg, alt="", aria-hidden="true")
+  //- Fade-to-black overlay for the artwork. Sits between .gl-bg and
+  //- .gin-label-inner in DOM order, so it paints over the photo but under the
+  //- type without needing a z-index. Inert unless a variant gives it a
+  //- gradient (see .gl-copper in design-v5.css). A gradient overlay rather
+  //- than a mask on the image itself: html2canvas, which drives the PDF/PNG
+  //- buttons, renders gradients but ignores CSS masks.
+  .gl-fade(aria-hidden="true")
   .gin-label-inner
     p.label-distillery.clv2-brandline LONGSTREAM #[img.clv2-brandlogo(src="/images/logo-white.png" alt="Longstream Distillery")] DISTILLERY
     .clv2-imgslot(aria-hidden="true")
