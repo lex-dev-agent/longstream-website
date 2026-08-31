@@ -13,12 +13,28 @@
      sheet, with the bleed and crop marks the printer gets. -->
 <style>
   * { box-sizing: border-box; }
-  body { margin: 0; background: #14170f; --pad: 24px; }
+  body {
+    margin: 0; background: #14170f;
+    --pad: 24px;
+    /* Cap per label, so a very wide screen stops scaling them up. 760px is
+       about 1.5x life size — 130mm is 491 CSS px, since CSS fixes 1in at
+       96px whatever the display actually is. */
+    --max-label: 760px;
+  }
 
   /* Centred in the window both ways. `safe` so that when the labels are taller
      than the window they start at the top and scroll, rather than centring
      their overflow off-screen. */
-  .grid { display: flex; align-items: safe center; min-height: 100vh; }
+  .grid {
+    display: flex;
+    align-items: safe center;
+    min-height: 100vh;
+    /* Cap the pair rather than each panel, so past the cap the two stay
+       together with the same gaps instead of drifting apart. Three pads: the
+       two outer margins and the one between. */
+    max-width: calc(var(--max-label) * 2 + var(--pad) * 3);
+    margin: 0 auto;
+  }
 
   /* Half padding on the inside edges, so the two panels together leave a centre
      gap the same width as the margin around the outside. */
