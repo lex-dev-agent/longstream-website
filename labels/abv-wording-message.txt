@@ -1,0 +1,12 @@
+I looked into the ABV wording before we lock the label.
+
+"38% ABV" is fine. MPI's own labelling guide says the alcohol amount has to be shown as "% Alc/Vol or mL/100 mL ... OR words that mean the same thing" — so the exact abbreviation isn't fixed, and % ABV means the same thing.
+
+Food Standards Australia New Zealand write the actual rule (Standard 2.7.1), and on their own site they use "5% ABV" as the example of how to show it.
+
+There's also nothing requiring a decimal, so 38% and 38.0% are both legal. If anything 38% is the safer one — the stated strength has to be accurate within a tolerance, and 38.0% claims tighter precision than 38% does, so it gives us less room if a batch comes out slightly off.
+
+Totally happy to go with 38.0% Alc/Vol if you prefer the look of it. Just wanted to check we weren't being forced into it. One thing either way — we should use the same wording on both labels.
+
+MPI guide: https://www.mpi.govt.nz/dmsdocument/31404-A-guide-to-alcoholic-drinks-whats-in-them-and-how-to-label-them
+FSANZ: https://www.foodstandards.gov.au/consumer/labelling/Labelling-of-alcoholic-beverages

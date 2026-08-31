@@ -1,7 +1,9 @@
-/* Classic Blonde Gin — front label, 130 x 115mm.
+/* Classic Blonde Gin — front label, 130 x 115mm. BLONDE set as type.
 
-   The suggested label. Ross's version of this front is a separate file,
-   classic-blonde-ross-front.css, which shares nothing with this one.
+   The pair to classic-blonde-front.css, which is the same label with Ross's
+   gold-embossed BLONDE artwork in place of this type. Kept as a whole separate
+   stylesheet rather than a variant class so the two can be compared without
+   either being able to affect the other.
 
    Self-contained on purpose: every label carries its own copy of the chassis
    below, so nothing here can reach another label. Shared machinery would save
@@ -260,17 +262,14 @@ p, h1 { margin: 0; }   /* the wordmark is an h1 */
   line-height: 1;
 }
 
-/* BLONDE is placed artwork, not type: Ross's gold-embossed wordmark, cut from
-   the 1754 x 608 original in his text & graphics sheet. Width is set here and
-   the height follows from the file's own aspect, so replacing the artwork can
-   never distort it.
-
-   68.5mm drawn is 63.6mm printed, which keeps the wordmark the width the type
-   had. At 1627px across that is 650 DPI — comfortably past print standard, and
-   the highest-resolution element on the label.
- */
-.brand { width: 68.5mm; }
-.brand img { display: block; width: 100%; height: auto; }
+.brand {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 14.64mm;  /* was 3rem */
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--gold);
+}
 
 /* LONDON DRY GIN centred in the divider. The old label set DRY GIN at
    0.8rem = 3.9mm; the longer name needs to come back to leave the rules room. */

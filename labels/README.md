@@ -28,10 +28,12 @@ produces, so it is fine to nudge things there and then re-render.
 
 | | |
 |---|---|
-| `classic-blonde-front.html` | Front, trim 130 × 115mm — **Ben's suggestion** |
+| `classic-blonde-front.html` | Front, 130 × 115mm — BLONDE as Ross's gold artwork |
+| `classic-blonde-front-type.html` | The same, BLONDE set as type |
 | `classic-blonde-ross-front.html` | Front — **Ross's version** |
 | `classic-blonde-back.html` | Back, trim 90 × 115mm |
 | `classic-blonde-front.css` | Styling for that label, and nothing else |
+| `classic-blonde-front-type.css` | Styling for that label, and nothing else |
 | `classic-blonde-ross-front.css` | Styling for that label, and nothing else |
 | `classic-blonde-back.css` | Styling for that label, and nothing else |
 | `old/` | The references both were matched against |
