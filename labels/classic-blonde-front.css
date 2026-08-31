@@ -1,0 +1,300 @@
+/* Classic Blonde Gin — front label, 130 x 115mm.
+
+   The suggested label. Ross's version of this front is a separate file,
+   classic-blonde-ross-front.css, which shares nothing with this one.
+
+   Self-contained on purpose: every label carries its own copy of the chassis
+   below, so nothing here can reach another label. Shared machinery would save
+   a few lines and cost the guarantee, which is the wrong trade on print files.
+
+   Every dimension is in millimetres, because every dimension is physical:
+   this page is only ever rendered by scripts/render-label.js at 1:1 into a
+   PDF. Nothing is in px or rem, so nothing needs converting to check a proof
+   against a ruler.
+
+   Page geometry:
+
+     ┌ sheet ───────────────────────────────┐  sheet = trim + bleed + marks
+     │      ╷                        ╷      │  marks = white margin holding
+     │   ┌──┼────── bleed ───────────┼──┐   │          the crop marks
+     │   │  ┌───────── trim ─────────┐  │   │  bleed = gold, an extension of
+     │   │  │                        │  │   │          the border, so a cut
+     │   │  │                        │  │   │          1mm out still lands
+     │   │  └────────────────────────┘  │   │          in gold
+     │   └──┼────────────────────────┼──┘   │  trim  = the die-cut edge
+     │      ╵                        ╵      │
+     └──────────────────────────────────────┘
+
+   The page size lives in the HTML file's @page rule; the renderer reads it
+   from there, so that is the only place a size is stated twice. */
+
+/* ── fonts ──────────────────────────────────────────────────────────────
+   Local copies, so a render never depends on the network and never quietly
+   falls back to a system serif. fonts.css and the files it points at are
+   produced by scripts/fetch-label-fonts.js — run that if you add a weight,
+   and read the note at the top of it before changing how they load. This is
+   the one file shared between labels: it declares typefaces, not design, so
+   it cannot carry a layout change from one label to another. */
+@import url('fonts.css');
+
+:root {
+  /* the brand gold, --gold in public/styles/v5.css. Note main.css carries an
+     older #c9a84c for the same rules — slightly deeper, and not the one the
+     approved label proofs were rendered in. */
+  --gold: #c9a85c;
+  --gold-rgb: 201, 168, 92;   /* the same gold, for the translucent rules */
+  --gold-2: #e6cf94;
+  --ink: #ece9df;
+  --muted: #9a988c;
+  --bed-top: #1b1f1a;
+  --bed: #14170f;
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Jost', system-ui, sans-serif;
+
+  --bleed: 3mm;
+  --marks: 6mm;
+
+  /* The old label's own trim. Everything inside .label is drawn at this size
+     and then scaled to the new one, so every measurement below is the OLD
+     label's, unchanged. It was drawn at 290 x 406 px standing for
+     88.9 x 123.8mm, so 1px = 0.305mm and 1rem = 4.88mm — convert anything new
+     the same way rather than eyeballing it. */
+  --old-h: 123.8mm;
+  /* The old label's width. Not used to size the canvas — that comes from the
+     trim — but as the reference width for the few things that should stay the
+     size they were rather than widening with the label. */
+  --old-w: 88.9mm;
+
+  /* One uniform scale, set by height alone: the new label is 115mm tall
+     against the old label's 123.8mm. Scaling by this and nothing else keeps
+     every vertical proportion — type size, gaps, the portrait — at the same
+     percentage down the label as the old one. Width is NOT scaled; the label
+     is simply drawn on a wider canvas, so pulling the edges out adds room
+     rather than stretching anything. */
+  --s: calc(115 / 123.8);
+
+  --border: 0.915mm;   /* was 3px — the gold band left after trimming */
+  --keyline: 2.135mm;  /* was 7px — inset of the thin inner frame */
+  --pad: 4.88mm;       /* was 16px — inset of the type from the trim edge */
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; background: #fff; }
+p, h1 { margin: 0; }   /* the wordmark is an h1 */
+
+/* ── sheet / bleed / trim ─────────────────────────────────────────────── */
+
+.sheet { position: relative; background: #fff; overflow: hidden; }
+
+.bleed { position: absolute; inset: var(--marks); background: var(--gold); }
+
+.trim { position: absolute; inset: var(--bleed); overflow: hidden; }
+
+/* ── the old label on a wider canvas ──────────────────────────────────
+   Drawn at the old label's HEIGHT (123.8mm) and at whatever width the new
+   trim needs, then scaled uniformly so that height becomes 115mm. Because the
+   scale is uniform, every vertical measurement lands at the same percentage
+   down the label as it did on the old one. Because the canvas is drawn wider
+   rather than scaled wider, nothing is stretched horizontally: the extra
+   width is just room.
+
+   Nothing here is sized as a plain % of width — a percentage would resolve
+   against the wider canvas and grow with it. The rules and dividers are
+   measured against --old-w so they stay the width they were, and the portrait
+   is measured from the height for the same reason. */
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--trim-w) / var(--s));
+  height: var(--old-h);
+  transform: scale(var(--s));
+  transform-origin: top left;
+  border: var(--border) solid var(--gold);
+  overflow: hidden;
+}
+
+/* thin inner frame, the one ornamental line the label carries */
+.keyline {
+  position: absolute;
+  inset: var(--keyline);
+  border: 0.305mm solid rgba(var(--gold-rgb), 0.4);  /* was 1px */
+  pointer-events: none;
+}
+
+/* ── crop marks ───────────────────────────────────────────────────────── */
+/* Zero-size anchors sitting exactly on the four trim corners; each draws one
+   horizontal and one vertical hairline outward, with a 1mm gap so the marks
+   never touch the artwork. */
+.mark { position: absolute; width: 0; height: 0; }
+.mark::before,
+.mark::after { content: ''; position: absolute; background: #000; }
+.mark::before { height: 0.2mm; width: 4mm; top: -0.1mm; }
+.mark::after { width: 0.2mm; height: 4mm; left: -0.1mm; }
+
+.mark.tl { left: calc(var(--marks) + var(--bleed)); top: calc(var(--marks) + var(--bleed)); }
+.mark.tr { right: calc(var(--marks) + var(--bleed)); top: calc(var(--marks) + var(--bleed)); }
+.mark.bl { left: calc(var(--marks) + var(--bleed)); bottom: calc(var(--marks) + var(--bleed)); }
+.mark.br { right: calc(var(--marks) + var(--bleed)); bottom: calc(var(--marks) + var(--bleed)); }
+
+.mark.tl::before, .mark.bl::before { right: 1mm; }
+.mark.tr::before, .mark.br::before { left: 1mm; }
+.mark.tl::after, .mark.tr::after { bottom: 1mm; }
+.mark.bl::after, .mark.br::after { top: 1mm; }
+
+/* ── the type column ──────────────────────────────────────────────────── */
+
+.content {
+  position: absolute;
+  inset: var(--pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--ink);
+}
+
+.content { justify-content: space-between; padding-top: 1.2mm; }
+/* old label had 0.5rem = 2.44mm above the brandline; tightened to sit the
+   enlarged mark closer to the top edge */
+
+/* LONGSTREAM [mark] DISTILLERY */
+.brandline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 2.83mm;     /* was 0.58rem */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Square, which squeezes the mark horizontally — logo-white.png is a wide
+   asset (867 x 564, ink 1.625:1) and every appearance of it, the site header
+   included, forces it into a square box. Worth redrawing properly one day;
+   until then the label matches the rest of the brand. */
+.brandmark {
+  height: 6.11mm; width: 6.11mm;   /* old label was 1.8em square = 5.09mm, x1.2 */
+  vertical-align: middle;
+  margin: 0 0.35em;
+}
+
+/* Held to the width it had on the old label rather than 75% of the new one,
+   which would run it out towards the edges. */
+.rule {
+  width: calc(0.75 * var(--old-w));   /* was 75% */
+  height: 0.2mm;
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  flex-shrink: 0;
+}
+
+/* The plate is built on black, so the bed is black too — a green-black
+   gradient would tint the portrait's surround. */
+.label { background: #000; }
+
+/* Held clear for the portrait's face, between the brandline and the wordmark. */
+.portrait { min-height: 42.7mm; }   /* was 140px */
+
+/* The copper plate. Unlike the old one this is finished full-label artwork —
+   leather ground, figure, and the fade into it are all baked in — and it is
+   drawn at exactly the label's aspect (1333 x 1180 = 1.130). So it simply
+   covers the label rather than being positioned: no framing to tune, no fade
+   overlay, and nothing cropped. `cover` is kept so that a replacement at a
+   slightly different aspect fills the label rather than letterboxing.
+
+   Artwork variants live side by side in public/images (leather.png,
+   leather3.png, ...); switching between them is the src in the HTML, so
+   nothing has to be overwritten to try one.
+
+   Note for print: these land around 260 DPI across 130mm, under the 300
+   standard. 1535 x 1358 px is exactly 300 DPI at this trim. */
+.art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nameblock {
+  height: 32.03mm;   /* was 105px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.73mm;       /* was 0.15rem */
+}
+
+.gintype {
+  display: flex;
+  align-items: center;
+  gap: 1.95mm;   /* was 0.4rem */
+  width: calc(0.8 * var(--old-w));   /* was 80%, see .rule */
+}
+.gintype::before,
+.gintype::after { content: ''; flex: 1; height: 0.305mm; background: var(--gold); }
+.gintype span {
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  padding-left: 0.4em;
+  white-space: nowrap;
+}
+
+.variant {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 8.78mm;   /* was 1.8rem */
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+.brand {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 14.64mm;  /* was 3rem */
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--gold);
+}
+
+/* DRY GIN centred in the divider */
+.gintype span { font-size: 3.9mm; }   /* was 0.8rem */
+
+.origin {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 2.93mm;   /* was 0.6rem */
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Fixed height so a note that wraps to two lines does not shift the layout. */
+.tasting {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 4mm;         /* was 0.82rem */
+  line-height: 1.55;
+  margin-bottom: 1.46mm;  /* was 0.3rem */
+  min-height: 10mm;       /* old label reserved 2.55rem = 12.44mm */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.specs {
+  display: flex;
+  align-items: center;
+  gap: 2.44mm;   /* was 0.5rem */
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 2.93mm;   /* was 0.6rem */
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.specs .dot { font-size: 4.39mm; }   /* was 0.9rem */

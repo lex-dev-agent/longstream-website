@@ -437,6 +437,33 @@ app.get('/design', requirePassword(), (req, res) => {
 });
 app.post('/design', handlePasswordPost('/design'));
 
+// Label comparison (password protected, same gate as /design)
+//
+// Served with a trailing slash on purpose: compare.html loads the label pages
+// as iframes with relative URLs, and those only resolve to /compare/... once
+// the path ends in a slash. Non-strict routing treats /compare and /compare/
+// as the same route, so the redirect has to test the raw URL.
+const LABELS_DIR = path.join(__dirname, '..', 'labels');
+
+app.get('/compare', (req, res, next) => {
+  if (req.originalUrl.startsWith('/compare/')) return next();
+  res.redirect('/compare/');
+});
+app.get('/compare', requirePassword(), (req, res) => {
+  res.sendFile(path.join(LABELS_DIR, 'compare.html'));
+});
+app.post('/compare', handlePasswordPost('/compare/'));
+
+// The label pages, stylesheets and fonts the iframes pull in. Behind the same
+// gate — this is unreleased artwork.
+app.use('/compare', requirePassword(), express.static(LABELS_DIR, { index: false }));
+
+// The labels reference their artwork as ../public/images/... so that opening a
+// label file straight off disk works. Served from /compare/ that resolves to
+// /public/images/..., hence this alias. It exposes nothing new: public/ is
+// already served at the root above.
+app.use('/public', express.static(path.join(__dirname, '..', 'public')));
+
 // Previous design page, kept for reference (password protected)
 app.get('/design-old', requirePassword(), (req, res) => {
   res.render('design-old');

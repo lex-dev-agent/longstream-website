@@ -1,0 +1,74 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Classic Blonde — front</title>
+<!-- Both fronts side by side, each filling half the window.
+
+     The labels are loaded in iframes rather than copied in, so this page can
+     never drift from the artwork and Inspect reaches the real elements. It
+     deliberately does NOT use the rendered PNGs in out/, which are gitignored
+     and so do not exist on the server — this way the page shows the current
+     label whether it is opened off disk or at longstream.nz/compare/.
+
+     Cropped to the trim by default. Add #bleed to the URL to see the whole
+     sheet, with the bleed and crop marks the printer gets. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #14170f; --pad: 24px; }
+
+  /* Centred in the window both ways. `safe` so that when the labels are taller
+     than the window they start at the top and scroll, rather than centring
+     their overflow off-screen. */
+  .grid { display: flex; align-items: safe center; min-height: 100vh; }
+
+  /* Half padding on the inside edges, so the two panels together leave a centre
+     gap the same width as the margin around the outside. */
+  .panel { width: 50%; padding: var(--pad); }
+  .panel:first-child { padding-right: calc(var(--pad) / 2); }
+  .panel:last-child  { padding-left:  calc(var(--pad) / 2); }
+
+  .stage { width: 100%; overflow: hidden; }
+
+  /* The frame cannot reflow, so it is drawn at its real size and scaled to fit
+     — see fit() below. It is also a few pixels larger than the 148 x 133mm
+     sheet inside it: millimetres do not land on whole pixels, so a frame asked
+     for 148mm gets a 147.9mm viewport, the sheet overflows it by a tenth of a
+     millimetre, and scrollbars appear. The spare pixels absorb that. */
+  iframe {
+    width: calc(148mm + 6px); height: calc(133mm + 6px);
+    border: 0; display: block; transform-origin: top left; background: #fff;
+  }
+</style>
+
+<div class="grid">
+  <div class="panel"><div class="stage">
+    <iframe src="classic-blonde-front.html" title="Ben's front label"></iframe>
+  </div></div>
+  <div class="panel"><div class="stage">
+    <iframe src="classic-blonde-ross-front.html" title="Ross's front label"></iframe>
+  </div></div>
+</div>
+
+<script>
+  const TRIM = { w: 130, h: 115 };     // mm, the die-cut label
+  const SHEET = { w: 148, h: 133 };    // mm, plus bleed and crop marks
+  const INSET = 9;                     // mm from sheet edge to trim (6 marks + 3 bleed)
+  const mm = v => v * 96 / 25.4;
+
+  function fit() {
+    const bleed = location.hash === '#bleed';
+    const size = bleed ? SHEET : TRIM;
+    for (const stage of document.querySelectorAll('.stage')) {
+      const frame = stage.querySelector('iframe');
+      const z = stage.clientWidth / mm(size.w);
+      // Transforms apply right to left: the frame shifts by the inset first,
+      // then the whole thing scales, so the trim lands on the stage origin.
+      frame.style.transform = bleed
+        ? `scale(${z})`
+        : `scale(${z}) translate(${-INSET}mm, ${-INSET}mm)`;
+      stage.style.height = mm(size.h) * z + 'px';
+    }
+  }
+  addEventListener('hashchange', fit);
+  addEventListener('resize', fit);
+  fit();
+</script>

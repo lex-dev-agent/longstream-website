@@ -1,0 +1,231 @@
+/* Classic Blonde Gin — back label, 90 x 115mm.
+
+   Still the old back: description, address, warning and pregnancy warning.
+   The energy panel, barcode window and bottle number from the working doc
+   are not on it yet.
+
+   Self-contained on purpose: every label carries its own copy of the chassis
+   below, so nothing here can reach another label. Shared machinery would save
+   a few lines and cost the guarantee, which is the wrong trade on print files.
+
+   Every dimension is in millimetres, because every dimension is physical:
+   this page is only ever rendered by scripts/render-label.js at 1:1 into a
+   PDF. Nothing is in px or rem, so nothing needs converting to check a proof
+   against a ruler.
+
+   Page geometry:
+
+     ┌ sheet ───────────────────────────────┐  sheet = trim + bleed + marks
+     │      ╷                        ╷      │  marks = white margin holding
+     │   ┌──┼────── bleed ───────────┼──┐   │          the crop marks
+     │   │  ┌───────── trim ─────────┐  │   │  bleed = gold, an extension of
+     │   │  │                        │  │   │          the border, so a cut
+     │   │  │                        │  │   │          1mm out still lands
+     │   │  └────────────────────────┘  │   │          in gold
+     │   └──┼────────────────────────┼──┘   │  trim  = the die-cut edge
+     │      ╵                        ╵      │
+     └──────────────────────────────────────┘
+
+   The page size lives in the HTML file's @page rule; the renderer reads it
+   from there, so that is the only place a size is stated twice. */
+
+/* ── fonts ──────────────────────────────────────────────────────────────
+   Local copies, so a render never depends on the network and never quietly
+   falls back to a system serif. fonts.css and the files it points at are
+   produced by scripts/fetch-label-fonts.js — run that if you add a weight,
+   and read the note at the top of it before changing how they load. This is
+   the one file shared between labels: it declares typefaces, not design, so
+   it cannot carry a layout change from one label to another. */
+@import url('fonts.css');
+
+:root {
+  /* the brand gold, --gold in public/styles/v5.css. Note main.css carries an
+     older #c9a84c for the same rules — slightly deeper, and not the one the
+     approved label proofs were rendered in. */
+  --gold: #c9a85c;
+  --gold-rgb: 201, 168, 92;   /* the same gold, for the translucent rules */
+  --gold-2: #e6cf94;
+  --ink: #ece9df;
+  --muted: #9a988c;
+  --bed-top: #1b1f1a;
+  --bed: #14170f;
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Jost', system-ui, sans-serif;
+
+  --bleed: 3mm;
+  --marks: 6mm;
+
+  /* The old label's own trim. Everything inside .label is drawn at this size
+     and then scaled to the new one, so every measurement below is the OLD
+     label's, unchanged. It was drawn at 290 x 406 px standing for
+     88.9 x 123.8mm, so 1px = 0.305mm and 1rem = 4.88mm — convert anything new
+     the same way rather than eyeballing it. */
+  --old-h: 123.8mm;
+  /* The old label's width. Not used to size the canvas — that comes from the
+     trim — but as the reference width for the few things that should stay the
+     size they were rather than widening with the label. */
+  --old-w: 88.9mm;
+
+  /* One uniform scale, set by height alone: the new label is 115mm tall
+     against the old label's 123.8mm. Scaling by this and nothing else keeps
+     every vertical proportion — type size, gaps, the portrait — at the same
+     percentage down the label as the old one. Width is NOT scaled; the label
+     is simply drawn on a wider canvas, so pulling the edges out adds room
+     rather than stretching anything. */
+  --s: calc(115 / 123.8);
+
+  --border: 0.915mm;   /* was 3px — the gold band left after trimming */
+  --keyline: 2.135mm;  /* was 7px — inset of the thin inner frame */
+  --pad: 4.88mm;       /* was 16px — inset of the type from the trim edge */
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; background: #fff; }
+p, h1 { margin: 0; }   /* the wordmark is an h1 */
+
+/* ── sheet / bleed / trim ─────────────────────────────────────────────── */
+
+.sheet { position: relative; background: #fff; overflow: hidden; }
+
+.bleed { position: absolute; inset: var(--marks); background: var(--gold); }
+
+.trim { position: absolute; inset: var(--bleed); overflow: hidden; }
+
+/* ── the old label on a wider canvas ──────────────────────────────────
+   Drawn at the old label's HEIGHT (123.8mm) and at whatever width the new
+   trim needs, then scaled uniformly so that height becomes 115mm. Because the
+   scale is uniform, every vertical measurement lands at the same percentage
+   down the label as it did on the old one. Because the canvas is drawn wider
+   rather than scaled wider, nothing is stretched horizontally: the extra
+   width is just room.
+
+   Nothing here is sized as a plain % of width — a percentage would resolve
+   against the wider canvas and grow with it. The rules and dividers are
+   measured against --old-w so they stay the width they were, and the portrait
+   is measured from the height for the same reason. */
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--trim-w) / var(--s));
+  height: var(--old-h);
+  transform: scale(var(--s));
+  transform-origin: top left;
+  border: var(--border) solid var(--gold);
+  overflow: hidden;
+}
+
+/* thin inner frame, the one ornamental line the label carries */
+.keyline {
+  position: absolute;
+  inset: var(--keyline);
+  border: 0.305mm solid rgba(var(--gold-rgb), 0.4);  /* was 1px */
+  pointer-events: none;
+}
+
+/* ── crop marks ───────────────────────────────────────────────────────── */
+/* Zero-size anchors sitting exactly on the four trim corners; each draws one
+   horizontal and one vertical hairline outward, with a 1mm gap so the marks
+   never touch the artwork. */
+.mark { position: absolute; width: 0; height: 0; }
+.mark::before,
+.mark::after { content: ''; position: absolute; background: #000; }
+.mark::before { height: 0.2mm; width: 4mm; top: -0.1mm; }
+.mark::after { width: 0.2mm; height: 4mm; left: -0.1mm; }
+
+.mark.tl { left: calc(var(--marks) + var(--bleed)); top: calc(var(--marks) + var(--bleed)); }
+.mark.tr { right: calc(var(--marks) + var(--bleed)); top: calc(var(--marks) + var(--bleed)); }
+.mark.bl { left: calc(var(--marks) + var(--bleed)); bottom: calc(var(--marks) + var(--bleed)); }
+.mark.br { right: calc(var(--marks) + var(--bleed)); bottom: calc(var(--marks) + var(--bleed)); }
+
+.mark.tl::before, .mark.bl::before { right: 1mm; }
+.mark.tr::before, .mark.br::before { left: 1mm; }
+.mark.tl::after, .mark.tr::after { bottom: 1mm; }
+.mark.bl::after, .mark.br::after { top: 1mm; }
+
+/* ── the type column ──────────────────────────────────────────────────── */
+
+.content {
+  position: absolute;
+  inset: var(--pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* The back keeps the label's own green-black bed — only the front went black,
+   and only because the copper plate sits on it. */
+.label { background: linear-gradient(180deg, var(--bed-top), var(--bed)); }
+
+.content {
+  justify-content: flex-start;
+  padding: 6.1mm 5.37mm 2.44mm;   /* was 1.25rem 1.1rem, 0.5rem foot */
+}
+
+.rule {
+  width: calc(0.75 * var(--old-w));   /* was 75% */
+  height: 0.305mm;   /* was 1px */
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  flex-shrink: 0;
+}
+
+.backhead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.46mm;            /* was 0.3rem */
+  margin-bottom: 2.44mm;  /* was 0.5rem */
+}
+.backhead .backmark { width: 9.76mm; height: 9.76mm; }   /* was 32px */
+
+.brandline {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 2.44mm;     /* was 0.5rem */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.blurb {
+  font-family: var(--serif);
+  font-size: 2.93mm;   /* was 0.6rem */
+  line-height: 1.65;
+  margin: 2.93mm 0;    /* was 0.6rem 0 */
+  color: var(--gold-2);
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  gap: 0.98mm;      /* was 0.2rem */
+  margin: 2.44mm 0; /* was 0.5rem 0 */
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 2.83mm;   /* was 0.58rem */
+  color: var(--ink);
+}
+
+.backfoot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.88mm;   /* was 1rem */
+  width: 100%;
+}
+
+.warning {
+  font-family: var(--sans);
+  font-size: 2.15mm;   /* was 0.44rem */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.pregnancy { width: 30.5mm; height: auto; display: block; }   /* was max-width 100px */

@@ -6,3 +6,6 @@ npm-debug.log*
 
 # Customer source briefs / mockups (not part of the deployed site)
 /*.pdf
+
+# Rendered label artwork — regenerate with scripts/render-label.js
+labels/out/
