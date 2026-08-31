@@ -12,11 +12,19 @@
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
+const sharp = require('sharp');
 const { pathToFileURL } = require('url');
 const puppeteer = require('puppeteer');
 
 const LABELS = path.join(__dirname, '..', 'labels');
 const OUT = path.join(LABELS, 'out');
+// Web-sized copies of the trim, committed and served by labels/compare.html.
+// They exist because a live-rendered comparison shows whatever fonts the
+// VIEWER has: Ross's label is set in Times New Roman, which a Linux machine
+// does not have, so it silently falls back to some other serif. Rendering here
+// and shipping the picture means everyone sees the same label.
+const PROOFS = path.join(LABELS, 'proofs');
+const PROOF_WIDTH = 1600;   // ~2x the compare page's 760px cap
 const DPI = 300;
 const CSS_DPI = 96; // 1 CSS px = 1/96 inch, which is how mm map to pixels
 
@@ -102,6 +110,11 @@ async function render(browser, file) {
   const png = path.join(OUT, name + '.png');
   await page.screenshot({ path: png, clip: box });
 
+  await sharp(png)
+    .resize({ width: PROOF_WIDTH })
+    .webp({ quality: 90 })
+    .toFile(path.join(PROOFS, name + '.webp'));
+
   // .content is absolutely positioned, so anything that does not fit simply
   // spills past the trim edge and gets cut — silently, and only visible if
   // you happen to look at the foot of the page. Measure it instead.
@@ -113,7 +126,7 @@ async function render(browser, file) {
   });
 
   await page.close();
-  console.log(`${name}  ${w} x ${h} mm page  ->  out/${name}.pdf, out/${name}.png`);
+  console.log(`${name}  ${w} x ${h} mm page  ->  out/${name}.pdf, out/${name}.png, proofs/${name}.webp`);
   if (spill > 0.1) console.log(`  ! content overflows the label by ${spill.toFixed(1)} mm`);
 
   const wanted = declaredFamilies();
@@ -137,6 +150,7 @@ async function render(browser, file) {
   }
 
   fs.mkdirSync(OUT, { recursive: true });
+  fs.mkdirSync(PROOFS, { recursive: true });
   const browser = await puppeteer.launch();
   try {
     for (const f of files) await render(browser, f);

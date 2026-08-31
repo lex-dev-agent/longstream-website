@@ -3,14 +3,17 @@
 <title>Classic Blonde — front</title>
 <!-- Both fronts side by side, each filling half the window.
 
-     The labels are loaded in iframes rather than copied in, so this page can
-     never drift from the artwork and Inspect reaches the real elements. It
-     deliberately does NOT use the rendered PNGs in out/, which are gitignored
-     and so do not exist on the server — this way the page shows the current
-     label whether it is opened off disk or at longstream.nz/compare/.
+     These are RENDERED IMAGES (labels/proofs/*.webp), not the live label pages,
+     and deliberately so. Ross's label is set in Times New Roman; a machine
+     without it — any Linux box — silently falls back to another serif, so a
+     live-rendered comparison shows the viewer's fonts rather than the label's.
+     Rendering on the machine that has the fonts and shipping the picture means
+     everyone sees the same thing. Re-run scripts/render-label.js after editing
+     a label, then deploy.
 
-     Cropped to the trim by default. Add #bleed to the URL to see the whole
-     sheet, with the bleed and crop marks the printer gets. -->
+     Add #live to the URL for the label pages themselves in iframes, showing the
+     whole sheet with bleed and crop marks, and reaching the real elements with
+     Inspect. That view IS subject to the font problem above. -->
 <style>
   * { box-sizing: border-box; }
   body {
@@ -44,6 +47,8 @@
 
   .stage { width: 100%; overflow: hidden; }
 
+  img { width: 100%; }
+
   /* The frame cannot reflow, so it is drawn at its real size and scaled to fit
      — see fit() below. It is also a few pixels larger than the 148 x 133mm
      sheet inside it: millimetres do not land on whole pixels, so a frame asked
@@ -51,37 +56,45 @@
      millimetre, and scrollbars appear. The spare pixels absorb that. */
   iframe {
     width: calc(148mm + 6px); height: calc(133mm + 6px);
-    border: 0; display: block; transform-origin: top left; background: #fff;
+    border: 0; transform-origin: top left; background: #fff;
   }
+
+  img, iframe { display: block; }
+  /* An author-level display:block beats the UA sheet's [hidden] rule no matter
+     the specificity, so the swap needs its own. */
+  [hidden] { display: none; }
 </style>
 
 <div class="grid">
   <div class="panel"><div class="stage">
-    <iframe src="classic-blonde-front.html" title="Ben's front label"></iframe>
+    <img src="proofs/classic-blonde-front.webp" alt="Ben's front label">
+    <iframe src="classic-blonde-front.html" title="Ben's front label" hidden></iframe>
   </div></div>
   <div class="panel"><div class="stage">
-    <iframe src="classic-blonde-ross-front.html" title="Ross's front label"></iframe>
+    <img src="proofs/classic-blonde-ross-front.webp" alt="Ross's front label">
+    <iframe src="classic-blonde-ross-front.html" title="Ross's front label" hidden></iframe>
   </div></div>
 </div>
 
 <script>
-  const TRIM = { w: 130, h: 115 };     // mm, the die-cut label
-  const SHEET = { w: 148, h: 133 };    // mm, plus bleed and crop marks
-  const INSET = 9;                     // mm from sheet edge to trim (6 marks + 3 bleed)
+  const SHEET = { w: 148, h: 133 };    // mm, trim plus bleed and crop marks
   const mm = v => v * 96 / 25.4;
 
   function fit() {
-    const bleed = location.hash === '#bleed';
-    const size = bleed ? SHEET : TRIM;
+    const live = location.hash === '#live';
     for (const stage of document.querySelectorAll('.stage')) {
       const frame = stage.querySelector('iframe');
-      const z = stage.clientWidth / mm(size.w);
-      // Transforms apply right to left: the frame shifts by the inset first,
-      // then the whole thing scales, so the trim lands on the stage origin.
-      frame.style.transform = bleed
-        ? `scale(${z})`
-        : `scale(${z}) translate(${-INSET}mm, ${-INSET}mm)`;
-      stage.style.height = mm(size.h) * z + 'px';
+      const img = stage.querySelector('img');
+      frame.hidden = !live;
+      img.hidden = live;
+
+      if (live) {
+        const z = stage.clientWidth / mm(SHEET.w);
+        frame.style.transform = `scale(${z})`;
+        stage.style.height = mm(SHEET.h) * z + 'px';
+      } else {
+        stage.style.height = 'auto';
+      }
     }
   }
   addEventListener('hashchange', fit);
